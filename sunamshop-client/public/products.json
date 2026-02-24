@@ -1,0 +1,1306 @@
+[
+  {
+    "_id": "64a1b01",
+    "slug": "miyako-3-in-1-juicer-blender",
+    "price": 4500,
+    "discountPrice": 3800,
+    "name": {
+      "en": "Miyako 3-in-1 Juicer Blender",
+      "bn": "মিয়াকো থ্রি-ইন-ওয়ান জুসার ব্লেন্ডার"
+    },
+    "description": {
+      "en": "Best blender for preparing Iftar sherbet or juice. Heavy duty motor and unbreakable jar.",
+      "bn": "ইফতারের শরবত বা জুস তৈরির জন্য সেরা ব্লেন্ডার। হেভি ডিউটি মোটর এবং আনব্রেকেবল জার।"
+    },
+    "category": "Home Appliances",
+    "color": ["white", "black"],
+    "specifications": [
+      {
+        "key": { "en": "Brand", "bn": "ব্র্যান্ড" },
+        "value": { "en": "Miyako", "bn": "মিয়াকো" }
+      },
+      {
+        "key": { "en": "Power", "bn": "ক্ষমতা" },
+        "value": { "en": "750W Motor", "bn": "৭৫০ ওয়াট মোটর" }
+      },
+      {
+        "key": { "en": "Jars", "bn": "জার" },
+        "value": {
+          "en": "3 Stainless Steel Jars",
+          "bn": "৩টি স্টেইনলেস স্টিল জার"
+        }
+      },
+      {
+        "key": { "en": "Special Feature", "bn": "বিশেষ বৈশিষ্ট্য" },
+        "value": {
+          "en": "Perfect for Iftar Preparation",
+          "bn": "ইফতার প্রস্তুতির জন্য উপযুক্ত"
+        }
+      }
+    ],
+    "images": [
+      "https://img.drz.lazcdn.com/static/bd/p/0b0594a1d3b5505c9337c3725afe0df6.jpg_720x720q80.jpg_.webp",
+      "https://img.drz.lazcdn.com/static/bd/p/0b0594a1d3b5505c9337c3725afe0df6.jpg_720x720q80.jpg_.webp",
+      "https://img.drz.lazcdn.com/static/bd/p/0b0594a1d3b5505c9337c3725afe0df6.jpg_720x720q80.jpg_.webp",
+      "https://img.drz.lazcdn.com/static/bd/p/0b0594a1d3b5505c9337c3725afe0df6.jpg_720x720q80.jpg_.webp",
+      "https://img.drz.lazcdn.com/static/bd/p/0b0594a1d3b5505c9337c3725afe0df6.jpg_720x720q80.jpg_.webp"
+    ],
+    "stock": 35,
+    "sales": 50,
+    "isFeatured": true
+  },
+  {
+    "_id": "64a1b02",
+    "slug": "walton-non-frost-refrigerator-340l",
+    "price": 42000,
+    "discountPrice": 38500,
+    "name": {
+      "en": "Walton Non-Frost Refrigerator (340L)",
+      "bn": "ওয়ালটন নন-ফ্রস্ট রেফ্রিজারেটর (৩৪০ লিটার)"
+    },
+    "description": {
+      "en": "Large space Walton Fridge for storing more food during Ramadan. 10 years compressor warranty.",
+      "bn": "রমজান মাসে বেশি খাবার সংরক্ষণের জন্য বড় স্পেসের ওয়ালটন ফ্রিজ। কম্প্রেসারে ১০ বছরের ওয়ারেন্টি।"
+    },
+    "category": "Electronics",
+    "weight":"150kg",
+    "specifications": [
+      {
+        "key": { "en": "Brand", "bn": "ব্র্যান্ড" },
+        "value": { "en": "Walton", "bn": "ওয়ালটন" }
+      },
+      {
+        "key": { "en": "Capacity", "bn": "ধারণক্ষমতা" },
+        "value": { "en": "340 Liters", "bn": "৩৪০ লিটার" }
+      },
+      {
+        "key": { "en": "Cooling Type", "bn": "কুলিং টাইপ" },
+        "value": { "en": "Non-Frost", "bn": "নন-ফ্রস্ট" }
+      },
+      {
+        "key": { "en": "Compressor", "bn": "কম্প্রেসার" },
+        "value": { "en": "Inverter Technology", "bn": "ইনভার্টার টেকনোলজি" }
+      }
+    ],
+    "images": [
+      "https://waltonbd.com/image/catalog/refrigerator-and-freezer/non-frost-refrigerator/wnr-6d6-gdfs-dd/wnr-6d6-gdfs-dd-v2-id-1.jpg",
+      "https://waltonbd.com/image/magictoolbox_cache/cf3e6ec01aac7cb79461bcfe9d0d075e/7/9/7975_product/thumb500x500/3047742878/wnr-6d6-gdfs-dd-v2-id-2.jpg",
+      "https://waltonbd.com/image/magictoolbox_cache/cf3e6ec01aac7cb79461bcfe9d0d075e/7/9/7975_product/thumb500x500/2294871086/wnr-6d6-gdfs-dd-v2-id-3.jpg",
+      "https://waltonbd.com/image/magictoolbox_cache/cf3e6ec01aac7cb79461bcfe9d0d075e/7/9/7975_product/thumb500x500/988293182/wnr-6d6-gdfs-dd-v2-id-4.jpg",
+      "https://waltonbd.com/image/catalog/refrigerator-and-freezer/non-frost-refrigerator/wnr-6d6-gdfs-dd/wnr-6d6-gdfs-dd-v2-id-1.jpg"
+    ],
+    "stock": 12,
+    "sales": 48,
+    "isFeatured": true
+  },
+  {
+    "_id": "64a1b03",
+    "slug": "premium-pure-cotton-panjabi",
+    "price": 2800,
+    "discountPrice": 2200,
+    "name": {
+      "en": "Premium Pure Cotton Panjabi (Eid Collection)",
+      "bn": "প্রিমিয়াম পিওর কটন পাঞ্জাবি (ঈদ কালেকশন)"
+    },
+    "description": {
+      "en": "Extremely comfortable premium cotton panjabi for Eid day or Tarabih prayers.",
+      "bn": "ঈদের দিন বা তারাবিহ নামাজের জন্য একদম আরামদায়ক প্রিমিয়াম কাপড়ের পাঞ্জাবি।"
+    },
+    "category": "Men's Fashion",
+    "color": ["white", "black"],
+    "sizes": ["xs,s,m,l,xl"],
+    "specifications": [
+      {
+        "key": { "en": "Fabric", "bn": "কাপড়" },
+        "value": { "en": "100% Pure Cotton", "bn": "১০০% খাঁটি সুতি" }
+      },
+      {
+        "key": { "en": "Design", "bn": "ডিজাইন" },
+        "value": {
+          "en": "Solid Color with Embroidery",
+          "bn": "সলিড কালার সাথে এমব্রয়ডারি"
+        }
+      },
+      {
+        "key": { "en": "Fit", "bn": "ফিটিং" },
+        "value": { "en": "Regular Fit", "bn": "রেগুলার ফিট" }
+      },
+      {
+        "key": { "en": "Sizes", "bn": "সাইজ" },
+        "value": { "en": "M, L, XL, XXL", "bn": "এম, এল, এক্সএল, ডাবল এক্সএল" }
+      }
+    ],
+    "images": [
+      "https://www.yellowclothing.net/cdn/shop/files/DSC1815_6eacb97e-317e-4f4b-8638-3a09e5d2d0bd.jpg?v=1771225211",
+      "https://www.yellowclothing.net/cdn/shop/files/DSC1830_46f52ffd-bc80-42f3-9e68-7907963633bb.jpg?v=1771225679",
+      "https://www.yellowclothing.net/cdn/shop/files/DSC1826_36491978-2c72-4669-9e47-969b87c377c2.jpg?v=1771225469",
+      "https://www.yellowclothing.net/cdn/shop/files/DSC1835.jpg?v=1771225469",
+      "https://www.yellowclothing.net/cdn/shop/files/DSC1797.jpg?v=1771225469",
+      "https://www.yellowclothing.net/cdn/shop/files/DSC1797.jpg?v=1771225469"
+    ],
+    "stock": 150,
+    "sales": 48,
+    "isFeatured": true
+  },
+  {
+    "_id": "64a1b04",
+    "slug": "exclusive-half-silk-jamdani-saree",
+    "price": 6500,
+    "discountPrice": 5800,
+    "name": {
+      "en": "Exclusive Half Silk Jamdani Saree",
+      "bn": "এক্সক্লুসিভ হাফ সিল্ক জামদানি শাড়ি"
+    },
+    "description": {
+      "en": "Original half silk Jamdani saree from Narayanganj for Eid-ul-Fitr.",
+      "bn": "ঈদুল ফিতরের জন্য নারায়ণগঞ্জের অরিজিনাল হাফ সিল্ক জামদানি শাড়ি।"
+    },
+    "category": "Women's Fashion",
+    "color": ["white", "black"],
+    "sizes": ["xs,s,m,l,xl"],
+
+    "specifications": [
+      {
+        "key": { "en": "Fabric", "bn": "কাপড়" },
+        "value": { "en": "Half Silk Jamdani", "bn": "হাফ সিল্ক জামদানি" }
+      },
+      {
+        "key": { "en": "Work", "bn": "কাজ" },
+        "value": { "en": "Handloom Zari Work", "bn": "হ্যান্ডলুম জরি ওয়ার্ক" }
+      },
+      {
+        "key": { "en": "Length", "bn": "লম্বা" },
+        "value": {
+          "en": "12 Hat (Without Blouse Piece)",
+          "bn": "১২ হাত (ব্লাউজ পিস ছাড়া)"
+        }
+      }
+    ],
+    "images": [
+      "https://mcprod.aarong.com/media/catalog/product/0/5/0550000166861.jpg?optimize=high&bg-color=255,255,255&fit=bounds&height=&width=",
+      "https://mcprod.aarong.com/media/catalog/product/0/5/0550000166861_1.jpg?optimize=high&bg-color=255,255,255&fit=bounds&height=&width=",
+      "https://mcprod.aarong.com/media/catalog/product/0/5/0550000166861_2.jpg?optimize=high&bg-color=255,255,255&fit=bounds&height=&width=",
+      "https://mcprod.aarong.com/media/catalog/product/0/5/0550000171402.jpg?optimize=high&bg-color=255,255,255&fit=bounds&height=&width=",
+      "https://mcprod.aarong.com/media/catalog/product/0/5/0550000171402_1.jpg?optimize=high&bg-color=255,255,255&fit=bounds&height=&width="
+    ],
+    "stock": 20,
+    "sales": 1,
+    "isFeatured": true
+  },
+  {
+    "_id": "64a1b05",
+    "slug": "al-rehab-choco-musk-attar",
+    "price": 350,
+    "discountPrice": null,
+    "name": {
+      "en": "Al-Rehab Choco Musk Attar (Roll-on)",
+      "bn": "আল-রেহাব চোকো মাস্ক আতর (রোল-অন)"
+    },
+    "description": {
+      "en": "Best selling sweet fragrance attar for Ramadan and Eid. 100% alcohol free.",
+      "bn": "রমজান ও ঈদের জন্য বেস্ট সেলিং মিষ্টি সুগন্ধি আতর। ১০০% অ্যালকোহল ফ্রি।"
+    },
+    "category": "Health & Beauty",
+    "specifications": [
+      {
+        "key": { "en": "Brand", "bn": "ব্র্যান্ড" },
+        "value": { "en": "Al-Rehab", "bn": "আল-রেহাব" }
+      },
+      {
+        "key": { "en": "Volume", "bn": "পরিমাণ" },
+        "value": { "en": "6ml Roll-on", "bn": "৬ মিলি রোল-অন" }
+      },
+      {
+        "key": { "en": "Type", "bn": "ধরন" },
+        "value": {
+          "en": "Alcohol Free Perfume Oil",
+          "bn": "অ্যালকোহল ফ্রি পারফিউম অয়েল"
+        }
+      },
+      {
+        "key": { "en": "Fragrance", "bn": "সুগন্ধি" },
+        "value": {
+          "en": "Sweet Chocolate & Vanilla",
+          "bn": "মিষ্টি চকলেট ও ভ্যানিলা"
+        }
+      }
+    ],
+    "images": [
+      "https://i0.wp.com/shop.hadisquran.com/wp-content/uploads/2025/02/Choco-Musk.webp?fit=600%2C800&ssl=1",
+      "https://i0.wp.com/shop.hadisquran.com/wp-content/uploads/2025/02/Choco-Musk.webp?fit=600%2C800&ssl=1",
+      "https://i0.wp.com/shop.hadisquran.com/wp-content/uploads/2025/02/Choco-Musk.webp?fit=600%2C800&ssl=1",
+      "https://i0.wp.com/shop.hadisquran.com/wp-content/uploads/2025/02/Choco-Musk.webp?fit=600%2C800&ssl=1",
+      "https://i0.wp.com/shop.hadisquran.com/wp-content/uploads/2025/01/CHOCO-Musk-Can.webp?fit=600%2C800&ssl=1"
+    ],
+    "stock": 200,
+    "sales": 50,
+    "isFeatured": false
+  },
+  {
+    "_id": "64a1b06",
+    "slug": "apple-iphone-15-pro-max",
+    "price": 165000,
+    "discountPrice": 158000,
+    "name": {
+      "en": "Apple iPhone 15 Pro Max (256GB)",
+      "bn": "অ্যাপল আইফোন ১৫ প্রো ম্যাক্স (২৫৬ জিবি)"
+    },
+    "description": {
+      "en": "Latest Apple iPhone 15 Pro Max with Titanium body and A17 Pro chip.",
+      "bn": "টাইটানিয়াম বডি এবং এ১৭ প্রো চিপ সহ লেটেস্ট অ্যাপল আইফোন ১৫ প্রো ম্যাক্স।"
+    },
+    "category": "Mobiles",
+    "specifications": [
+      {
+        "key": { "en": "Brand", "bn": "ব্র্যান্ড" },
+        "value": { "en": "Apple", "bn": "অ্যাপল" }
+      },
+      {
+        "key": { "en": "Display", "bn": "ডিসপ্লে" },
+        "value": {
+          "en": "6.7 inch Super Retina XDR",
+          "bn": "৬.৭ ইঞ্চি সুপার রেটিনা এক্সডিআর"
+        }
+      },
+      {
+        "key": { "en": "Processor", "bn": "প্রসেসর" },
+        "value": { "en": "A17 Pro", "bn": "এ১৭ প্রো" }
+      },
+      {
+        "key": { "en": "Storage", "bn": "স্টোরেজ" },
+        "value": { "en": "256GB NVMe", "bn": "২৫৬ জিবি এনভিএমই" }
+      }
+    ],
+    "images": [
+      "https://placehold.co/600x600/000000/FFFFFF/png?text=iPhone+15+Pro+Max",
+      "https://placehold.co/600x600/000000/FFFFFF/png?text=iPhone+15+Pro+Max",
+      "https://placehold.co/600x600/000000/FFFFFF/png?text=iPhone+15+Pro+Max",
+      "https://placehold.co/600x600/000000/FFFFFF/png?text=iPhone+15+Pro+Max",
+      "https://placehold.co/600x600/000000/FFFFFF/png?text=iPhone+15+Pro+Max"
+    ],
+    "stock": 8,
+
+    "sales": 5,
+    "isFeatured": true
+  },
+  {
+    "_id": "64a1b07",
+    "slug": "samsung-galaxy-s24-ultra",
+    "price": 145000,
+    "discountPrice": 140000,
+    "name": {
+      "en": "Samsung Galaxy S24 Ultra",
+      "bn": "স্যামসাং গ্যালাক্সি এস২৪ আল্ট্রা"
+    },
+    "description": {
+      "en": "Galaxy AI is here. Epic camera and snapdragon 8 gen 3 processor.",
+      "bn": "গ্যালাক্সি এআই এখন এখানে। এপিক ক্যামেরা এবং স্ন্যাপড্রাগন ৮ জেন ৩ প্রসেসর।"
+    },
+    "category": "Mobiles",
+    "specifications": [
+      {
+        "key": { "en": "Brand", "bn": "ব্র্যান্ড" },
+        "value": { "en": "Samsung", "bn": "স্যামসাং" }
+      },
+      {
+        "key": { "en": "RAM/ROM", "bn": "র‍্যাম/রম" },
+        "value": { "en": "12GB / 256GB", "bn": "১২ জিবি / ২৫৬ জিবি" }
+      },
+      {
+        "key": { "en": "Camera", "bn": "ক্যামেরা" },
+        "value": {
+          "en": "200MP Main Camera",
+          "bn": "২০০ মেগাপিক্সেল মেইন ক্যামেরা"
+        }
+      },
+      {
+        "key": { "en": "Feature", "bn": "ফিচার" },
+        "value": {
+          "en": "Galaxy AI & S-Pen",
+          "bn": "গ্যালাক্সি এআই এবং এস-পেন"
+        }
+      }
+    ],
+    "images": [
+      "https://placehold.co/600x600/312e81/FFFFFF/png?text=Galaxy+S24+Ultra",
+      "https://placehold.co/600x600/312e81/FFFFFF/png?text=Galaxy+S24+Ultra",
+      "https://placehold.co/600x600/312e81/FFFFFF/png?text=Galaxy+S24+Ultra",
+      "https://placehold.co/600x600/312e81/FFFFFF/png?text=Galaxy+S24+Ultra",
+      "https://placehold.co/600x600/312e81/FFFFFF/png?text=Galaxy+S24+Ultra"
+    ],
+    "stock": 10,
+    "sales": 0,
+    "isFeatured": false
+  },
+  {
+    "_id": "64a1b08",
+    "slug": "vision-microwave-oven-25l",
+    "price": 8500,
+    "discountPrice": 7800,
+    "name": {
+      "en": "Vision Microwave Oven (25L)",
+      "bn": "ভিশন মাইক্রোওয়েভ ওভেন (২৫ লিটার)"
+    },
+    "description": {
+      "en": "Best microwave oven for quickly heating Sehri and Iftar food.",
+      "bn": "সেহরি ও ইফতারের খাবার দ্রুত গরম করার জন্য সেরা মাইক্রোওয়েভ ওভেন।"
+    },
+    "category": "Home Appliances",
+    "specifications": [
+      {
+        "key": { "en": "Brand", "bn": "ব্র্যান্ড" },
+        "value": { "en": "Vision", "bn": "ভিশন" }
+      },
+      {
+        "key": { "en": "Capacity", "bn": "ধারণক্ষমতা" },
+        "value": { "en": "25 Liters", "bn": "২৫ লিটার" }
+      },
+      {
+        "key": { "en": "Functions", "bn": "ফাংশন" },
+        "value": { "en": "Defrost & Heating", "bn": "ডিফ্রস্ট এবং হিটিং" }
+      }
+    ],
+    "images": [
+      "https://placehold.co/600x600/4b5563/FFFFFF/png?text=Microwave+Oven",
+      "https://placehold.co/600x600/4b5563/FFFFFF/png?text=Microwave+Oven",
+      "https://placehold.co/600x600/4b5563/FFFFFF/png?text=Microwave+Oven",
+      "https://placehold.co/600x600/4b5563/FFFFFF/png?text=Microwave+Oven",
+      "https://placehold.co/600x600/4b5563/FFFFFF/png?text=Microwave+Oven"
+    ],
+    "stock": 18,
+    "sales": 10,
+    "isFeatured": false
+  },
+  {
+    "_id": "64a1b09",
+    "slug": "dirham-eau-de-parfum",
+    "price": 1200,
+    "discountPrice": 950,
+    "name": {
+      "en": "Dirham Eau De Parfum (100ml)",
+      "bn": "দিরহাম অউ ডি পারফিউম (১০০ মিলি)"
+    },
+    "description": {
+      "en": "Premium Arabian perfume to use on Eid day. Long lasting fragrance.",
+      "bn": "ঈদের দিন ব্যবহারের জন্য প্রিমিয়াম অ্যারাবিয়ান পারফিউম। দীর্ঘস্থায়ী সুগন্ধ।"
+    },
+    "category": "Health & Beauty",
+    "specifications": [
+      {
+        "key": { "en": "Brand", "bn": "ব্র্যান্ড" },
+        "value": { "en": "Ard Al Zaafaran", "bn": "আরদ আল জাফারান" }
+      },
+      {
+        "key": { "en": "Volume", "bn": "পরিমাণ" },
+        "value": { "en": "100 ml", "bn": "১০০ মিলি" }
+      },
+      {
+        "key": { "en": "Type", "bn": "ধরন" },
+        "value": {
+          "en": "Eau De Parfum (Spray)",
+          "bn": "অউ ডি পারফিউম (স্প্রে)"
+        }
+      }
+    ],
+    "images": [
+      "https://placehold.co/600x600/fcd34d/FFFFFF/png?text=Dirham+Perfume",
+      "https://placehold.co/600x600/fcd34d/FFFFFF/png?text=Dirham+Perfume",
+      "https://placehold.co/600x600/fcd34d/FFFFFF/png?text=Dirham+Perfume",
+      "https://placehold.co/600x600/fcd34d/FFFFFF/png?text=Dirham+Perfume",
+      "https://placehold.co/600x600/fcd34d/FFFFFF/png?text=Dirham+Perfume"
+    ],
+    "stock": 40,
+    "sales": 55,
+    "isFeatured": true
+  },
+  {
+    "_id": "64a1b10",
+    "slug": "kabli-set-for-men",
+    "price": 3500,
+    "discountPrice": 2900,
+    "name": {
+      "en": "Kabli Set for Men (Eid Special)",
+      "bn": "পুরুষদের কাবলি সেট (ঈদ স্পেশাল)"
+    },
+    "description": {
+      "en": "Stylish Afghan Kabli set for Eid festival. Comes with matching payjama.",
+      "bn": "ঈদ উৎসবের জন্য স্টাইলিশ আফগান কাবলি সেট। সাথে ম্যাচিং পায়জামা রয়েছে।"
+    },
+    "category": "Men's Fashion",
+    "specifications": [
+      {
+        "key": { "en": "Fabric", "bn": "কাপড়" },
+        "value": { "en": "Viscose Blended Cotton", "bn": "ভিসকস ব্লেন্ডেড কটন" }
+      },
+      {
+        "key": { "en": "Include", "bn": "অন্তর্ভুক্ত" },
+        "value": {
+          "en": "Top (Kabli) and Bottom (Salwar)",
+          "bn": "টপ (কাবলি) এবং বটম (সালোয়ার)"
+        }
+      },
+      {
+        "key": { "en": "Sizes", "bn": "সাইজ" },
+        "value": { "en": "38, 40, 42, 44", "bn": "৩৮, ৪০, ৪২, ৪৪" }
+      }
+    ],
+    "images": [
+      "https://placehold.co/600x600/172554/FFFFFF/png?text=Kabli+Set",
+      "https://placehold.co/600x600/172554/FFFFFF/png?text=Kabli+Set",
+      "https://placehold.co/600x600/172554/FFFFFF/png?text=Kabli+Set",
+      "https://placehold.co/600x600/172554/FFFFFF/png?text=Kabli+Set",
+      "https://placehold.co/600x600/172554/FFFFFF/png?text=Kabli+Set"
+    ],
+    "stock": 60,
+    "sales": 59,
+    "isFeatured": false
+  },
+  {
+    "_id": "64a1b11",
+    "slug": "katan-silk-saree",
+    "price": 8500,
+    "discountPrice": 7500,
+    "name": {
+      "en": "Katan Silk Saree (Bridal & Festive)",
+      "bn": "কাতান সিল্ক শাড়ি (ব্রাইডাল এবং ফেস্টিভ)"
+    },
+    "description": {
+      "en": "Gorgeous Katan Silk Saree with heavy golden zari work for Eid party.",
+      "bn": "ঈদের পার্টির জন্য ভারী সোনালী জরি কাজের গর্জিয়াস কাতান সিল্ক শাড়ি।"
+    },
+    "category": "Women's Fashion",
+    "specifications": [
+      {
+        "key": { "en": "Fabric", "bn": "কাপড়" },
+        "value": { "en": "Pure Katan Silk", "bn": "পিওর কাতান সিল্ক" }
+      },
+      {
+        "key": { "en": "Work", "bn": "কাজ" },
+        "value": { "en": "Meenakari Zari Work", "bn": "মীনাকারী জরি ওয়ার্ক" }
+      },
+      {
+        "key": { "en": "Blouse Piece", "bn": "ব্লাউজ পিস" },
+        "value": {
+          "en": "Included (Unstitched)",
+          "bn": "অন্তর্ভুক্ত (আনস্টিচড)"
+        }
+      }
+    ],
+    "images": [
+      "https://placehold.co/600x600/9f1239/FFFFFF/png?text=Katan+Saree",
+      "https://placehold.co/600x600/9f1239/FFFFFF/png?text=Katan+Saree",
+      "https://placehold.co/600x600/9f1239/FFFFFF/png?text=Katan+Saree",
+      "https://placehold.co/600x600/9f1239/FFFFFF/png?text=Katan+Saree",
+      "https://placehold.co/600x600/9f1239/FFFFFF/png?text=Katan+Saree"
+    ],
+    "stock": 15,
+    "sales": 40,
+    "isFeatured": false
+  },
+  {
+    "_id": "64a1b12",
+    "slug": "sony-bravia-55-inch-4k-smart-tv",
+    "price": 85000,
+    "discountPrice": null,
+    "name": {
+      "en": "Sony Bravia 55-inch 4K Smart TV",
+      "bn": "সনি ব্রাভিয়া ৫৫-ইঞ্চি ফোর-কে স্মার্ট টিভি"
+    },
+    "description": {
+      "en": "Experience cinematic viewing with Sony Bravia 4K Ultra HD Smart LED TV.",
+      "bn": "সনি ব্রাভিয়া 4K আল্ট্রা এইচডি স্মার্ট এলইডি টিভির সাথে সিনেমাটিক ভিউয়িং উপভোগ করুন।"
+    },
+    "category": "Electronics",
+    "specifications": [
+      {
+        "key": { "en": "Brand", "bn": "ব্র্যান্ড" },
+        "value": { "en": "Sony", "bn": "সনি" }
+      },
+      {
+        "key": { "en": "Screen Size", "bn": "স্ক্রিন সাইজ" },
+        "value": { "en": "55 Inch", "bn": "৫৫ ইঞ্চি" }
+      },
+      {
+        "key": { "en": "Resolution", "bn": "রেজোলিউশন" },
+        "value": {
+          "en": "4K Ultra HD (3840 x 2160)",
+          "bn": "ফোর-কে আল্ট্রা এইচডি (৩৮৪০ x ২১৬০)"
+        }
+      },
+      {
+        "key": { "en": "OS", "bn": "অপারেটিং সিস্টেম" },
+        "value": { "en": "Google TV", "bn": "গুগল টিভি" }
+      }
+    ],
+    "images": [
+      "https://placehold.co/600x600/111827/FFFFFF/png?text=Sony+55+Inch+TV",
+      "https://placehold.co/600x600/111827/FFFFFF/png?text=Sony+55+Inch+TV",
+      "https://placehold.co/600x600/111827/FFFFFF/png?text=Sony+55+Inch+TV",
+      "https://placehold.co/600x600/111827/FFFFFF/png?text=Sony+55+Inch+TV",
+      "https://placehold.co/600x600/111827/FFFFFF/png?text=Sony+55+Inch+TV"
+    ],
+    "stock": 5,
+
+    "sales": 5,
+    "isFeatured": false
+  },
+  {
+    "_id": "64a1b13",
+    "slug": "philips-mens-trimmer",
+    "price": 2200,
+    "discountPrice": 1850,
+    "name": {
+      "en": "Philips Men's Trimmer",
+      "bn": "ফিলিপস মেনস ট্রিমার"
+    },
+    "description": {
+      "en": "Skin-friendly beard trimmer from Philips to keep yourself neat before Eid.",
+      "bn": "ঈদের আগে নিজেকে পরিপাটি রাখতে ফিলিপসের স্কিন-ফ্রেন্ডলি বিয়ার্ড ট্রিমার।"
+    },
+    "category": "Gadgets",
+    "specifications": [
+      {
+        "key": { "en": "Brand", "bn": "ব্র্যান্ড" },
+        "value": { "en": "Philips", "bn": "ফিলিপস" }
+      },
+      {
+        "key": { "en": "Runtime", "bn": "রানটাইম" },
+        "value": {
+          "en": "45 mins cordless use",
+          "bn": "৪৫ মিনিট কর্ডলেস ব্যবহার"
+        }
+      },
+      {
+        "key": { "en": "Blades", "bn": "ব্লেড" },
+        "value": {
+          "en": "Self-sharpening stainless steel",
+          "bn": "সেলফ-শার্পেনিং স্টেইনলেস স্টিল"
+        }
+      }
+    ],
+    "images": [
+      "https://placehold.co/600x600/0891b2/FFFFFF/png?text=Philips+Trimmer",
+      "https://placehold.co/600x600/0891b2/FFFFFF/png?text=Philips+Trimmer",
+      "https://placehold.co/600x600/0891b2/FFFFFF/png?text=Philips+Trimmer",
+      "https://placehold.co/600x600/0891b2/FFFFFF/png?text=Philips+Trimmer",
+      "https://placehold.co/600x600/0891b2/FFFFFF/png?text=Philips+Trimmer"
+    ],
+    "stock": 50,
+    "sales": 23,
+    "isFeatured": true
+  },
+  {
+    "_id": "64a1b14",
+    "slug": "samsung-double-door-refrigerator-450l",
+    "price": 75000,
+    "discountPrice": 69000,
+    "name": {
+      "en": "Samsung Double Door Refrigerator (450L)",
+      "bn": "স্যামসাং ডাবল ডোর রেফ্রিজারেটর (৪৫০ লিটার)"
+    },
+    "description": {
+      "en": "Premium design twin cooling refrigerator. Food remains fresh longer during Ramadan.",
+      "bn": "প্রিমিয়াম ডিজাইনের টুইন কুলিং রেফ্রিজারেটর। রমজানে খাবার দীর্ঘক্ষণ সতেজ থাকে।"
+    },
+    "category": "Electronics",
+    "specifications": [
+      {
+        "key": { "en": "Brand", "bn": "ব্র্যান্ড" },
+        "value": { "en": "Samsung", "bn": "স্যামসাং" }
+      },
+      {
+        "key": { "en": "Capacity", "bn": "ধারণক্ষমতা" },
+        "value": { "en": "450 Liters", "bn": "৪৫০ লিটার" }
+      },
+      {
+        "key": { "en": "Feature", "bn": "ফিচার" },
+        "value": { "en": "Twin Cooling Plus", "bn": "টুইন কুলিং প্লাস" }
+      }
+    ],
+    "images": [
+      "https://placehold.co/600x600/1e40af/FFFFFF/png?text=Samsung+Fridge",
+      "https://placehold.co/600x600/1e40af/FFFFFF/png?text=Samsung+Fridge",
+      "https://placehold.co/600x600/1e40af/FFFFFF/png?text=Samsung+Fridge",
+      "https://placehold.co/600x600/1e40af/FFFFFF/png?text=Samsung+Fridge",
+      "https://placehold.co/600x600/1e40af/FFFFFF/png?text=Samsung+Fridge"
+    ],
+    "stock": 7,
+
+    "sales": 39,
+    "isFeatured": false
+  },
+  {
+    "_id": "64a1b15",
+    "slug": "georgette-three-piece",
+    "price": 3200,
+    "discountPrice": 2600,
+    "name": {
+      "en": "Georgette Three Piece (Unstitched)",
+      "bn": "জর্জেট থ্রি পিস (আনস্টিচড)"
+    },
+    "description": {
+      "en": "Eid collection designer unstitched georgette salwar kameez with heavy embroidery dupatta.",
+      "bn": "ঈদ কালেকশনের ডিজাইনার আনস্টিচড জর্জেট সালোয়ার কামিজ সাথে ভারী এমব্রয়ডারি ওড়না।"
+    },
+    "category": "Women's Fashion",
+    "specifications": [
+      {
+        "key": { "en": "Top", "bn": "জামা" },
+        "value": {
+          "en": "Heavy Georgette with Embroidery",
+          "bn": "এমব্রয়ডারি সহ ভারী জর্জেট"
+        }
+      },
+      {
+        "key": { "en": "Dupatta", "bn": "ওড়না" },
+        "value": {
+          "en": "Chiffon with Lace Border",
+          "bn": "লেস বর্ডার সহ শিফন"
+        }
+      },
+      {
+        "key": { "en": "Type", "bn": "ধরন" },
+        "value": {
+          "en": "Unstitched Dress Material",
+          "bn": "আনস্টিচড ড্রেস মেটেরিয়াল"
+        }
+      }
+    ],
+    "images": [
+      "https://placehold.co/600x600/c026d3/FFFFFF/png?text=Georgette+3+Piece",
+      "https://placehold.co/600x600/c026d3/FFFFFF/png?text=Georgette+3+Piece",
+      "https://placehold.co/600x600/c026d3/FFFFFF/png?text=Georgette+3+Piece",
+      "https://placehold.co/600x600/c026d3/FFFFFF/png?text=Georgette+3+Piece",
+      "https://placehold.co/600x600/c026d3/FFFFFF/png?text=Georgette+3+Piece"
+    ],
+    "stock": 80,
+    "sales": 48,
+    "isFeatured": false
+  },
+  {
+    "_id": "64a1b16",
+    "slug": "apple-airpods-pro-2nd-gen",
+    "price": 28000,
+    "discountPrice": 26500,
+    "name": {
+      "en": "Apple AirPods Pro (2nd Gen)",
+      "bn": "অ্যাপল এয়ারপডস প্রো (২য় জেনারেশন)"
+    },
+    "description": {
+      "en": "Next-level active noise cancellation and spatial audio.",
+      "bn": "নেক্সট-লেভেল অ্যাক্টিভ নয়েজ ক্যান্সেলেশন এবং স্পেশিয়াল অডিও।"
+    },
+    "category": "Gadgets",
+    "specifications": [
+      {
+        "key": { "en": "Brand", "bn": "ব্র্যান্ড" },
+        "value": { "en": "Apple", "bn": "অ্যাপল" }
+      },
+      {
+        "key": { "en": "Noise Cancellation", "bn": "নয়েজ ক্যান্সেলেশন" },
+        "value": { "en": "Up to 2x more ANC", "bn": "২ গুণ বেশি এএনসি" }
+      },
+      {
+        "key": { "en": "Battery", "bn": "ব্যাটারি" },
+        "value": {
+          "en": "Up to 6 hours listening time",
+          "bn": "৬ ঘণ্টা পর্যন্ত শোনার সময়"
+        }
+      }
+    ],
+    "images": [
+      "https://placehold.co/600x600/d1d5db/000000/png?text=AirPods+Pro",
+      "https://placehold.co/600x600/d1d5db/000000/png?text=AirPods+Pro",
+      "https://placehold.co/600x600/d1d5db/000000/png?text=AirPods+Pro",
+      "https://placehold.co/600x600/d1d5db/000000/png?text=AirPods+Pro",
+      "https://placehold.co/600x600/d1d5db/000000/png?text=AirPods+Pro"
+    ],
+    "stock": 25,
+    "sales": 38,
+    "isFeatured": false
+  },
+  {
+    "_id": "64a1b17",
+    "slug": "xiaomi-redmi-note-13-pro",
+    "price": 32000,
+    "discountPrice": 30500,
+    "name": {
+      "en": "Xiaomi Redmi Note 13 Pro",
+      "bn": "শাওমি রেডমি নোট ১৩ প্রো"
+    },
+    "description": {
+      "en": "Best budget camera phone for Eid photography. 200MP ultra-clear camera.",
+      "bn": "ঈদের ফটোগ্রাফির জন্য সেরা বাজেট ক্যামেরা ফোন। ২০০ মেগাপিক্সেল আল্ট্রা-ক্লিয়ার ক্যামেরা।"
+    },
+    "category": "Mobiles",
+    "specifications": [
+      {
+        "key": { "en": "Brand", "bn": "ব্র্যান্ড" },
+        "value": { "en": "Xiaomi", "bn": "শাওমি" }
+      },
+      {
+        "key": { "en": "RAM/ROM", "bn": "র‍্যাম/রম" },
+        "value": { "en": "8GB / 256GB", "bn": "৮ জিবি / ২৫৬ জিবি" }
+      },
+      {
+        "key": { "en": "Camera", "bn": "ক্যামেরা" },
+        "value": {
+          "en": "200MP OIS Camera",
+          "bn": "২০০ মেগাপিক্সেল ওআইএস ক্যামেরা"
+        }
+      },
+      {
+        "key": { "en": "Charging", "bn": "চার্জিং" },
+        "value": { "en": "67W Turbo Charge", "bn": "৬৭ ওয়াট টার্বো চার্জ" }
+      }
+    ],
+    "images": [
+      "https://placehold.co/600x600/0ea5e9/FFFFFF/png?text=Redmi+Note+13+Pro",
+      "https://placehold.co/600x600/0ea5e9/FFFFFF/png?text=Redmi+Note+13+Pro",
+      "https://placehold.co/600x600/0ea5e9/FFFFFF/png?text=Redmi+Note+13+Pro",
+      "https://placehold.co/600x600/0ea5e9/FFFFFF/png?text=Redmi+Note+13+Pro",
+      "https://placehold.co/600x600/0ea5e9/FFFFFF/png?text=Redmi+Note+13+Pro"
+    ],
+    "stock": 30,
+    "sales": 78,
+    "isFeatured": true
+  },
+  {
+    "_id": "64a1b18",
+    "slug": "prayer-mat-premium-turkish",
+    "price": 1500,
+    "discountPrice": 1200,
+    "name": {
+      "en": "Prayer Mat (Janamaz) - Premium Turkish",
+      "bn": "জায়নামাজ - প্রিমিয়াম টার্কিশ"
+    },
+    "description": {
+      "en": "Soft and comfortable Turkish Janamaz. Ideal for daily prayers and Tarabih.",
+      "bn": "নরম ও আরামদায়ক টার্কিশ জায়নামাজ। দৈনন্দিন নামাজ এবং তারাবিহর জন্য আদর্শ।"
+    },
+    "category": "Home & Lifestyle",
+    "specifications": [
+      {
+        "key": { "en": "Origin", "bn": "উৎপত্তি" },
+        "value": { "en": "Turkey", "bn": "তুরস্ক" }
+      },
+      {
+        "key": { "en": "Material", "bn": "উপাদান" },
+        "value": {
+          "en": "Premium Velvet/Cotton Blend",
+          "bn": "প্রিমিয়াম ভেলভেট/কটন ব্লেন্ড"
+        }
+      },
+      {
+        "key": { "en": "Size", "bn": "সাইজ" },
+        "value": {
+          "en": "Standard Adult Size",
+          "bn": "স্ট্যান্ডার্ড অ্যাডাল্ট সাইজ"
+        }
+      }
+    ],
+    "images": [
+      "https://placehold.co/600x600/065f46/FFFFFF/png?text=Turkish+Janamaz",
+      "https://placehold.co/600x600/065f46/FFFFFF/png?text=Turkish+Janamaz",
+      "https://placehold.co/600x600/065f46/FFFFFF/png?text=Turkish+Janamaz",
+      "https://placehold.co/600x600/065f46/FFFFFF/png?text=Turkish+Janamaz",
+      "https://placehold.co/600x600/065f46/FFFFFF/png?text=Turkish+Janamaz"
+    ],
+    "stock": 100,
+    "sales": 78,
+    "isFeatured": true
+  },
+  {
+    "_id": "64a1b19",
+    "slug": "amazfit-gts-4-smartwatch",
+    "price": 18500,
+    "discountPrice": 17000,
+    "name": {
+      "en": "Amazfit GTS 4 Smartwatch",
+      "bn": "অ্যামাজফিট জিটিএস ৪ স্মার্টওয়াচ"
+    },
+    "description": {
+      "en": "Ultra-slim smartwatch with accurate health tracking and AMOLED display.",
+      "bn": "সঠিক হেলথ ট্র্যাকিং এবং অ্যামোলেড ডিসপ্লে সহ আল্ট্রা-স্লিম স্মার্টওয়াচ।"
+    },
+    "category": "Gadgets",
+    "specifications": [
+      {
+        "key": { "en": "Brand", "bn": "ব্র্যান্ড" },
+        "value": { "en": "Amazfit", "bn": "অ্যামাজফিট" }
+      },
+      {
+        "key": { "en": "Display", "bn": "ডিসপ্লে" },
+        "value": { "en": "1.75 inch AMOLED", "bn": "১.৭৫ ইঞ্চি অ্যামোলেড" }
+      },
+      {
+        "key": { "en": "Battery", "bn": "ব্যাটারি" },
+        "value": { "en": "Up to 8 Days", "bn": "৮ দিন পর্যন্ত" }
+      }
+    ],
+    "images": [
+      "https://placehold.co/600x600/ea580c/FFFFFF/png?text=Amazfit+Watch",
+      "https://placehold.co/600x600/ea580c/FFFFFF/png?text=Amazfit+Watch",
+      "https://placehold.co/600x600/ea580c/FFFFFF/png?text=Amazfit+Watch",
+      "https://placehold.co/600x600/ea580c/FFFFFF/png?text=Amazfit+Watch",
+      "https://placehold.co/600x600/ea580c/FFFFFF/png?text=Amazfit+Watch"
+    ],
+    "stock": 15,
+    "sales": 39,
+    "isFeatured": false
+  },
+  {
+    "_id": "64a1b20",
+    "slug": "nova-hair-straightener-curler",
+    "price": 1200,
+    "discountPrice": 850,
+    "name": {
+      "en": "Nova 2-in-1 Hair Straightener & Curler",
+      "bn": "নোভা টু-ইন-ওয়ান হেয়ার স্ট্রেইটনার ও কার্লার"
+    },
+    "description": {
+      "en": "Best budget 2-in-1 hair styler for hair styling on Eid.",
+      "bn": "ঈদে চুল স্টাইল করার জন্য সেরা বাজেট টু-ইন-ওয়ান হেয়ার স্টাইলার।"
+    },
+    "category": "Health & Beauty",
+    "specifications": [
+      {
+        "key": { "en": "Brand", "bn": "ব্র্যান্ড" },
+        "value": { "en": "Nova", "bn": "নোভা" }
+      },
+      {
+        "key": { "en": "Type", "bn": "ধরন" },
+        "value": {
+          "en": "Straightener and Curler",
+          "bn": "স্ট্রেইটনার এবং কার্লার"
+        }
+      },
+      {
+        "key": { "en": "Plates", "bn": "প্লেট" },
+        "value": { "en": "Ceramic Coating", "bn": "সিরামিক কোটিং" }
+      }
+    ],
+    "images": [
+      "https://placehold.co/600x600/db2777/FFFFFF/png?text=Hair+Straightener",
+      "https://placehold.co/600x600/db2777/FFFFFF/png?text=Hair+Straightener",
+      "https://placehold.co/600x600/db2777/FFFFFF/png?text=Hair+Straightener",
+      "https://placehold.co/600x600/db2777/FFFFFF/png?text=Hair+Straightener",
+      "https://placehold.co/600x600/db2777/FFFFFF/png?text=Hair+Straightener"
+    ],
+    "stock": 45,
+    "sales": 53,
+    "isFeatured": false
+  },
+
+  {
+    "_id": "64a1b21",
+    "slug": "premium-ajwa-dates-1kg",
+    "price": 2500,
+    "discountPrice": 2200,
+    "name": {
+      "en": "Premium Ajwa Dates (1kg)",
+      "bn": "প্রিমিয়াম আজওয়া খেজুর (১ কেজি)"
+    },
+    "description": {
+      "en": "Best quality original Ajwa dates from Madinah. Essential for Iftar.",
+      "bn": "মদিনার সেরা মানের আসল আজওয়া খেজুর। ইফতারের জন্য অপরিহার্য।"
+    },
+    "category": "Groceries & Pets",
+    "specifications": [
+      {
+        "key": { "en": "Origin", "bn": "উৎপত্তি" },
+        "value": { "en": "Madinah, Saudi Arabia", "bn": "মদিনা, সৌদি আরব" }
+      },
+      {
+        "key": { "en": "Weight", "bn": "ওজন" },
+        "value": { "en": "1 KG", "bn": "১ কেজি" }
+      },
+      {
+        "key": { "en": "Quality", "bn": "মান" },
+        "value": { "en": "Premium A-Grade", "bn": "প্রিমিয়াম এ-গ্রেড" }
+      }
+    ],
+    "images": [
+      "https://placehold.co/600x600/451a03/FFFFFF/png?text=Ajwa+Dates",
+      "https://placehold.co/600x600/451a03/FFFFFF/png?text=Ajwa+Dates",
+      "https://placehold.co/600x600/451a03/FFFFFF/png?text=Ajwa+Dates",
+      "https://placehold.co/600x600/451a03/FFFFFF/png?text=Ajwa+Dates",
+      "https://placehold.co/600x600/451a03/FFFFFF/png?text=Ajwa+Dates"
+    ],
+    "stock": 100,
+    "sales": 19,
+    "isFeatured": true
+  },
+  {
+    "_id": "64a1b22",
+    "slug": "rooh-afza-syrup-800ml",
+    "price": 350,
+    "discountPrice": null,
+    "name": {
+      "en": "Hamdard Rooh Afza Syrup (800ml)",
+      "bn": "হামদর্দ রুহ আফজা সিরাপ (৮০০ মিলি)"
+    },
+    "description": {
+      "en": "Refreshing drink for Iftar to keep you hydrated after a long day of fasting.",
+      "bn": "সারাদিন রোজা রাখার পর ইফতারে আপনাকে সতেজ রাখতে রিফ্রেশিং পানীয়।"
+    },
+    "category": "Groceries & Pets",
+    "specifications": [
+      {
+        "key": { "en": "Brand", "bn": "ব্র্যান্ড" },
+        "value": { "en": "Hamdard", "bn": "হামদর্দ" }
+      },
+      {
+        "key": { "en": "Volume", "bn": "পরিমাণ" },
+        "value": { "en": "800 ml", "bn": "৮০০ মিলি" }
+      },
+      {
+        "key": { "en": "Type", "bn": "ধরন" },
+        "value": { "en": "Fruit Syrup", "bn": "ফ্রুট সিরাপ" }
+      }
+    ],
+    "images": [
+      "https://placehold.co/600x600/b91c1c/FFFFFF/png?text=Rooh+Afza",
+      "https://placehold.co/600x600/b91c1c/FFFFFF/png?text=Rooh+Afza",
+      "https://placehold.co/600x600/b91c1c/FFFFFF/png?text=Rooh+Afza",
+      "https://placehold.co/600x600/b91c1c/FFFFFF/png?text=Rooh+Afza",
+      "https://placehold.co/600x600/b91c1c/FFFFFF/png?text=Rooh+Afza"
+    ],
+    "stock": 250,
+    "sales": 79,
+    "isFeatured": false
+  },
+  {
+    "_id": "64a1b23",
+    "slug": "baby-girl-princess-dress",
+    "price": 1800,
+    "discountPrice": 1500,
+    "name": {
+      "en": "Baby Girl Princess Dress (Eid Special)",
+      "bn": "বেবি গার্ল প্রিন্সেস ড্রেস (ঈদ স্পেশাল)"
+    },
+    "description": {
+      "en": "Beautiful and comfortable party dress for baby girls for Eid day.",
+      "bn": "ঈদের দিন মেয়ে বাচ্চাদের জন্য সুন্দর এবং আরামদায়ক পার্টি ড্রেস।"
+    },
+    "category": "Baby's & Toys",
+    "specifications": [
+      {
+        "key": { "en": "Material", "bn": "উপাদান" },
+        "value": {
+          "en": "Soft Net & Cotton Lining",
+          "bn": "সফট নেট এবং সুতির লাইনিং"
+        }
+      },
+      {
+        "key": { "en": "Age Group", "bn": "বয়সসীমা" },
+        "value": { "en": "2 to 6 Years", "bn": "২ থেকে ৬ বছর" }
+      },
+      {
+        "key": { "en": "Occasion", "bn": "উপলক্ষ" },
+        "value": { "en": "Party / Eid", "bn": "পার্টি / ঈদ" }
+      }
+    ],
+    "images": [
+      "https://placehold.co/600x600/f472b6/FFFFFF/png?text=Baby+Dress",
+      "https://placehold.co/600x600/f472b6/FFFFFF/png?text=Baby+Dress",
+      "https://placehold.co/600x600/f472b6/FFFFFF/png?text=Baby+Dress",
+      "https://placehold.co/600x600/f472b6/FFFFFF/png?text=Baby+Dress",
+      "https://placehold.co/600x600/f472b6/FFFFFF/png?text=Baby+Dress"
+    ],
+    "stock": 40,
+    "sales": 65,
+    "isFeatured": false
+  },
+  {
+    "_id": "64a1b24",
+    "slug": "remote-control-off-road-car",
+    "price": 2500,
+    "discountPrice": 2100,
+    "name": {
+      "en": "Remote Control Off-Road Car",
+      "bn": "রিমোট কন্ট্রোল অফ-রোড গাড়ি"
+    },
+    "description": {
+      "en": "Best Eid gift for kids. High-speed rechargeable toy car with suspension.",
+      "bn": "বাচ্চাদের জন্য সেরা ঈদ উপহার। সাসপেনশন সহ হাই-স্পিড রিচার্জেবল খেলনা গাড়ি।"
+    },
+    "category": "Baby's & Toys",
+    "specifications": [
+      {
+        "key": { "en": "Type", "bn": "ধরন" },
+        "value": { "en": "RC Rock Crawler", "bn": "আরসি রক ক্রলার" }
+      },
+      {
+        "key": { "en": "Battery", "bn": "ব্যাটারি" },
+        "value": {
+          "en": "Rechargeable (Included)",
+          "bn": "রিচার্জেবল (অন্তর্ভুক্ত)"
+        }
+      },
+      {
+        "key": { "en": "Material", "bn": "উপাদান" },
+        "value": { "en": "Alloy Body", "bn": "অ্যালয় বডি" }
+      }
+    ],
+    "images": [
+      "https://placehold.co/600x600/ea580c/FFFFFF/png?text=RC+Car",
+      "https://placehold.co/600x600/ea580c/FFFFFF/png?text=RC+Car",
+      "https://placehold.co/600x600/ea580c/FFFFFF/png?text=RC+Car",
+      "https://placehold.co/600x600/ea580c/FFFFFF/png?text=RC+Car",
+      "https://placehold.co/600x600/ea580c/FFFFFF/png?text=RC+Car"
+    ],
+    "stock": 30,
+    "sales": 12,
+    "isFeatured": true
+  },
+  {
+    "_id": "64a1b25",
+    "slug": "omron-blood-pressure-monitor",
+    "price": 4500,
+    "discountPrice": 4100,
+    "name": {
+      "en": "Omron Automatic Blood Pressure Monitor",
+      "bn": "ওমরন অটোমেটিক ব্লাড প্রেসার মনিটর"
+    },
+    "description": {
+      "en": "Accurately monitor blood pressure at home. Easy to use for elderly people.",
+      "bn": "ঘরে বসে নির্ভুলভাবে ব্লাড প্রেসার মাপুন। বয়স্কদের জন্য ব্যবহার করা সহজ।"
+    },
+    "category": "Medicine",
+    "specifications": [
+      {
+        "key": { "en": "Brand", "bn": "ব্র্যান্ড" },
+        "value": { "en": "Omron", "bn": "ওমরন" }
+      },
+      {
+        "key": { "en": "Type", "bn": "ধরন" },
+        "value": { "en": "Digital Upper Arm", "bn": "ডিজিটাল আপার আর্ম" }
+      },
+      {
+        "key": { "en": "Feature", "bn": "ফিচার" },
+        "value": {
+          "en": "IntelliSense Technology",
+          "bn": "ইন্টেলিসেন্স টেকনোলজি"
+        }
+      }
+    ],
+    "images": [
+      "https://placehold.co/600x600/0284c7/FFFFFF/png?text=BP+Monitor",
+      "https://placehold.co/600x600/0284c7/FFFFFF/png?text=BP+Monitor",
+      "https://placehold.co/600x600/0284c7/FFFFFF/png?text=BP+Monitor",
+      "https://placehold.co/600x600/0284c7/FFFFFF/png?text=BP+Monitor",
+      "https://placehold.co/600x600/0284c7/FFFFFF/png?text=BP+Monitor"
+    ],
+    "stock": 25,
+    "sales": 11,
+    "isFeatured": false
+  },
+  {
+    "_id": "64a1b26",
+    "slug": "al-quran-bangla-translation",
+    "price": 600,
+    "discountPrice": 500,
+    "name": {
+      "en": "Al-Quran with Bangla Translation",
+      "bn": "বাংলা অনুবাদসহ আল-কুরআন"
+    },
+    "description": {
+      "en": "Perfect for daily recitation and understanding during the holy month of Ramadan.",
+      "bn": "পবিত্র রমজান মাসে প্রতিদিন তিলাওয়াত এবং অর্থ বোঝার জন্য উপযুক্ত।"
+    },
+    "category": "Books & Stationery",
+    "specifications": [
+      {
+        "key": { "en": "Language", "bn": "ভাষা" },
+        "value": { "en": "Arabic & Bangla", "bn": "আরবি ও বাংলা" }
+      },
+      {
+        "key": { "en": "Binding", "bn": "বাঁধাই" },
+        "value": { "en": "Hardcover", "bn": "হার্ডকভার" }
+      },
+      {
+        "key": { "en": "Paper Quality", "bn": "কাগজের মান" },
+        "value": {
+          "en": "Premium White Art Paper",
+          "bn": "প্রিমিয়াম হোয়াইট আর্ট পেপার"
+        }
+      }
+    ],
+    "images": [
+      "https://placehold.co/600x600/166534/FFFFFF/png?text=Al-Quran",
+      "https://placehold.co/600x600/166534/FFFFFF/png?text=Al-Quran",
+      "https://placehold.co/600x600/166534/FFFFFF/png?text=Al-Quran",
+      "https://placehold.co/600x600/166534/FFFFFF/png?text=Al-Quran",
+      "https://placehold.co/600x600/166534/FFFFFF/png?text=Al-Quran"
+    ],
+    "stock": 150,
+    "sales": 19,
+    "isFeatured": true
+  },
+  {
+    "_id": "64a1b27",
+    "slug": "20kg-adjustable-dumbbell-set",
+    "price": 3500,
+    "discountPrice": 3200,
+    "name": {
+      "en": "20kg Adjustable Dumbbell Set",
+      "bn": "২০ কেজি অ্যাডজাস্টেবল ডাম্বেল সেট"
+    },
+    "description": {
+      "en": "Stay fit at home with this adjustable iron dumbbell set. Perfect for home workouts.",
+      "bn": "অ্যাডজাস্টেবল লোহার ডাম্বেল সেটের সাহায্যে ঘরে বসেই ফিট থাকুন। হোম ওয়ার্কআউটের জন্য উপযুক্ত।"
+    },
+    "category": "Sports & Outdoor",
+    "specifications": [
+      {
+        "key": { "en": "Total Weight", "bn": "মোট ওজন" },
+        "value": { "en": "20 KG (Pair)", "bn": "২০ কেজি (জোড়া)" }
+      },
+      {
+        "key": { "en": "Material", "bn": "উপাদান" },
+        "value": { "en": "Cast Iron", "bn": "ঢালাই লোহা" }
+      },
+      {
+        "key": { "en": "Includes", "bn": "অন্তর্ভুক্ত" },
+        "value": { "en": "Plates, Bars, Collars", "bn": "প্লেট, বার, কলার" }
+      }
+    ],
+    "images": [
+      "https://placehold.co/600x600/374151/FFFFFF/png?text=Dumbbell+Set",
+      "https://placehold.co/600x600/374151/FFFFFF/png?text=Dumbbell+Set",
+      "https://placehold.co/600x600/374151/FFFFFF/png?text=Dumbbell+Set",
+      "https://placehold.co/600x600/374151/FFFFFF/png?text=Dumbbell+Set",
+      "https://placehold.co/600x600/374151/FFFFFF/png?text=Dumbbell+Set"
+    ],
+    "stock": 20,
+    "sales": 57,
+    "isFeatured": false
+  },
+  {
+    "_id": "64a1b28",
+    "slug": "me-o-adult-cat-food-1-2kg",
+    "price": 650,
+    "discountPrice": null,
+    "name": {
+      "en": "Me-O Adult Cat Food (Seafood) 1.2kg",
+      "bn": "মি-ও অ্যাডাল্ট ক্যাট ফুড (সিফুড) ১.২ কেজি"
+    },
+    "description": {
+      "en": "Highly nutritious and delicious dry food for adult cats. Keeps hairball in control.",
+      "bn": "প্রাপ্তবয়স্ক বিড়ালদের জন্য অত্যন্ত পুষ্টিকর এবং সুস্বাদু ড্রাই ফুড। হেয়ারবল নিয়ন্ত্রণে রাখে।"
+    },
+    "category": "Groceries & Pets",
+    "specifications": [
+      {
+        "key": { "en": "Brand", "bn": "ব্র্যান্ড" },
+        "value": { "en": "Me-O", "bn": "মি-ও" }
+      },
+      {
+        "key": { "en": "Flavor", "bn": "ফ্লেভার" },
+        "value": { "en": "Seafood", "bn": "সিফুড" }
+      },
+      {
+        "key": { "en": "Weight", "bn": "ওজন" },
+        "value": { "en": "1.2 KG", "bn": "১.২ কেজি" }
+      }
+    ],
+    "images": [
+      "https://placehold.co/600x600/f59e0b/FFFFFF/png?text=Cat+Food",
+      "https://placehold.co/600x600/f59e0b/FFFFFF/png?text=Cat+Food",
+      "https://placehold.co/600x600/f59e0b/FFFFFF/png?text=Cat+Food",
+      "https://placehold.co/600x600/f59e0b/FFFFFF/png?text=Cat+Food",
+      "https://placehold.co/600x600/f59e0b/FFFFFF/png?text=Cat+Food"
+    ],
+    "stock": 60,
+    "sales": 29,
+    "isFeatured": false
+  },
+  {
+    "_id": "64a1b29",
+    "slug": "tape-tennis-cricket-bat",
+    "price": 1200,
+    "discountPrice": 950,
+    "name": {
+      "en": "CA Plus 10000 Tape Tennis Cricket Bat",
+      "bn": "সিএ প্লাস ১০০০০ টেপ টেনিস ক্রিকেট ব্যাট"
+    },
+    "description": {
+      "en": "Premium quality wooden bat for tape tennis tournaments. Excellent balance and grip.",
+      "bn": "টেপ টেনিস টুর্নামেন্টের জন্য প্রিমিয়াম মানের কাঠের ব্যাট। চমৎকার ব্যালেন্স এবং গ্রিপ।"
+    },
+    "category": "Sports & Outdoor",
+    "specifications": [
+      {
+        "key": { "en": "Brand", "bn": "ব্র্যান্ড" },
+        "value": { "en": "CA Sports", "bn": "সিএ স্পোর্টস" }
+      },
+      {
+        "key": { "en": "Material", "bn": "উপাদান" },
+        "value": {
+          "en": "Kashmir Willow (Lightweight)",
+          "bn": "কাশ্মীর উইলো (লাইটওয়েট)"
+        }
+      },
+      {
+        "key": { "en": "Handle", "bn": "হ্যান্ডেল" },
+        "value": {
+          "en": "Cane Handle with Rubber Grip",
+          "bn": "রাবার গ্রিপ সহ বেতের হ্যান্ডেল"
+        }
+      }
+    ],
+    "images": [
+      "https://placehold.co/600x600/16a34a/FFFFFF/png?text=Cricket+Bat",
+      "https://placehold.co/600x600/16a34a/FFFFFF/png?text=Cricket+Bat",
+      "https://placehold.co/600x600/16a34a/FFFFFF/png?text=Cricket+Bat",
+      "https://placehold.co/600x600/16a34a/FFFFFF/png?text=Cricket+Bat",
+      "https://placehold.co/600x600/16a34a/FFFFFF/png?text=Cricket+Bat"
+    ],
+    "stock": 45,
+    "sales": 50,
+    "isFeatured": false
+  },
+  {
+    "_id": "64a1b30",
+    "slug": "kent-ro-water-purifier",
+    "price": 18500,
+    "discountPrice": 17000,
+    "name": {
+      "en": "Kent RO Water Purifier",
+      "bn": "কেন্ট আরও ওয়াটার পিউরিফায়ার"
+    },
+    "description": {
+      "en": "Ensure 100% pure drinking water for your family during Ramadan. Wall-mountable.",
+      "bn": "রমজানে আপনার পরিবারের জন্য ১০০% বিশুদ্ধ পানীয় জল নিশ্চিত করুন। ওয়াল-মাউন্টযোগ্য ডিজাইন।"
+    },
+    "category": "Home Appliances",
+    "specifications": [
+      {
+        "key": { "en": "Brand", "bn": "ব্র্যান্ড" },
+        "value": { "en": "Kent", "bn": "কেন্ট" }
+      },
+      {
+        "key": { "en": "Purification", "bn": "পরিশোধন" },
+        "value": {
+          "en": "RO + UV + UF + TDS Control",
+          "bn": "আরও + ইউভি + ইউএফ + টিডিএস কন্ট্রোল"
+        }
+      },
+      {
+        "key": { "en": "Capacity", "bn": "ধারণক্ষমতা" },
+        "value": { "en": "8 Liters Storage", "bn": "৮ লিটার স্টোরেজ" }
+      }
+    ],
+    "images": [
+      "https://placehold.co/600x600/0284c7/FFFFFF/png?text=Water+Purifier",
+      "https://placehold.co/600x600/0284c7/FFFFFF/png?text=Water+Purifier",
+      "https://placehold.co/600x600/0284c7/FFFFFF/png?text=Water+Purifier",
+      "https://placehold.co/600x600/0284c7/FFFFFF/png?text=Water+Purifier",
+      "https://placehold.co/600x600/0284c7/FFFFFF/png?text=Water+Purifier"
+    ],
+    "stock": 10,
+    "sales": 50,
+    "isFeatured": false
+  }
+]

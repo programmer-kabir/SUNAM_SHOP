@@ -1,0 +1,68 @@
+[
+  {
+    "id": "rev_1",
+    "productId": "64a1b01",
+    "user": {
+      "name": "Rahim Ahmed",
+      "avatar": "https://i.pravatar.cc/150?img=12"
+    },
+    "rating": 5,
+    "comment": "Excellent phone! Camera quality is insane 🔥",
+    "date": "2025-01-12"
+  },
+  {
+    "id": "rev_2",
+    "productId": "64a1b01",
+    "user": {
+      "name": "Nusrat Jahan",
+      "avatar": "https://i.pravatar.cc/150?img=32"
+    },
+    "rating": 3,
+    "comment": "Battery backup is good but price is high.",
+    "date": "2025-02-02"
+  },
+  {
+    "id": "rev_3",
+    "productId": "64a1b02",
+    "user": {
+      "name": "Tanvir Hasan",
+      "avatar": "https://i.pravatar.cc/150?img=5"
+    },
+    "rating": 5,
+    "comment": "Best Android phone right now.",
+    "date": "2025-01-28"
+  },
+  {
+    "id": "rev_1",
+    "productId": "64a1b01",
+    "user": {
+      "name": "Rahim Ahmed",
+      "avatar": "https://i.pravatar.cc/150?img=12"
+    },
+    "rating": 5,
+    "comment": "Excellent phone! Camera quality is insane 🔥",
+    "date": "2025-01-12"
+  },
+  {
+    "id": "rev_2",
+    "productId": "64a1b03",
+    "user": {
+      "name": "Nusrat Jahan",
+      "avatar": "https://i.pravatar.cc/150?img=32"
+    },
+    "rating": 4,
+    "comment": "Battery backup is good but price is high.",
+    "date": "2025-02-02"
+  },
+  {
+    "id": "rev_3",
+    "productId": "64a1b02",
+    "user": {
+      "name": "Tanvir Hasan",
+      "avatar": "https://i.pravatar.cc/150?img=5"
+    },
+    "rating": 5,
+    "comment": "Best Android phone right now.",
+    "date": "2025-01-28"
+  }
+]

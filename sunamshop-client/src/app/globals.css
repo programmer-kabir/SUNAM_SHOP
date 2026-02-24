@@ -1,0 +1,32 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+.lang-en .bn {
+  display: none;
+}
+
+.lang-bn .en {
+  display: none;
+}
+@layer utilities {
+  .container-custom {
+    @apply w-full max-w-[1440px] mx-auto px-4 sm:px-0;
+  }
+}
+.input-filter {
+  @apply w-full px-3 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-md text-sm focus:outline-none focus:border-blue-500 dark:text-white;
+}
+/* hide scrollbar */
+/* hide scrollbar but allow scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.productImage {
+  height: 700px;
+  width: 100%;
+  position: relative;
+}
