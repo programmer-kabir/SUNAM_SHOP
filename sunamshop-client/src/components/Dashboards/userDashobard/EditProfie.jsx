@@ -66,23 +66,26 @@ const EditProfile = ({ user, divisions, districts, upazilas, token }) => {
       (u) => String(u.id) === String(data.upazila_id),
     );
 
-    const res = await fetch("http://localhost:5000/api/edit_user_profile", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/edit_user_profile`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          firstName: data.firstName || null,
+          lastName: data.lastName || null,
+          email: data.email,
+          number: data.number,
+          division: selectedDivisionObj?.name,
+          district: selectedDistrictObj?.name,
+          upazila: selectedUpazilaObj?.name,
+          villageName: data.villageName,
+        }),
       },
-      body: JSON.stringify({
-        firstName: data.firstName || null,
-        lastName: data.lastName || null,
-        email: data.email,
-        number: data.number,
-        division: selectedDivisionObj?.name,
-        district: selectedDistrictObj?.name,
-        upazila: selectedUpazilaObj?.name,
-        villageName: data.villageName,
-      }),
-    });
+    );
     const result = await res.json();
     if (res.ok) {
       queryClient.invalidateQueries(["edit_user_profile"]);

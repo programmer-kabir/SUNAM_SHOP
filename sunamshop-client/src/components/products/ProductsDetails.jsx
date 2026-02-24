@@ -33,7 +33,7 @@ const ProductsDetails = ({ name, product, reviews = [] }) => {
       product.discountPrice && product.discountPrice < product.price
         ? product.discountPrice
         : product.price;
-    const res = await fetch("http://localhost:5000/api/cart", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/cart`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

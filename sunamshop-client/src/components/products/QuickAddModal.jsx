@@ -17,9 +17,7 @@ export default function QuickAddModal({ product, close }) {
   const hasDiscount =
     product.discountPrice && product.discountPrice < product.price;
 
-  const finalPrice = hasDiscount
-    ? product.discountPrice
-    : product.price;
+  const finalPrice = hasDiscount ? product.discountPrice : product.price;
 
   const handleAdd = async () => {
     if (!session) {
@@ -27,7 +25,7 @@ export default function QuickAddModal({ product, close }) {
       return;
     }
 
-    const res = await fetch("http://localhost:5000/api/cart", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/cart`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -53,7 +51,6 @@ export default function QuickAddModal({ product, close }) {
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 w-[90%] max-w-md relative">
-
         <button
           onClick={close}
           className="absolute top-3 right-3 text-gray-500"
@@ -70,13 +67,9 @@ export default function QuickAddModal({ product, close }) {
           />
         </div>
 
-        <h3 className="font-semibold text-lg mb-2">
-          {product.name?.en}
-        </h3>
+        <h3 className="font-semibold text-lg mb-2">{product.name?.en}</h3>
 
-        <p className="text-red-500 font-bold mb-4">
-          ৳ {finalPrice}
-        </p>
+        <p className="text-red-500 font-bold mb-4">৳ {finalPrice}</p>
 
         {/* Color */}
         {product?.color?.length > 0 && (

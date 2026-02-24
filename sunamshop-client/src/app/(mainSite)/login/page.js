@@ -17,7 +17,7 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const userToMySite = users.find((u) => u?.email === email);
+    const userToMySite = users?.find((u) => u?.email === email);
 
     // ❌ যদি user না পাওয়া যায়
     if (!userToMySite) {

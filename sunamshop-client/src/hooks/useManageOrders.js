@@ -11,11 +11,14 @@ export default function useManageOrders() {
     enabled: status === "authenticated" && session?.user?.role === "admin",
 
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/api/manage_orders", {
-        headers: {
-          Authorization: `Bearer ${session.accessToken}`,
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/manage_orders`,
+        {
+          headers: {
+            Authorization: `Bearer ${session.accessToken}`,
+          },
         },
-      });
+      );
 
       if (!res.ok) {
         throw new Error("Not authorized");

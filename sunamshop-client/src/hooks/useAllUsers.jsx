@@ -5,7 +5,9 @@ export default function useAllUsers() {
   return useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/api/get_all_users");
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/get_all_users`,
+      );
 
       if (!res.ok) throw new Error("Failed");
 

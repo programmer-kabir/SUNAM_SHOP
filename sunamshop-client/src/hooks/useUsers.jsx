@@ -10,11 +10,14 @@ export default function useUsers() {
     queryKey: ["users"],
     enabled: !!session?.accessToken,
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/api/users", {
-        headers: {
-          Authorization: `Bearer ${session.accessToken}`,
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users`,
+        {
+          headers: {
+            Authorization: `Bearer ${session.accessToken}`,
+          },
         },
-      });
+      );
 
       if (!res.ok) throw new Error("Failed");
 

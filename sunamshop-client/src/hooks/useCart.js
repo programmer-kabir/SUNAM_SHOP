@@ -10,11 +10,14 @@ export default function useCart() {
     queryKey: ["cart", session?.user?.email],
     enabled: !!session,
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/api/cart", {
-        headers: {
-          Authorization: `Bearer ${session.accessToken}`,
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/cart`,
+        {
+          headers: {
+            Authorization: `Bearer ${session.accessToken}`,
+          },
         },
-      });
+      );
 
       if (!res.ok) throw new Error("Failed");
 
