@@ -1,13 +1,11 @@
-import React from "react";
+import BestSellingCard from "../Cards/BestSellingCard";
+import HomeProductCard from "../Cards/DHomeProductCard";
 import SectionHeader from "../SectionHeader";
-import HomeProductCard from "../Cards/HomeProductCard";
+import { getMonthlySales } from "@/utils/MonthlySales";
 
-const BestSelling = ({ products }) => {
-  const bestSellingProducts = [...products]
-    .sort((a, b) => b.sales - a.sales)
-    .slice(0, 4);
-
-
+const BestSelling = async () => {
+  const bestSellingProducts = await getMonthlySales();
+  console.log(bestSellingProducts);
   return (
     <div>
       <section className="py-12 bg-gray-50 dark:bg-gray-900">
@@ -21,11 +19,8 @@ const BestSelling = ({ products }) => {
 
           {/* Grid wrapper */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
-            {bestSellingProducts.map((product) => (
-              <HomeProductCard
-                key={product._id || product.id}
-                product={product}
-              />
+            {bestSellingProducts?.map((product) => (
+              <BestSellingCard key={product?.productId} product={product} />
             ))}
           </div>
         </div>

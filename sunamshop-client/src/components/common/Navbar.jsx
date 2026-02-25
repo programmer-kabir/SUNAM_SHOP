@@ -20,6 +20,7 @@ import useCart from "@/hooks/useCart";
 import CartModal from "../Home/CartModal";
 import useProducts from "@/hooks/useProducts";
 import { useWishlist } from "@/context/WishlistContext";
+import MobileBottomNav from "./MobileBottomNav";
 
 export default function Navbar() {
   const { darkMode, setDarkMode } = useThemeLanguage();
@@ -57,15 +58,22 @@ export default function Navbar() {
   const isAdmin = session?.user?.role;
   return (
     <>
-      <nav className="sticky top-0 z-10 w-full border-b border-gray-200 bg-white/90 backdrop-blur-md dark:border-gray-800 dark:bg-gray-950/90">
+      <nav className="sticky top-0 z-40 w-full border-b border-gray-200 bg-white backdrop-blur-md dark:border-gray-800 dark:bg-gray-950/90">
         <div className="container-custom">
           <div className="flex h-16 w-full items-center justify-between">
             {/* LEFT SIDE */}
-            <div className="flex items-center gap-10">
+            <div className="flex items-center gap-2 md:gap-10">
+              {/* MOBILE MENU */}
+              <button
+                onClick={() => setIsMobileMenuOpen(true)}
+                className="lg:hidden p-2 cursor-pointer"
+              >
+                <Menu className="h-6 w-6 text-gray-700 dark:text-gray-200" />
+              </button>
               {/* LOGO */}
               <Link
                 href="/"
-                className="flex items-center text-2xl font-bold text-blue-600 dark:text-blue-400"
+                className="flex items-center md:text-2xl  text-base font-bold text-blue-600 dark:text-blue-400"
               >
                 <span className="leading-none">
                   Sunam
@@ -93,9 +101,9 @@ export default function Navbar() {
             </div>
 
             {/* RIGHT SIDE */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center md:gap-4">
               {/* SEARCH (Desktop) */}
-              <div className="relative hidden lg:flex items-center w-72">
+              <div className="relative w-full hidden md:flex md:w-72">
                 <input
                   type="text"
                   value={searchTerm}
@@ -116,14 +124,30 @@ export default function Navbar() {
                       setSearchTerm("");
                     }
                   }}
-                  className="absolute right-3 h-4 w-4 text-gray-400 cursor-pointer"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500"
                 />
+              </div>
+              <div className="w-full px-4 py-3 bg-white md:hidden">
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    className="w-full bg-transparent border-b border-gray-300 
+                     focus:border-black focus:outline-none 
+                     py-2 pr-8 text-sm"
+                  />
+
+                  <Search
+                    size={18}
+                    className="absolute right-0 top-1/2 -translate-y-1/2 text-gray-500"
+                  />
+                </div>
               </div>
 
               {/* DARK MODE */}
               <button
                 onClick={() => setDarkMode(!darkMode)}
-                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
+                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 hidden md:flex"
               >
                 {darkMode ? (
                   <Sun className="h-5 w-5 text-yellow-500" />
@@ -138,7 +162,7 @@ export default function Navbar() {
                   {/* CART */}
                   <button
                     onClick={() => setIsCartOpen(true)}
-                    className="relative p-2 cursor-pointer"
+                    className="relative p-2 cursor-pointer hidden md:flex"
                   >
                     <ShoppingCart className="h-6 w-6 text-gray-700 dark:text-gray-200" />
                     <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
@@ -147,7 +171,10 @@ export default function Navbar() {
                   </button>
 
                   {/* WISHLIST */}
-                  <Link href={"/wishlist"} className="relative p-2">
+                  <Link
+                    href={"/wishlist"}
+                    className="relative p-2 hidden md:flex"
+                  >
                     <Heart className="h-6 w-6 text-gray-700 dark:text-gray-200" />
                     <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
                       {wishlist.length}
@@ -156,7 +183,10 @@ export default function Navbar() {
                 </>
               ) : !session?.user && isAdmin !== "admin" ? (
                 // user না থাকলে শুধু wishlist
-                <Link href={"/wishlist"} className="relative p-2">
+                <Link
+                  href={"/wishlist"}
+                  className="relative p-2 hidden md:flex"
+                >
                   <Heart className="h-6 w-6 text-gray-700 dark:text-gray-200" />
                   <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-pink-500 text-[10px] font-bold text-white">
                     {wishlist.length}
@@ -173,13 +203,13 @@ export default function Navbar() {
                         ? "/adminDashboard/dashboard"
                         : "/userDashboard/dashboard"
                     }
-                    className="relative p-2"
+                    className="relative p-2 hidden md:flex"
                   >
                     <LayoutDashboard className="h-6 w-6 text-gray-700 dark:text-gray-200" />
                   </Link>
                   <button
                     onClick={() => signOut({ callbackUrl: "/" })}
-                    className=""
+                    className="hidden md:flex"
                   >
                     <LogOut className="h-6 w-6 text-gray-700 dark:text-gray-200 cursor-pointer" />
                   </button>
@@ -190,31 +220,37 @@ export default function Navbar() {
                   <User className="h-6 w-6 text-gray-700 dark:text-gray-200" />
                 </Link>
               )}
-
-              {/* MOBILE MENU */}
-              <button
-                onClick={() => setIsMobileMenuOpen(true)}
-                className="lg:hidden p-2"
-              >
-                <Menu className="h-6 w-6 text-gray-700 dark:text-gray-200" />
-              </button>
             </div>
           </div>
         </div>
       </nav>
-
+      {isMobileMenuOpen && (
+        <div
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="fixed inset-0 bg-black/40 z-40 lg:hidden"
+        />
+      )}
       {/* MOBILE DRAWER */}
       <div
+        onClick={() => setIsMobileMenuOpen(false)}
         className={`fixed top-0 right-0 z-50 h-full w-72 bg-white dark:bg-gray-950 shadow-xl transform transition-transform duration-500 ease-in-out lg:hidden ${
           isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between p-4 border-b dark:border-gray-800">
-          <h2 className="text-lg font-semibold">
-            <span className="en">Menu</span>
-            <span className="bn">মেনু</span>
-          </h2>
-          <button onClick={() => setIsMobileMenuOpen(false)}>
+        <div className="flex items-center justify-between p-4 border-b dark:border-gray-800 py-5">
+          <Link
+            href="/"
+            className="flex items-center text-2xl font-bold text-blue-600 dark:text-blue-400"
+          >
+            <span className="leading-none">
+              Sunam
+              <span className="text-gray-900 dark:text-white">.shop</span>
+            </span>
+          </Link>
+          <button
+            className="cursor-pointer"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
             <X className="h-6 w-6" />
           </button>
         </div>
@@ -266,6 +302,7 @@ export default function Navbar() {
           />
         </div>
       </div>
+      <MobileBottomNav user={session}/>
     </>
   );
 }

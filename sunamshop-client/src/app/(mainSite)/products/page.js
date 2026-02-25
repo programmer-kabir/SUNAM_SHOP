@@ -1,4 +1,4 @@
-import { getAllProducts } from "@/utils/productApi";
+import { getAllCategory, getAllProducts } from "@/utils/productApi";
 import Image from "next/image";
 import Link from "next/link";
 import ProductFilters from "@/components/products/ProductFilters";
@@ -9,52 +9,69 @@ const Products = async ({ searchParams }) => {
   /* ---------------- GET PARAMS ---------------- */
   const params = await searchParams;
   const search = params?.search;
-  const category = params?.category;
+  const categorySlug = params?.category;
   const rating = params?.rating;
   const price = params?.price;
   const color = params?.color;
   const weight = params?.weight;
-  /* ---------------- FETCH PRODUCTS ---------------- */
-  /* ---------------- FETCH PRODUCTS ---------------- */
-  const products = await getAllProducts();
 
-  /* ---------------- UNIQUE CATEGORIES ---------------- */
-  const uniqueCategories = [...new Set(products.map((p) => p.category))];
+  /* ---------------- FETCH DATA ---------------- */
+  const products = await getAllProducts();
+  const categories = await getAllCategory();
+
+  const uniqueCategories = categories?.map((c) => ({
+    name: c.name.en,
+    slug: c.slug,
+  }));
+  /* ---------------- FIND SELECTED CATEGORY ID ---------------- */
+  let selectedCategoryCustomId = null;
+
+  if (categorySlug) {
+    const matchedCategory = categories.find(
+      (c) => c.slug?.toLowerCase() === categorySlug.toLowerCase(),
+    );
+
+    selectedCategoryCustomId = matchedCategory?.id; // 🔥 use id, not _id
+  }
 
   /* ---------------- FILTER LOGIC ---------------- */
   let filteredProducts = [...products];
 
-  // ✅ SEARCH (প্রথমে থাকবে)
   if (search) {
     filteredProducts = filteredProducts.filter((p) => {
       const nameEN = p.name?.en?.toLowerCase() || "";
       const nameBN = p.name?.bn?.toLowerCase() || "";
-      const categoryName = p.category?.toLowerCase() || "";
+
+      // 🔥 Find category name from categoryId
+      const categoryObj = categories.find((c) => c.id === p.categoryId);
+
+      const categoryNameEN = categoryObj?.name?.en?.toLowerCase() || "";
+      const categoryNameBN = categoryObj?.name?.bn?.toLowerCase() || "";
 
       const searchValue = search.toLowerCase();
 
       return (
         nameEN.includes(searchValue) ||
         nameBN.includes(searchValue) ||
-        categoryName.includes(searchValue)
+        categoryNameEN.includes(searchValue) ||
+        categoryNameBN.includes(searchValue)
       );
     });
   }
-  // Category
-  if (category) {
+  if (selectedCategoryCustomId) {
     filteredProducts = filteredProducts.filter(
-      (p) => p.category.toLowerCase() === category.toLowerCase(),
+      (p) => p.categoryId === selectedCategoryCustomId,
     );
   }
 
-  // Rating
+  // ✅ RATING
   if (rating) {
     filteredProducts = filteredProducts.filter(
       (p) => Math.floor(p.rating || 0) >= Number(rating),
     );
   }
 
-  // Price
+  // ✅ PRICE
   if (price) {
     const [min, max] = price.split("-").map(Number);
 
@@ -64,14 +81,14 @@ const Products = async ({ searchParams }) => {
     });
   }
 
-  // Color
+  // ✅ COLOR
   if (color) {
     filteredProducts = filteredProducts.filter(
       (p) => p.color?.toLowerCase() === color.toLowerCase(),
     );
   }
 
-  // Weight
+  // ✅ WEIGHT
   if (weight) {
     filteredProducts = filteredProducts.filter((p) => {
       const w = p.weight || 0;
@@ -84,6 +101,7 @@ const Products = async ({ searchParams }) => {
       return true;
     });
   }
+
   return (
     <div className="container-custom py-8 md:py-12">
       {/* HEADER */}
@@ -91,8 +109,8 @@ const Products = async ({ searchParams }) => {
         <Breadcrumb
           items={[
             {
-              label: category ? category : "All Category",
-              href: `/products${category ? `?category=${category}` : ""}`,
+              label: categorySlug ? categorySlug : "All Category",
+              href: `/products${categorySlug ? `?category=${categorySlug}` : ""}`,
             },
           ]}
         />

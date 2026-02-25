@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 const TimeBox = ({ label, value }) => (
   <div className="flex flex-col items-center">
     <span className="text-xs text-gray-500 dark:text-gray-400">{label}</span>
-    <span className="text-3xl font-bold dark:text-white">
+    <span className="lg:text-3xl text-base font-bold dark:text-white">
       {String(value).padStart(2, "0")}
     </span>
   </div>
@@ -38,13 +38,13 @@ export function Timer({ endDate }) {
   const seconds = time % 60;
 
   return (
-    <div className="flex items-end gap-4">
+    <div className="flex items-end md:gap-4 gap-2">
       <TimeBox label="Days" value={days} />
-      <span className="text-2xl font-bold text-red-500">:</span>
+      <span className="lg:text-2xl font-bold text-red-500">:</span>
       <TimeBox label="Hours" value={hours} />
-      <span className="text-2xl font-bold text-red-500">:</span>
+      <span className="lg:text-2xl text-xs font-bold text-red-500">:</span>
       <TimeBox label="Minutes" value={minutes} />
-      <span className="text-2xl font-bold text-red-500">:</span>
+      <span className="lg:text-2xl text-xs font-bold text-red-500">:</span>
       <TimeBox label="Seconds" value={seconds} />
     </div>
   );

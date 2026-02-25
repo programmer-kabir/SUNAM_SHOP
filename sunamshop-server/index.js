@@ -65,6 +65,8 @@ async function run() {
     const districtsCollection = client.db("Sunam_Shop").collection("districts");
     const upazilasCollection = client.db("Sunam_Shop").collection("upazilas");
     const ordersCollection = client.db("Sunam_Shop").collection("order");
+    const categoryCollection = client.db("Sunam_Shop").collection("category");
+    const reviewsCollection = client.db("Sunam_Shop").collection("reviews");
     const flashCampaignCollection = client
       .db("Sunam_Shop")
       .collection("flashSalesCampaign");
@@ -105,6 +107,20 @@ async function run() {
       console.log(body);
       await productsCollection.insertOne(body);
       res.status(201).json({ message: "Products Added successfully" });
+    });
+
+    //
+    app.get("/api/categories", async (req, res) => {
+      try {
+        const items = await categoryCollection
+          .find()
+          .sort({ createdAt: -1 })
+          .toArray();
+
+        res.json(items);
+      } catch (err) {
+        res.status(500).json({ message: "Server error" });
+      }
     });
     // REGISTER
     app.post("/api/auth/register", async (req, res) => {
@@ -544,6 +560,101 @@ async function run() {
         res.status(500).json({ message: "Server error" });
       }
     });
+
+    // GET Monthly Top Selling Products
+    app.get("/api/get_monthly_sales", async (req, res) => {
+      try {
+        const now = new Date();
+
+        const startOfMonth = new Date(
+          Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1),
+        );
+
+        const endOfMonth = new Date(
+          Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1),
+        );
+
+        const result = await ordersCollection
+          .aggregate([
+            {
+              $match: {
+                createdAt: { $gte: startOfMonth, $lt: endOfMonth },
+                status: { $in: ["pending", "delivered"] },
+              },
+            },
+
+            { $unwind: "$items" },
+
+            // Convert productId string → ObjectId
+            {
+              $addFields: {
+                productObjectId: { $toObjectId: "$items.productId" },
+              },
+            },
+
+            {
+              $group: {
+                _id: "$productObjectId",
+                totalQty: { $sum: { $toInt: "$items.qty" } },
+              },
+            },
+
+            // 🔥 Join Products
+            {
+              $lookup: {
+                from: "products",
+                localField: "_id",
+                foreignField: "_id",
+                as: "product",
+              },
+            },
+
+            { $unwind: "$product" },
+
+            // 🔥 FIXED Join Reviews (ObjectId → String match)
+            {
+              $lookup: {
+                from: "reviews",
+                let: { productIdString: { $toString: "$_id" } },
+                pipeline: [
+                  {
+                    $match: {
+                      $expr: {
+                        $eq: ["$productId", "$$productIdString"],
+                      },
+                    },
+                  },
+                ],
+                as: "reviews",
+              },
+            },
+
+            { $sort: { totalQty: -1 } },
+
+            {
+              $project: {
+                _id: 0,
+                productId: "$_id",
+                totalQty: 1,
+
+                name: "$product.name.en",
+                description: "$product.description.en",
+                price: "$product.price",
+                discountPrice: "$product.discountPrice",
+                slug: "$product.slug",
+                image: { $arrayElemAt: ["$product.images", 0] },
+
+                reviews: 1, // full reviews array
+              },
+            },
+          ])
+          .toArray();
+
+        res.json(result);
+      } catch (err) {
+        res.status(500).json({ message: "Server error" });
+      }
+    });
     // GET  All Orders
     app.get("/api/manage_orders", verifyJWT, verifyAdmin, async (req, res) => {
       try {
@@ -612,7 +723,6 @@ async function run() {
       try {
         // 🔥 UTC ব্যবহার করো (simple & correct)
         const now = new Date();
-        console.log("NOW (UTC):", now);
 
         // 1️⃣ Active campaign বের করো
         const campaign = await flashCampaignCollection.findOne({
@@ -622,7 +732,6 @@ async function run() {
         });
 
         if (!campaign) {
-          console.log("No campaign found");
           return res.json({ campaign: null, products: [] });
         }
 

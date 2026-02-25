@@ -104,32 +104,32 @@ export default function ProductFilters({ categories }) {
           </label>
 
           {categories.map((cat, i) => {
-            const value = cat.toLowerCase();
-            const checked = selectedCategory === value;
+  const value = cat.slug;
+  const checked = selectedCategory === value;
 
-            return (
-              <label
-                key={i}
-                className="flex items-center gap-3 cursor-pointer group"
-              >
-                <input
-                  type="checkbox"
-                  checked={checked}
-                  onChange={() => handleCategoryChange(value)}
-                  className="accent-blue-600 w-4 h-4"
-                />
-                <span
-                  className={`transition ${
-                    checked
-                      ? "text-blue-600 font-semibold"
-                      : "text-gray-700 dark:text-gray-300 group-hover:text-blue-600"
-                  }`}
-                >
-                  {cat}
-                </span>
-              </label>
-            );
-          })}
+  return (
+    <label
+      key={i}
+      className="flex items-center gap-3 cursor-pointer group"
+    >
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={() => handleCategoryChange(value)}
+        className="accent-blue-600 w-4 h-4"
+      />
+      <span
+        className={`transition ${
+          checked
+            ? "text-blue-600 font-semibold"
+            : "text-gray-700 dark:text-gray-300 group-hover:text-blue-600"
+        }`}
+      >
+        {cat.name}
+      </span>
+    </label>
+  );
+})}
         </div>
       </Section>
 

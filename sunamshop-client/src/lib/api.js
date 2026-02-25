@@ -45,3 +45,5 @@ export async function fetchUpazilas() {
 
   return res.json();
 }
+
+// Get All Orders to Sells

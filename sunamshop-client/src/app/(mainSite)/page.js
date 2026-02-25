@@ -5,19 +5,22 @@ import FlashSale from "@/components/Home/FlashSale";
 import NewArrival from "@/components/Home/NewArrival";
 import Products from "@/components/Home/Products";
 import ServiceFeatures from "@/components/Home/ServiceFeatures";
-import { getAllProducts } from "@/utils/productApi";
+import { getAllFalseSales } from "@/utils/FlashSalesApi";
+import { getAllCategory, getAllProducts } from "@/utils/productApi";
 
 export default async function Home() {
   const products = await getAllProducts();
+  const categories = await getAllCategory();
+  const flash = await getAllFalseSales();
   return (
     <section>
       <Banner />
-      <FlashSale products={products} />
-      <BrowseByCategory products={products} />
-      <BestSelling products={products} />
-      <Products products={products} />
-      <NewArrival />
-      <ServiceFeatures />
+      {flash?.campaign && <FlashSale products={products} flash={flash} />}
+      <BrowseByCategory products={products} categories={categories} />
+      {/* <BestSelling  products={products}/> */}
+      {/* <Products products={products} /> */}
+      {/* <NewArrival /> */}
+      {/* <ServiceFeatures /> */}
     </section>
   );
 }

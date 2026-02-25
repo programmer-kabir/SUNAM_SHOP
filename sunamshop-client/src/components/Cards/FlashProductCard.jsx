@@ -106,7 +106,7 @@ const FlashProductCard = ({ product }) => {
           bg-black/90 text-white py-3
           translate-y-full
           group-hover:translate-y-0
-          transition-transform duration-300"
+          transition-transform duration-300 cursor-pointer"
           >
             Add To Cart
           </button>

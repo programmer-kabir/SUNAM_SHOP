@@ -1,5 +1,5 @@
 import React from "react";
-import HomeProductCard from "../Cards/HomeProductCard";
+import HomeProductCard from "../Cards/DHomeProductCard";
 import SectionHeader from "../SectionHeader";
 
 const Products = ({ products }) => {

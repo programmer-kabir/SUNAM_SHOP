@@ -49,3 +49,15 @@ export async function getProductBySlug(slug) {
 
   return res.json();
 }
+
+export async function getAllCategory() {
+  const res = await fetch(`${BASE_URL}/api/categories`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch category");
+  }
+
+  return res.json();
+}

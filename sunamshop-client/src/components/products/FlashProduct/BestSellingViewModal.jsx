@@ -3,7 +3,8 @@ import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 
-const QuickViewModal = ({ product, close }) => {
+const BestSellingViewModal = ({ product, close }) => {
+    console.log(product)
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -28,7 +29,7 @@ const QuickViewModal = ({ product, close }) => {
           {/* LEFT: Product Image */}
           <div className="relative w-full h-80 bg-gray-100 rounded-xl overflow-hidden">
             <Image
-              src={product?.images?.[0] || product?.image}
+              src={product?.images?.[0] || "/placeholder.jpg"}
               alt={product?.name?.en}
               fill
               className="object-contain"
@@ -43,9 +44,7 @@ const QuickViewModal = ({ product, close }) => {
               </h2>
 
               <p className="text-gray-600 dark:text-gray-300 mb-4">
-                {product?.description?.en ||
-                  product?.description ||
-                  "NO Description Found"}
+                {product?.description?.en || "No description available."}
               </p>
 
               <div className="text-xl font-bold text-red-500 mb-4">
@@ -54,9 +53,11 @@ const QuickViewModal = ({ product, close }) => {
 
               {/* Category & Stock */}
               <div className="text-sm text-gray-500 dark:text-gray-400 space-y-1">
+                <p>Category: {product?.category}</p>
                 <p>Stock: {product?.stock || "Available"}</p>
               </div>
             </div>
+
           </div>
         </div>
       </div>
@@ -65,4 +66,4 @@ const QuickViewModal = ({ product, close }) => {
   );
 };
 
-export default QuickViewModal;
+export default BestSellingViewModal;

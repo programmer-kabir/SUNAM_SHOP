@@ -8,10 +8,12 @@ import "swiper/css/navigation";
 import { Heart, Eye } from "lucide-react";
 import Image from "next/image";
 import SectionHeader from "../SectionHeader";
-import HomeProductCard from "../Cards/HomeProductCard";
+import HomeProductCard from "../Cards/DHomeProductCard";
 import useFlashSale from "@/hooks/useFlashSale";
 import FlashProductCard from "../Cards/FlashProductCard";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
+import HomeProductsCard from "../Cards/HomeProductCard";
 
 export default function FlashSale({ products }) {
   const prevRef = useRef(null);
@@ -26,7 +28,7 @@ export default function FlashSale({ products }) {
 
         <SectionHeader
           subtitle={"today"}
-          title={"Flash Sales"}
+          title={flashSales?.campaign?.title}
           hasTimer
           hasNavigation
           prevRef={prevRef}
@@ -52,7 +54,7 @@ export default function FlashSale({ products }) {
           >
             {flashProducts?.map((product) => (
               <SwiperSlide key={product?._id}>
-                <FlashProductCard product={product} flashSales={flashSales} />
+                <HomeProductsCard product={product} flashSales={flashSales} />
               </SwiperSlide>
             ))}
           </Swiper>
@@ -62,9 +64,12 @@ export default function FlashSale({ products }) {
 
         {/* VIEW ALL BUTTON */}
         <div className="flex justify-center mt-10">
-          <button className="bg-red-500 text-white px-8 py-3 rounded-md hover:bg-red-600 transition font-medium">
+          <Link
+            href={"/products/flashsale"}
+            className="bg-red-500 text-white px-8 py-3 rounded-md hover:bg-red-600 transition font-medium"
+          >
             View All Products
-          </button>
+          </Link>
         </div>
       </div>
     </section>

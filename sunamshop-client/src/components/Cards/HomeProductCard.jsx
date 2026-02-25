@@ -1,140 +1,67 @@
 "use client";
-import { Eye, Heart } from "lucide-react";
 import Image from "next/image";
-import React, { useState } from "react";
-import QuickViewModal from "../products/FlashProduct/QuickViewModal";
-import { useSession } from "next-auth/react";
-import { useWishlist } from "@/context/WishlistContext";
-import toast from "react-hot-toast";
+import { Heart, ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react";
 
-const HomeProductCard = ({ product }) => {
-  const { data: session } = useSession();
-  const hasDiscount =
-    product.discountPrice && product.discountPrice < product.price;
-  const discountPercentage = hasDiscount
-    ? Math.round(
-        ((product.price - product.discountPrice) / product.price) * 100,
-      )
-    : 0;
-  const [quickView, setQuickView] = useState(false);
-  const { wishlist, updateWishlist } = useWishlist();
-
-  const liked = wishlist.some((item) => item._id === product._id);
-
-  const toggleWishlist = () => {
-    const exists = wishlist.find((item) => item._id === product._id);
-
-    let updated;
-
-    if (exists) {
-      updated = wishlist.filter((item) => !(item._id === product._id));
-      toast.success("Removed from wishlist");
-    } else {
-      const wishlistItem = {
-        _id: product._id,
-        name: product?.name?.en,
-        price: product.discountPrice || product.price,
-        image: product?.images?.[0],
-        qty: 1,
-      };
-
-      updated = [...wishlist, wishlistItem];
-      toast.success("Added to wishlist");
-    }
-
-    updateWishlist(updated);
-  };
-  const isAdmin = session?.user?.role;
-  const isDisabled = isAdmin === "admin";
+const HomeProductsCard = ({ product }) => {
+  console.log(product.images[0]);
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow relative group overflow-hidden transition">
-      {/* Discount Badge */}
-      {hasDiscount && (
-        <span className="absolute top-3 left-3 bg-red-500 text-white text-xs px-2 py-1 rounded z-10">
-          -{discountPercentage}%
-        </span>
-      )}
-
-      {/* Wishlist + Quick View */}
-      <div
-        className="absolute top-3 right-3 flex flex-col gap-2 
-      translate-x-6 opacity-0 
-      group-hover:translate-x-0 group-hover:opacity-100
-      transition-all duration-300 ease-out z-10"
-      >
-        <button
-          onClick={!isDisabled ? toggleWishlist : undefined}
-          disabled={isDisabled}
-          className={`p-2 bg-white rounded-full 
-                        ${isDisabled ? "opacity-50 cursor-not-allowed" : ""}
-                      `}
-        >
-          <Heart
-            className={`w-5 h-5 transition ${
-              liked ? "fill-red-500 text-red-500" : "text-black"
-            }`}
-          />
-        </button>
-
-        <button
-          onClick={() => setQuickView(true)}
-          className="bg-white p-2 rounded-full shadow hover:bg-gray-100 text-black"
-        >
-          <Eye size={16} />
-        </button>
-      </div>
-
-      {/* IMAGE WRAPPER */}
-      <div className="relative w-full aspect-square bg-gray-100 overflow-hidden group">
+    <div className="max-w-sm bg-white rounded-2xl shadow-md p-4 border">
+      {/* Product Image */}
+      <div className="relative bg-gray-100 rounded-xl h-64 flex items-center justify-center">
         <Image
           src={product.images?.[0] || "/placeholder.jpg"}
-          alt={product.name.en || product.name}
+          alt={product.name.en}
           fill
-          className="object-contain group-hover:scale-105 transition-transform duration-300"
         />
+      </div>
 
-        {/* 🔥 Add To Cart (From Image Bottom) */}
-        <button
-          className="
-        absolute bottom-0 left-0 w-full
-        bg-black/90 text-white py-3
-        translate-y-full
-        group-hover:translate-y-0
-        transition-transform duration-300 ease-out
-      "
-        >
-          Add To Cart
+      {/* Slider Indicator */}
+      <div className="flex items-center justify-center gap-4 mt-3 text-gray-500">
+        <ChevronLeft size={18} />
+        <span className="text-sm font-medium">1 of 4</span>
+        <ChevronRight size={18} />
+      </div>
+
+      {/* Title */}
+      <h2 className="text-lg font-semibold mt-4">Apple iPhone 15 Pro Max</h2>
+
+      {/* Description */}
+      <p className="text-sm text-gray-500 mt-1">
+        256GB, Natural Titanium, 6.7 Inches - Unlocked (Renewed), Unlocked for
+        All Carriers.
+      </p>
+
+      {/* Installment Link */}
+      <p className="text-blue-600 text-sm mt-3 cursor-pointer">
+        Buy in installments with Flowbite Wallet
+      </p>
+
+      {/* Price & Colors */}
+      <div className="flex items-center justify-between mt-4">
+        <span className="text-2xl font-bold">$1299</span>
+
+        <div className="flex gap-2">
+          <span className="w-6 h-6 rounded-full bg-black cursor-pointer border"></span>
+          <span className="w-6 h-6 rounded-full bg-purple-500 cursor-pointer border"></span>
+          <span className="w-6 h-6 rounded-full bg-gray-300 cursor-pointer border"></span>
+        </div>
+      </div>
+
+      {/* Buttons */}
+      <div className="flex gap-3 mt-4">
+        <button className="flex-1 border rounded-lg py-2 flex items-center justify-center gap-2 hover:bg-gray-100 transition">
+          <Heart size={18} />
+          Wishlist
+        </button>
+
+        <button className="flex-1 bg-blue-600 text-white rounded-lg py-2 flex items-center justify-center gap-2 hover:bg-blue-700 transition">
+          <ShoppingCart size={18} />
+          Buy now
         </button>
       </div>
-
-      {/* TEXT SECTION */}
-      <div className="px-5 py-4">
-        <h3 className="text-sm font-medium dark:text-white mb-2 line-clamp-2 h-10">
-          {product.name.en || product.name}
-        </h3>
-
-        <div className="flex items-center gap-2">
-          <span className="text-red-500 font-semibold">
-            ৳ {hasDiscount ? product.discountPrice : product.price}
-          </span>
-          {hasDiscount && (
-            <span className="line-through text-gray-400 text-sm">
-              ৳ {product.price}
-            </span>
-          )}
-        </div>
-
-        <div className="flex items-center gap-1 text-yellow-400 mt-2 text-sm">
-          {"★".repeat(Math.round(product.rating || 5))}
-          {"☆".repeat(5 - Math.round(product.rating || 5))}
-        </div>
-      </div>
-      {quickView && (
-        <QuickViewModal product={product} close={() => setQuickView(false)} />
-      )}
     </div>
   );
 };
 
-export default HomeProductCard;
+export default HomeProductsCard;

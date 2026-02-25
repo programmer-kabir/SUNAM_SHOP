@@ -7,7 +7,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 const AddToCartModal = ({ product, close }) => {
-  console.log(product);
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {

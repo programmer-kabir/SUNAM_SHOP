@@ -1,7 +1,6 @@
 [
   {
-    "id": "rev_1",
-    "productId": "64a1b01",
+    "productId": "699aa8af65b38566d1bde4ae",
     "user": {
       "name": "Rahim Ahmed",
       "avatar": "https://i.pravatar.cc/150?img=12"
@@ -11,8 +10,7 @@
     "date": "2025-01-12"
   },
   {
-    "id": "rev_2",
-    "productId": "64a1b01",
+    "productId": "699ab5f865b38566d1bde4b0",
     "user": {
       "name": "Nusrat Jahan",
       "avatar": "https://i.pravatar.cc/150?img=32"
@@ -22,8 +20,7 @@
     "date": "2025-02-02"
   },
   {
-    "id": "rev_3",
-    "productId": "64a1b02",
+    "productId": "699bed21faa92bea33da6e7e",
     "user": {
       "name": "Tanvir Hasan",
       "avatar": "https://i.pravatar.cc/150?img=5"
@@ -33,8 +30,7 @@
     "date": "2025-01-28"
   },
   {
-    "id": "rev_1",
-    "productId": "64a1b01",
+    "productId": "699bed21faa92bea33da6e7e",
     "user": {
       "name": "Rahim Ahmed",
       "avatar": "https://i.pravatar.cc/150?img=12"
@@ -44,8 +40,7 @@
     "date": "2025-01-12"
   },
   {
-    "id": "rev_2",
-    "productId": "64a1b03",
+    "productId": "699aa8af65b38566d1bde4ae",
     "user": {
       "name": "Nusrat Jahan",
       "avatar": "https://i.pravatar.cc/150?img=32"
@@ -55,8 +50,7 @@
     "date": "2025-02-02"
   },
   {
-    "id": "rev_3",
-    "productId": "64a1b02",
+    "productId": "699aa8af65b38566d1bde4ae",
     "user": {
       "name": "Tanvir Hasan",
       "avatar": "https://i.pravatar.cc/150?img=5"

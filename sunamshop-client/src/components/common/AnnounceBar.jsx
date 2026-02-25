@@ -4,27 +4,27 @@ import Link from "next/link";
 import { Globe } from "lucide-react";
 import { useThemeLanguage } from "@/context/ThemeLanguageContext";
 import { useSession } from "next-auth/react";
+import useFlashSale from "@/hooks/useFlashSale";
 
 const AnnounceBar = () => {
   const { language, setLanguage } = useThemeLanguage();
+  const { data: flashSales } = useFlashSale();
   const { data: session } = useSession();
   const toggleLanguage = () => {
     setLanguage(language === "BN" ? "EN" : "BN");
   };
+  console.log(flashSales);
   const name = session?.user?.name || session?.user?.firstName;
   return (
     <div className="w-full border-b border-gray-200  bg-white/90 backdrop-blur-md dark:border-gray-500 dark:bg-gray-950/90 text-sm">
       <div className="container-custom flex items-center justify-between py-2">
         {/* LEFT TEXT */}
         <div className="text-gray-700 dark:text-gray-200 font-medium">
-          <span className="en">
-            Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
-          </span>
-          <span className="bn">
-            সব সাঁতারের পোশাকে সামার সেল এবং ফ্রি এক্সপ্রেস ডেলিভারি - ৫০% ছাড়!
+          <span className="en text-sm md:text-base">
+            {flashSales?.campaign?.title}
           </span>
 
-          <Link href="/" className="ml-3 underline">
+          <Link href="/" className="ml-3 underline hidden md:inline">
             <span className="en">Shop Now</span>
             <span className="bn">এখনই কিনুন</span>
           </Link>
@@ -44,28 +44,26 @@ const AnnounceBar = () => {
               <Link href="/login" className="underline mr-4">
                 Login
               </Link>
+            </>
+          )}
 
-              <Link href="/register" className="underline">
-                Register
-              </Link>
-            </>
-          )}
-  
-          {session?.user && (
-            <>
-            <div>Welcome, {name}</div>
-              <Link
-                href={
-                  session.user.role === "admin"
-                    ? "/adminDashboard/dashboard"
-                    : "/userDashboard/dashboard"
-                }
-                className="underline ml-2"
-              >
-                Dashboard
-              </Link>
-            </>
-          )}
+          <div className="hidden md:flex">
+            {session?.user && (
+              <>
+                <div>Welcome, {name}</div>
+                <Link
+                  href={
+                    session.user.role === "admin"
+                      ? "/adminDashboard/dashboard"
+                      : "/userDashboard/dashboard"
+                  }
+                  className="underline ml-2"
+                >
+                  Dashboard
+                </Link>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>
