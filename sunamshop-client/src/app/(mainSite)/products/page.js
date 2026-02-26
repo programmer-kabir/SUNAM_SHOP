@@ -1,9 +1,9 @@
 import { getAllCategory, getAllProducts } from "@/utils/productApi";
 import Image from "next/image";
-import Link from "next/link";
 import ProductFilters from "@/components/products/ProductFilters";
 import Breadcrumb from "@/components/ui/breadcrumb";
-import ProductCard from "@/components/products/ProductsCard";
+import { getAllReviews } from "@/utils/reviewApi";
+import ProductCard from "@/components/Cards/ProductCard";
 
 const Products = async ({ searchParams }) => {
   /* ---------------- GET PARAMS ---------------- */
@@ -14,7 +14,7 @@ const Products = async ({ searchParams }) => {
   const price = params?.price;
   const color = params?.color;
   const weight = params?.weight;
-
+  const reviews = await getAllReviews();
   /* ---------------- FETCH DATA ---------------- */
   const products = await getAllProducts();
   const categories = await getAllCategory();
@@ -130,7 +130,11 @@ const Products = async ({ searchParams }) => {
           {filteredProducts.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredProducts.map((product) => (
-                <ProductCard key={product._id} product={product} />
+                <ProductCard
+                  key={product._id}
+                  product={product}
+                  reviews={reviews}
+                />
               ))}
             </div>
           ) : (

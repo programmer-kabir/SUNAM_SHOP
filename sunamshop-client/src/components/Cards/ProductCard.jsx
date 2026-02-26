@@ -1,13 +1,15 @@
 "use client";
 import { Eye, Heart } from "lucide-react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import QuickViewModal from "../products/FlashProduct/QuickViewModal";
 import { useSession } from "next-auth/react";
 import { useWishlist } from "@/context/WishlistContext";
 import toast from "react-hot-toast";
+import StarRating from "../ui/StarRating";
+import Link from "next/link";
 
-const HomeProductCard = ({ product }) => {
+const ProductCard = ({ product, reviews }) => {
   const { data: session } = useSession();
   const hasDiscount =
     product.discountPrice && product.discountPrice < product.price;
@@ -46,9 +48,26 @@ const HomeProductCard = ({ product }) => {
   };
   const isAdmin = session?.user?.role;
   const isDisabled = isAdmin === "admin";
-
+  const review = useMemo(() => {
+    return reviews?.filter((r) => r.productId === product?._id) || [];
+  }, [reviews, product?._id]);
+  const avgRating = useMemo(() => {
+    if (review.length === 0) return 0;
+    const total = review.reduce((sum, r) => sum + (r.rating || 0), 0);
+    return Number((total / review.length).toFixed(1));
+  }, [review]);
+  const remainingStock = Number(product?.stock ?? 0);
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow relative group overflow-hidden transition">
+    <Link
+      href={`/products/${product.slug}`}
+      className="group
+bg-white dark:bg-gray-900
+rounded-lg
+overflow-hidden
+border border-gray-200 dark:border-gray-800
+hover:shadow
+transition-all duration-300"
+    >
       {/* Discount Badge */}
       {hasDiscount && (
         <span className="absolute top-3 left-3 bg-red-500 text-white text-xs px-2 py-1 rounded z-10">
@@ -95,7 +114,7 @@ const HomeProductCard = ({ product }) => {
         />
 
         {/* 🔥 Add To Cart (From Image Bottom) */}
-        <button
+        {/* <button
           className="
         absolute bottom-0 left-0 w-full
         bg-black/90 text-white py-3
@@ -105,17 +124,19 @@ const HomeProductCard = ({ product }) => {
       "
         >
           Add To Cart
-        </button>
+        </button> */}
       </div>
 
       {/* TEXT SECTION */}
       <div className="px-5 py-4">
-        <h3 className="text-sm font-medium dark:text-white mb-2 line-clamp-2 h-10">
+        <h3 className="text-sm font-medium dark:text-white line-clamp-1 h-10">
           {product.name.en || product.name}
         </h3>
-
-        <div className="flex items-center gap-2">
-          <span className="text-red-500 font-semibold">
+        <p className="text-sm text-gray-500 line-clamp-2">
+          {product?.description?.en}
+        </p>{" "}
+        <div className="flex items-center gap-2 pt-2">
+          <span className="text-red-500 font-bold text-2xl">
             ৳ {hasDiscount ? product.discountPrice : product.price}
           </span>
           {hasDiscount && (
@@ -124,17 +145,40 @@ const HomeProductCard = ({ product }) => {
             </span>
           )}
         </div>
+        <div className="flex items-center justify-between text-xs text-gray-600 pt-2">
+          {/* Rating */}
+          {review.length > 0 ? (
+            <div className="flex items-center gap-1">
+              <StarRating rating={avgRating} />
+              <span>
+                {avgRating} ({review.length})
+              </span>
+            </div>
+          ) : (
+            <span className="text-gray-400">No reviews</span>
+          )}
 
-        <div className="flex items-center gap-1 text-yellow-400 mt-2 text-sm">
-          {"★".repeat(Math.round(product.rating || 5))}
-          {"☆".repeat(5 - Math.round(product.rating || 5))}
+          {/* Sold + Stock */}
+          <div className="flex items-center gap-2">
+            <span className="font-medium text-gray-700">
+              {product?.sold || 0} sold
+            </span>
+
+            <span
+              className={`font-medium ${
+                remainingStock > 0 ? "text-green-600" : "text-red-600"
+              }`}
+            >
+              {remainingStock > 0 ? `${remainingStock} left` : "Out of stock"}
+            </span>
+          </div>
         </div>
       </div>
       {quickView && (
         <QuickViewModal product={product} close={() => setQuickView(false)} />
       )}
-    </div>
+    </Link>
   );
 };
 
-export default HomeProductCard;
+export default ProductCard;

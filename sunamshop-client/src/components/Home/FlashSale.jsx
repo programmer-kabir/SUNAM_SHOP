@@ -8,14 +8,14 @@ import "swiper/css/navigation";
 import { Heart, Eye } from "lucide-react";
 import Image from "next/image";
 import SectionHeader from "../SectionHeader";
-import HomeProductCard from "../Cards/DHomeProductCard";
+import HomeProductCard from "../Cards/ProductCard";
 import useFlashSale from "@/hooks/useFlashSale";
 import FlashProductCard from "../Cards/FlashProductCard";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import HomeProductsCard from "../Cards/HomeProductCard";
 
-export default function FlashSale({ products }) {
+export default function FlashSale({ reviews }) {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const { data: flashSales } = useFlashSale();
@@ -53,8 +53,8 @@ export default function FlashSale({ products }) {
             }}
           >
             {flashProducts?.map((product) => (
-              <SwiperSlide key={product?._id}>
-                <HomeProductsCard product={product} flashSales={flashSales} />
+              <SwiperSlide key={product?._id} className="h-full">
+                <HomeProductsCard product={product} reviews={reviews} />
               </SwiperSlide>
             ))}
           </Swiper>

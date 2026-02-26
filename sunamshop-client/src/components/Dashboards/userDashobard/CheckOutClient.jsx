@@ -390,7 +390,7 @@ const CheckOutClient = ({
               type="submit"
               className="px-6 py-2 bg-red-500 text-white rounded"
             >
-              Save Changes
+              Confrim
             </button>
           </div>
         </div>

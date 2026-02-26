@@ -1,31 +1,44 @@
 import React from "react";
-import HomeProductCard from "../Cards/DHomeProductCard";
 import SectionHeader from "../SectionHeader";
+import ProductsCard from "../Cards/ProductsCard";
 
-const Products = ({ products }) => {
+const Products = ({ products = [], categories = [], reviews = [] }) => {
   return (
-    <div>
-      <section className="py-12 bg-gray-50 dark:bg-gray-900">
-        <div className="container-custom">
-          <SectionHeader subtitle="Our Products" title="Explore Our Products" />
+    <div className="py-12 bg-gray-50 dark:bg-gray-900">
+      <div className="container-custom space-y-16">
+        {categories.map((category) => {
+          const categoryProducts = products.filter(
+            (product) => product.categoryId === category.id,
+          );
 
-          {/* Grid wrapper */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-8 justify-center items-center">
-            {products.slice(0, 8).map((product) => (
-              <HomeProductCard
-                key={product._id || product.id}
-                product={product}
+          // যদি কোনো product না থাকে তাহলে section দেখাবো না
+          if (categoryProducts.length === 0) return null;
+
+          return (
+            <section key={category._id}>
+              {/* Section Header */}
+              <SectionHeader
+                subtitle="Our Products"
+                title={category?.name?.en}
+                hasButton
+                link={`products?category=${category?.slug}`}
               />
-            ))}
-          </div>
 
-          <div className="flex justify-center mt-10">
-            <button className="bg-red-500 text-white px-8 py-3 rounded-md hover:bg-red-600 transition font-medium">
-              View All Products
-            </button>
-          </div>
-        </div>
-      </section>
+              {/* Products Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-8">
+                {categoryProducts.map((product) => (
+                  <ProductsCard
+                    key={product._id}
+                    product={product}
+                    reviews={reviews}
+                    category={category}
+                  />
+                ))}
+              </div>
+            </section>
+          );
+        })}
+      </div>
     </div>
   );
 };

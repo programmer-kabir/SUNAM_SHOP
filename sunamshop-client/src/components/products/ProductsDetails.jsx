@@ -8,6 +8,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useWishlist } from "@/context/WishlistContext";
 const ProductsDetails = ({ name, product, reviews = [] }) => {
+  console.log(reviews?.length);
   const { data: session } = useSession();
   const avgRating = useMemo(() => {
     if (!reviews.length) return 0;

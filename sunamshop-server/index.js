@@ -611,7 +611,7 @@ async function run() {
 
             { $unwind: "$product" },
 
-            // 🔥 FIXED Join Reviews (ObjectId → String match)
+            // 🔥 Join Reviews
             {
               $lookup: {
                 from: "reviews",
@@ -631,20 +631,28 @@ async function run() {
 
             { $sort: { totalQty: -1 } },
 
+            // ✅ FINAL CLEAN STRUCTURE
             {
               $project: {
                 _id: 0,
-                productId: "$_id",
+                productId: { $toString: "$_id" },
                 totalQty: 1,
 
-                name: "$product.name.en",
-                description: "$product.description.en",
+                // Product Info (Direct usable)
+                _id: "$product._id",
+                name: "$product.name",
+                description: "$product.description",
                 price: "$product.price",
                 discountPrice: "$product.discountPrice",
                 slug: "$product.slug",
-                image: { $arrayElemAt: ["$product.images", 0] },
-
-                reviews: 1, // full reviews array
+                images: "$product.images",
+                sizes: "$product.sizes",
+                color: "$product.color",
+                isFlash: "$product.isFlash",
+                flashPrice: "$product.flashPrice",
+                stock: "$product.stock",
+                sold: "$product.sold",
+                reviews: 1,
               },
             },
           ])
@@ -652,11 +660,12 @@ async function run() {
 
         res.json(result);
       } catch (err) {
+        console.error(err);
         res.status(500).json({ message: "Server error" });
       }
     });
     // GET  All Orders
-    app.get("/api/manage_orders", verifyJWT, verifyAdmin, async (req, res) => {
+    app.get("/api/manage_orders", async (req, res) => {
       try {
         const items = await ordersCollection
           .find()
@@ -677,17 +686,93 @@ async function run() {
         const { id } = req.params;
         const { status } = req.body;
 
-        console.log("ID:", id);
-        console.log("Status:", status);
-
         try {
-          const result = await ordersCollection.updateOne(
+          const order = await ordersCollection.findOne({
+            _id: new ObjectId(id),
+          });
+
+          if (!order) {
+            return res.status(404).send({ message: "Order not found" });
+          }
+
+          const previousStatus = order.status;
+
+          if (previousStatus === status) {
+            return res.send({ message: "Already updated" });
+          }
+
+          const updateData = { status };
+          const unsetData = {};
+
+          const today = new Date();
+          const year = today.getFullYear().toString().slice(-2);
+          const month = String(today.getMonth() + 1).padStart(2, "0");
+          const day = String(today.getDate()).padStart(2, "0");
+          const formattedDate = `${year}-${month}-${day}`;
+
+          // 🔥 DELIVERY
+          if (status === "delivered") {
+            for (const item of order.items) {
+              await productsCollection.updateOne(
+                { _id: new ObjectId(item.productId) },
+                {
+                  $inc: {
+                    stock: -Number(item.qty),
+                    sold: Number(item.qty),
+                  },
+                },
+              );
+            }
+
+            updateData.deliveryDate = formattedDate;
+          }
+
+          // 🔥 CANCEL
+          if (status === "cancelled") {
+            if (previousStatus === "delivered") {
+              for (const item of order.items) {
+                await productsCollection.updateOne(
+                  { _id: new ObjectId(item.productId) },
+                  {
+                    $inc: {
+                      stock: Number(item.qty),
+                      sold: -Number(item.qty),
+                    },
+                  },
+                );
+              }
+            }
+
+            updateData.cancelDate = formattedDate;
+            unsetData.deliveryDate = "";
+            unsetData.rejectDate = "";
+          }
+
+          // 🔥 REJECT
+          if (status === "rejected") {
+            updateData.rejectDate = formattedDate;
+            unsetData.deliveryDate = "";
+            unsetData.cancelDate = "";
+          }
+
+          // 🔥 BACK TO PENDING
+          if (status === "pending") {
+            unsetData.deliveryDate = "";
+            unsetData.cancelDate = "";
+            unsetData.rejectDate = "";
+          }
+
+          await ordersCollection.updateOne(
             { _id: new ObjectId(id) },
-            { $set: { status } },
+            {
+              $set: updateData,
+              $unset: unsetData,
+            },
           );
 
-          res.send(result);
+          res.send({ message: "Order updated successfully" });
         } catch (error) {
+          console.error(error);
           res.status(500).send({ error: "Failed to update order" });
         }
       },
@@ -784,6 +869,20 @@ async function run() {
       } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Server error" });
+      }
+    });
+
+    app.get("/api/get_reviews", async (req, res) => {
+      try {
+        const reviews = await reviewsCollection
+          .find({})
+          .sort({ _id: -1 }) // latest first
+          .toArray();
+
+        res.send(reviews);
+      } catch (error) {
+        console.error(error);
+        res.status(500).send({ error: "Failed to fetch reviews" });
       }
     });
 

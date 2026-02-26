@@ -5,24 +5,24 @@ import React from "react";
 const ArrivalCard = ({ image, title, description, height }) => {
   return (
     <div
-      className={`group relative block bg-black overflow-hidden rounded-xl ${height}`}
+      className={`group relative overflow-hidden rounded-xl ${height}`}
     >
       {/* Image */}
-      <div className="absolute inset-0 flex items-center justify-center p-10 transition-opacity duration-300 group-hover:opacity-50">
-        <Image
-          width={600}
-          height={600}
-          src={image}
-          alt={title}
-          className="max-h-full max-w-full object-contain"
-        />
-      </div>
+      <Image
+        src={image}
+        alt={title}
+        fill
+        className="object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+
+      {/* Dark Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
 
       {/* Content */}
-      <div className="relative p-4 sm:p-6 lg:p-8 h-full flex items-end">
-        <div className="translate-y-8 transform opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 text-white">
+      <div className="absolute bottom-0 p-4 sm:p-6 lg:p-8 text-white">
+        <div className="transform transition-all duration-300 translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
           <p className="text-lg font-semibold">{title}</p>
-          <p className="text-sm opacity-80">{description}</p>
+          <p className="text-sm opacity-90">{description}</p>
           <Link href="/" className="inline-block mt-2 underline">
             Shop Now
           </Link>

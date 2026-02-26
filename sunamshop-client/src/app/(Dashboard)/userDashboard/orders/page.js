@@ -1,9 +1,9 @@
-import IncompleteCart from "@/components/Dashboards/userDashobard/CartTabs/IncompleteCart";
+import CompleteCart from "@/components/Dashboards/userDashobard/CartTabs/CompleteCart";
 import Breadcrumb from "@/components/ui/breadcrumb";
 import { getAllProducts } from "@/utils/productApi";
 import React from "react";
 
-const Incomplete_cart = async () => {
+const CompleteCartPage = async () => {
   const products = await getAllProducts();
   return (
     <div>
@@ -14,16 +14,14 @@ const Incomplete_cart = async () => {
             href: `/userDashboard/dashboard`,
           },
           {
-            label: "My InComplete Cart",
-            href: `/userDashboard/incomplete_cart`,
+            label: "Orders",
+            href: `/userDashboard/Orders`,
           },
         ]}
       />
-      <div>
-        <IncompleteCart products={products} />
-      </div>
+      <CompleteCart products={products} />
     </div>
   );
 };
 
-export default Incomplete_cart;
+export default CompleteCartPage;

@@ -13,7 +13,6 @@ const AnnounceBar = () => {
   const toggleLanguage = () => {
     setLanguage(language === "BN" ? "EN" : "BN");
   };
-  console.log(flashSales);
   const name = session?.user?.name || session?.user?.firstName;
   return (
     <div className="w-full border-b border-gray-200  bg-white/90 backdrop-blur-md dark:border-gray-500 dark:bg-gray-950/90 text-sm">

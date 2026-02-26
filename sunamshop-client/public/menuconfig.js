@@ -1,49 +1,53 @@
 import {
   LayoutDashboard,
   Users,
+  ShoppingBag,
+  PackageCheck,
+  PackagePlus,
+  ListOrdered,
+  Tags,
+  UserCog,
+  ClipboardList,
   ShoppingCart,
-  Package,
-  List,
-  Pencil,
 } from "lucide-react";
 
 export const menuConfig = {
   admin: [
     {
-      title: "Dashboard",
+      title: "Overview",
       href: "/adminDashboard/dashboard",
       icon: LayoutDashboard,
     },
     {
-      title: "Users",
+      title: "User Management",
       href: "/adminDashboard/users",
-      icon: Users,
+      icon: UserCog,
     },
     {
-      title: "Manage Orders",
+      title: "Order Management",
       href: "/adminDashboard/manageOrders",
-      icon: Users,
+      icon: ClipboardList,
     },
     {
-      title: "Products",
-      icon: Package,
+      title: "Product Management",
+      icon: ShoppingBag,
       children: [
         {
-          title: "Add Products",
+          title: "Add New Product",
           href: "/adminDashboard/products/addproducts",
-          icon: List,
+          icon: PackagePlus,
         },
         {
           title: "All Products",
           href: "/adminDashboard/products/allproducts",
-          icon: List,
+          icon: ListOrdered,
         },
       ],
     },
     {
-      title: "Flash Campaign",
+      title: "Flash Campaigns",
       href: "/adminDashboard/flashcampaign",
-      icon: Users,
+      icon: Tags,
     },
   ],
 
@@ -54,23 +58,23 @@ export const menuConfig = {
       icon: LayoutDashboard,
     },
     {
-      title: "My Profile",
+      title: "Profile Settings",
       href: "/userDashboard/profileInformation",
-      icon: LayoutDashboard,
+      icon: Users,
     },
     {
       title: "My Orders",
-      icon: Package,
+      icon: ShoppingCart,
       children: [
         {
-          title: "My Incomplete Cart",
-          href: "/userDashboard/cart/Incomplete_cart",
-          icon: List,
+          title: "My Cart",
+          href: "/userDashboard/cart",
+          icon: ShoppingCart,
         },
         {
-          title: "My Complete Cart",
-          href: "/userDashboard/cart/complete_cart",
-          icon: Pencil,
+          title: "Confirmed Orders",
+          href: "/userDashboard/orders",
+          icon: PackageCheck,
         },
       ],
     },

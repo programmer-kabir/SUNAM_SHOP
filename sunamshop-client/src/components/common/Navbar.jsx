@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import {
   ShoppingCart,
@@ -26,20 +26,23 @@ export default function Navbar() {
   const { darkMode, setDarkMode } = useThemeLanguage();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const { data: cart, refetch: refetchCart } = useCart();
   const { data: session } = useSession();
   const { data: products, isLoading, refetch: refetchProducts } = useProducts();
   const { wishlist } = useWishlist();
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchHistory, setSearchHistory] = useState([]);
+  const [isDesktopSearchOpen, setIsDesktopSearchOpen] = useState(false);
   const categories = [
     { id: 1, nameEN: "Home", nameBN: "হোম", link: "/" },
     { id: 6, nameEN: "All Products", nameBN: "হোম", link: "/products" },
     {
       id: 2,
-      nameEN: "Electronics",
+      nameEN: "Groceries",
       nameBN: "ইলেকট্রনিক্স",
-      link: "/products?category=electronics",
+      link: "/products?category=groceries",
     },
     {
       id: 3,
@@ -55,6 +58,50 @@ export default function Navbar() {
     },
     { id: 5, nameEN: "Offers", nameBN: "অফার", link: "/offers" },
   ];
+  const searchRef = useRef(null);
+  const handleSearch = () => {
+    if (!searchTerm.trim()) return;
+
+    const updatedHistory = [
+      searchTerm,
+      ...searchHistory.filter((item) => item !== searchTerm),
+    ].slice(0, 6); // max 6 items রাখলাম
+
+    setSearchHistory(updatedHistory);
+    localStorage.setItem("searchHistory", JSON.stringify(updatedHistory));
+
+    router.push(`/products?search=${searchTerm}`);
+    setSearchTerm("");
+    setIsMobileSearchOpen(false);
+  };
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setIsMobileSearchOpen(false);
+        setIsDesktopSearchOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+  useEffect(() => {
+    const stored = localStorage.getItem("searchHistory");
+    if (stored) {
+      setSearchHistory(JSON.parse(stored));
+    }
+  }, []);
+  const filteredHistory = searchTerm
+    ? searchHistory.filter((item) =>
+        item.toLowerCase().includes(searchTerm.toLowerCase()),
+      )
+    : searchHistory;
+  const clearHistory = () => {
+    localStorage.removeItem("searchHistory");
+    setSearchHistory([]);
+  };
   const isAdmin = session?.user?.role;
   return (
     <>
@@ -103,45 +150,121 @@ export default function Navbar() {
             {/* RIGHT SIDE */}
             <div className="flex items-center md:gap-4">
               {/* SEARCH (Desktop) */}
-              <div className="relative w-full hidden md:flex md:w-72">
+              <div
+                className="relative w-full hidden md:flex md:w-80"
+                ref={searchRef}
+              >
                 <input
                   type="text"
                   value={searchTerm}
+                  onFocus={() => setIsDesktopSearchOpen(true)}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter" && searchTerm.trim() !== "") {
-                      router.push(`/products?search=${searchTerm}`);
-                      setSearchTerm("");
-                    }
+                    if (e.key === "Enter") handleSearch();
+                    if (e.key === "Escape") setIsDesktopSearchOpen(false);
                   }}
                   placeholder="Search products..."
                   className="w-full rounded-full border border-gray-300 bg-gray-50 py-2 pl-4 pr-10 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                 />
-                <Search
-                  onClick={() => {
-                    if (searchTerm.trim() !== "") {
-                      router.push(`/products?search=${searchTerm}`);
-                      setSearchTerm("");
-                    }
-                  }}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500"
-                />
-              </div>
-              <div className="w-full px-4 py-3 bg-white md:hidden">
-                <div className="relative">
-                  <input
-                    type="text"
-                    placeholder="Search"
-                    className="w-full bg-transparent border-b border-gray-300 
-                     focus:border-black focus:outline-none 
-                     py-2 pr-8 text-sm"
-                  />
 
-                  <Search
-                    size={18}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 text-gray-500"
-                  />
-                </div>
+                <Search
+                  onClick={handleSearch}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 cursor-pointer"
+                />
+
+                {/* 🔽 DESKTOP SUGGESTION DROPDOWN */}
+                {isDesktopSearchOpen && filteredHistory.length > 0 && (
+                  <div className="absolute top-full left-0 mt-2 w-full bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 max-h-56 overflow-y-auto z-50">
+                    {/* Header */}
+                    <div className="flex items-center justify-between px-3 py-2 border-b bg-gray-50 dark:bg-gray-800">
+                      <span className="text-xs font-semibold text-gray-600 dark:text-gray-300">
+                        🕒 Recent Searches
+                      </span>
+
+                      <button
+                        onClick={clearHistory}
+                        className="text-xs text-red-500 hover:underline"
+                      >
+                        Clear
+                      </button>
+                    </div>
+
+                    {/* List */}
+                    {filteredHistory.map((item, index) => (
+                      <div
+                        key={index}
+                        onClick={() => {
+                          setSearchTerm(item);
+                          router.push(`/products?search=${item}`);
+                          setSearchTerm("");
+                        }}
+                        className="px-3 py-2 text-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-100 last:border-none flex items-center gap-2"
+                      >
+                        🔍 {item}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              {/* MOBILE SEARCH */}
+              <div className="md:hidden flex items-center">
+                {!isMobileSearchOpen && (
+                  <button
+                    onClick={() => setIsMobileSearchOpen(true)}
+                    className="p-2"
+                  >
+                    <Search className="h-6 w-6" />
+                  </button>
+                )}
+
+                {isMobileSearchOpen && (
+                  <div
+                    ref={searchRef}
+                    className="absolute top-16 left-0 w-full bg-white dark:bg-gray-950 border-b border-gray-300 shadow-md px-4 z-50"
+                  >
+                    <input
+                      type="text"
+                      autoFocus
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                      placeholder="Search products..."
+                      className="w-full border-b pb-2 outline-none bg-transparent"
+                    />
+
+                    {filteredHistory.length > 0 && (
+                      <div className="mt-3 bg-white dark:bg-gray-900 rounded-lg shadow-lg border-gray-200 max-h-48 overflow-y-auto">
+                        {" "}
+                        {/* Header */}
+                        <div className="flex items-center justify-between px-3 py-2 border-b border-gray-100 bg-gray-50 dark:bg-gray-800">
+                          <span className="text-xs font-semibold text-gray-600 dark:text-gray-300">
+                            🕒 Recent Searches
+                          </span>
+
+                          <button
+                            onClick={clearHistory}
+                            className="text-xs text-red-500 hover:underline"
+                          >
+                            Clear
+                          </button>
+                        </div>
+                        {filteredHistory.map((item, index) => (
+                          <div
+                            key={index}
+                            onClick={() => {
+                              setSearchTerm(item);
+                              router.push(`/products?search=${item}`);
+                              setIsMobileSearchOpen(false);
+                            }}
+                            className="px-3 py-2 text-[12px] cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-100 last:border-none"
+                          >
+                            🔍 {item}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
 
               {/* DARK MODE */}
@@ -302,7 +425,7 @@ export default function Navbar() {
           />
         </div>
       </div>
-      <MobileBottomNav user={session}/>
+      <MobileBottomNav user={session} />
     </>
   );
 }

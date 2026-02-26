@@ -70,7 +70,7 @@ const ManageOrders = ({ products, users }) => {
       });
 
       // ❌ If cancelled
-      if (!result.isConfirmed) return
+      if (!result.isConfirmed) return;
 
       await axios.put(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/updated_order/${orderId}`,
@@ -104,7 +104,7 @@ const ManageOrders = ({ products, users }) => {
   };
 
   return (
-    <div className="mx-auto p-6 bg-slate-100 min-h-screen">
+    <div className="mx-auto bg-slate-100 min-h-screen">
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <div>
@@ -211,10 +211,11 @@ const ManageOrders = ({ products, users }) => {
         </div>
       </div>
       {/* Table Card */}
-      <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-        <table className="w-full text-sm">
+      <div className="bg-white rounded-2xl shadow-lg overflow-x-auto">
+        <table className="min-w-[1200px] w-full text-base">
+          {" "}
           <thead className="bg-slate-50 border-b">
-            <tr className="text-slate-600 text-xs uppercase tracking-wider">
+            <tr className="text-slate-600 text-base uppercase tracking-wider">
               <th className="p-4 text-left">Order</th>
               <th className="p-4 text-left">Customer</th>
               <th className="p-4 text-left">Email</th>
@@ -222,12 +223,14 @@ const ManageOrders = ({ products, users }) => {
               <th className="p-4 text-left">Product</th>
               <th className="p-4 text-center">Qty</th>
               <th className="p-4 text-right">Price</th>
+              <th className="p-4 text-right">Total</th>
               <th className="p-4 text-right">Shipping</th>
-              <th className="p-4 text-center">Date</th>
+              <th className="p-4 text-center">Order Date</th>
+
+              <th className="p-4 text-center">Actions Date</th>
               <th className="p-4 text-center">Actions</th>
             </tr>
           </thead>
-
           <tbody className="divide-y divide-slate-200">
             {filteredOrders?.map((order) =>
               order.items?.map((product, index) => {
@@ -244,22 +247,16 @@ const ManageOrders = ({ products, users }) => {
                         {/* ORDER COLUMN */}
                         <td
                           rowSpan={order.items.length}
-                          className="p-2 align-center"
+                          className="px-4 py-2 align-center whitespace-nowrap"
                         >
                           <div className="font-semibold text-slate-800">
                             {order.orderId}
                           </div>
-                          <div className="text-xs text-slate-400 mt-1">
-                            {new Date(order.createdAt).toLocaleDateString()}
-                          </div>
                         </td>
 
                         {/* CUSTOMER */}
-                        <td
-                          rowSpan={order.items.length}
-                          className="p-2 align-center"
-                        >
-                          <div className="font-medium text-slate-700">
+                        <td rowSpan={order.items.length} className="px-4 py-2">
+                          <div className="font-medium text-slate-700 whitespace-nowrap">
                             {user?.firstName} {user?.lastName}
                           </div>
                         </td>
@@ -267,7 +264,7 @@ const ManageOrders = ({ products, users }) => {
                         {/* EMAIL */}
                         <td
                           rowSpan={order.items.length}
-                          className="p-2 text-slate-500 align-center"
+                          className="px-4 py-2 text-slate-500 align-center whitespace-nowrap"
                         >
                           {order.userEmail}
                         </td>
@@ -275,7 +272,7 @@ const ManageOrders = ({ products, users }) => {
                         {/* PHONE */}
                         <td
                           rowSpan={order.items.length}
-                          className="p-2 text-slate-500 align-center"
+                          className="px-4 py-2 text-slate-500 whitespace-nowrap"
                         >
                           {user?.number}
                         </td>
@@ -283,34 +280,48 @@ const ManageOrders = ({ products, users }) => {
                     )}
 
                     {/* PRODUCT INFO */}
-                    <td className="p-2">
+                    <td className="px-4 py-2">
                       <div className="text-slate-700 font-medium text-sm">
                         {productData?.name?.en || "Product Not Found"}
                       </div>
                     </td>
 
-                    <td className="p-2 text-center text-slate-600">
+                    <td className="px-4 py-2 text-center text-slate-600">
                       {product.qty}
                     </td>
 
-                    <td className="p-2 text-right font-medium text-slate-800">
-                      ${product.price}
+                    <td className="px-4 py-2 text-left font-medium text-slate-800 whitespace-nowrap">
+                      ৳ {product.price}
                     </td>
 
                     {index === 0 && (
                       <>
                         <td
                           rowSpan={order.items.length}
-                          className="p-2 text-right font-medium text-slate-700 align-center"
+                          className="px-4 py-2 text-left font-medium text-slate-700 align-center whitespace-nowrap"
                         >
-                          ${order.deliveryCharge}
+                          ৳ {order.total}
+                        </td>
+                        <td
+                          rowSpan={order.items.length}
+                          className="px-4 py-2 text-right font-medium text-slate-700 align-center whitespace-nowrap"
+                        >
+                          ৳{order.deliveryCharge}
                         </td>
 
                         <td
                           rowSpan={order.items.length}
-                          className="p-2 text-center text-slate-500 align-center"
+                          className="px-4 py-2 text-center text-slate-500 align-center whitespace-nowrap"
                         >
                           {new Date(order.createdAt).toLocaleDateString()}
+                        </td>
+                        <td
+                          rowSpan={order.items.length}
+                          className="px-4 py-2 text-center text-slate-500 align-middle whitespace-nowrap"
+                        >
+                          {order.status === "delivered" && order.deliveryDate}
+                          {order.status === "cancelled" && order.cancelDate}
+                          {order.status === "rejected" && order.rejectDate}
                         </td>
 
                         <td

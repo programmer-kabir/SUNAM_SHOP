@@ -77,99 +77,94 @@ const IncompleteCart = ({ products }) => {
           </div>
 
           {/* Cart Items */}
-        {cartItems?.map((item) => (
-  <div
-    key={item._id}
-    className="border-b py-5"
-  >
-    {/* Desktop Layout */}
-    <div className="hidden md:grid grid-cols-5 items-center gap-4">
-      
-      {/* Product */}
-      <div className="flex items-center gap-4">
-        <div className="relative w-20 h-20 rounded-md overflow-hidden border bg-gray-50">
-          <Image
-            src={item.image}
-            alt={item.name}
-            fill
-            className="object-contain"
-          />
-        </div>
-        <div>
-          <h3 className="font-semibold">{item.name}</h3>
-          <p className="text-sm text-gray-500">
-            {item.size && `Size: ${item.size}`}{" "}
-            {item.color && `| Color: ${item.color}`}
-          </p>
-        </div>
-      </div>
+          {cartItems?.map((item) => (
+            <div key={item._id} className="border-b py-5">
+              {/* Desktop Layout */}
+              <div className="hidden md:grid grid-cols-5 items-center gap-4">
+                {/* Product */}
+                <div className="flex items-center gap-4">
+                  <div className="relative w-20 h-20 rounded-md overflow-hidden border bg-gray-50">
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold">{item.name}</h3>
+                    <p className="text-sm text-gray-500">
+                      {item.size && `Size: ${item.size}`}{" "}
+                      {item.color && `| Color: ${item.color}`}
+                    </p>
+                  </div>
+                </div>
 
-      {/* Price */}
-      <div>৳ {item.price}</div>
+                {/* Price */}
+                <div>৳ {item.price}</div>
 
-      {/* Quantity */}
-      <div>{item.quantity}</div>
+                {/* Quantity */}
+                <div>{item.quantity}</div>
 
-      {/* Subtotal */}
-      <div className="text-right font-semibold">
-        ৳ {item.subtotal}
-      </div>
+                {/* Subtotal */}
+                <div className="text-right font-semibold">
+                  ৳ {item.subtotal}
+                </div>
 
-      {/* Action */}
-      <div className="flex justify-end">
-        <button
-          onClick={() => handleDelete(item?._id)}
-          className="text-red-500 hover:text-red-600 transition"
-        >
-          <Trash2 className="w-5 h-5" />
-        </button>
-      </div>
-    </div>
+                {/* Action */}
+                <div className="flex justify-end">
+                  <button
+                    onClick={() => handleDelete(item?._id)}
+                    className="text-red-500 hover:text-red-600 transition"
+                  >
+                    <Trash2 className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
 
-    {/* Mobile Layout */}
-    <div className="flex md:hidden items-center justify-between gap-3">
-      
-      <div className="flex items-center gap-3 flex-1 min-w-0">
-        <div className="relative w-16 h-16 rounded-md overflow-hidden border bg-gray-50 shrink-0">
-          <Image
-            src={item.image}
-            alt={item.name}
-            fill
-            className="object-contain"
-          />
-        </div>
+              {/* Mobile Layout */}
+              <div className="flex md:hidden items-center justify-between gap-3">
+                <div className="flex items-center gap-3 flex-1 min-w-0">
+                  <div className="relative w-16 h-16 rounded-md overflow-hidden border bg-gray-50 shrink-0">
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
 
-        <div className="min-w-0">
-          <h3 className="text-sm font-semibold truncate">
-            {item.name}
-          </h3>
+                  <div className="min-w-0">
+                    <h3 className="text-sm font-semibold truncate">
+                      {item.name}
+                    </h3>
 
-          <p className="text-xs text-gray-500 truncate">
-            {item.size && `Size: ${item.size}`}{" "}
-            {item.color && `| Color: ${item.color}`}
-          </p>
+                    <p className="text-xs text-gray-500 truncate">
+                      {item.size && `Size: ${item.size}`}{" "}
+                      {item.color && `| Color: ${item.color}`}
+                    </p>
 
-          <div className="text-xs text-gray-600 mt-1">
-            ৳ {item.price} × {item.quantity}
-          </div>
-        </div>
-      </div>
+                    <div className="text-xs text-gray-600 mt-1">
+                      ৳ {item.price} × {item.quantity}
+                    </div>
+                  </div>
+                </div>
 
-      <div className="flex flex-col items-end gap-2 shrink-0">
-        <span className="font-semibold text-sm">
-          ৳ {item.subtotal}
-        </span>
+                <div className="flex flex-col items-end gap-2 shrink-0">
+                  <span className="font-semibold text-sm">
+                    ৳ {item.subtotal}
+                  </span>
 
-        <button
-          onClick={() => handleDelete(item?._id)}
-          className="text-red-500 hover:text-red-600 transition"
-        >
-          <Trash2 className="w-4 h-4" />
-        </button>
-      </div>
-    </div>
-  </div>
-))}
+                  <button
+                    onClick={() => handleDelete(item?._id)}
+                    className="text-red-500 hover:text-red-600 transition"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
 
           {/* Bottom Section */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mt-8 gap-6">
@@ -197,7 +192,7 @@ const IncompleteCart = ({ products }) => {
               </div>
 
               <Link
-                href="/CheckOut"
+                href="/userDashboard/cart/CheckOut"
                 className="mt-6 bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg block text-center transition"
               >
                 Proceed to Checkout
