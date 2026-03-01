@@ -4,25 +4,25 @@ import { useState } from "react";
 import axios from "axios";
 import slugify from "slugify";
 import { toast } from "react-hot-toast";
-const AddProductForm = ({ session }) => {
-    const initialState = {
-  name: { en: "", bn: "" },
-  description: { en: "", bn: "" },
-  price: "",
-  discountPrice: "",
-  category: "",
-  stock: "",
-  color: [],
-  sizes: [],
-  images: [""],
-  specifications: [
-    {
-      key: { en: "", bn: "" },
-      value: { en: "", bn: "" },
-    },
-  ],
-  isFeatured: false,
-};
+const AddProductForm = ({ session, category }) => {
+  const initialState = {
+    name: { en: "", bn: "" },
+    description: { en: "", bn: "" },
+    price: "",
+    discountPrice: "",
+    category: "",
+    stock: "",
+    color: [],
+    sizes: [],
+    images: [""],
+    specifications: [
+      {
+        key: { en: "", bn: "" },
+        value: { en: "", bn: "" },
+      },
+    ],
+    isFeatured: false,
+  };
   const [formData, setFormData] = useState(initialState);
 
   const handleChange = (e, field, lang = null) => {
@@ -115,6 +115,10 @@ const AddProductForm = ({ session }) => {
             en: cleanName,
           },
           slug,
+          categoryId: formData?.category,
+          price: Number(formData?.price),
+          discountPrice: Number(formData?.discountPrice),
+          stock: Number(formData?.stock),
         },
         {
           headers: {
@@ -122,91 +126,135 @@ const AddProductForm = ({ session }) => {
           },
         },
       );
-setFormData(initialState);
+      setFormData(initialState);
       toast.success("Product Added Successfully");
     } catch (error) {
       toast.error("Something went wrong");
     }
   };
-  const inputClass = "px-2 py-3 outline-none border border-gray-400 rounded-md";
+
+  const inputClass =
+    "w-full mt-2 px-4 py-2 bg-white border border-gray-300 rounded outline-none text-sm";
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="max-w-5xl mx-auto p-6 bg-white shadow-lg rounded-xl space-y-6"
-    >
+    <form onSubmit={handleSubmit} className=" mx-auto space-y-6">
       <h2 className="text-2xl font-bold">Add New Product</h2>
 
       {/* Name */}
-      <div className="grid md:grid-cols-2 gap-4">
-        <input
-          type="text"
-          placeholder="Product Name (English)"
-          className={inputClass}
-          onChange={(e) => handleChange(e, "name", "en")}
-        />
-        <input
-          type="text"
-          placeholder="Product Name (Bangla)"
-          className={inputClass}
-          onChange={(e) => handleChange(e, "name", "bn")}
-        />
+      <div className="flex md:grid-cols-2 gap-4">
+        <div className="w-full">
+          <p className="text-sm">Product Title(EN)</p>
+          <input
+            type="text"
+            placeholder="Product Name (English)"
+            className={`w-full ${inputClass}`}
+            onChange={(e) => handleChange(e, "name", "en")}
+          />
+        </div>
+        <div className="w-full">
+          <p className="text-sm">Product Title(BN)</p>
+          <input
+            type="text"
+            placeholder="Product Name (Bangla)"
+            className={`w-full ${inputClass}`}
+            onChange={(e) => handleChange(e, "name", "bn")}
+          />
+        </div>
       </div>
 
       {/* Description */}
       <div className="grid md:grid-cols-2 gap-4">
-        <textarea
-          placeholder="Description (English)"
-          className={inputClass}
-          onChange={(e) => handleChange(e, "description", "en")}
-        />
-        <textarea
-          placeholder="Description (Bangla)"
-          className={inputClass}
-          onChange={(e) => handleChange(e, "description", "bn")}
-        />
+        <div className="w-full">
+          <p className="text-sm">Product Description(EN)</p>
+          <textarea
+            placeholder="Description (English)"
+            className={inputClass}
+            onChange={(e) => handleChange(e, "description", "en")}
+          />
+        </div>
+
+        <div className="w-full">
+          <p className="text-sm">Product Description(BN)</p>
+          <textarea
+            placeholder="Description (Bangla)"
+            className={inputClass}
+            onChange={(e) => handleChange(e, "description", "bn")}
+          />
+        </div>
       </div>
 
       {/* Price Section */}
       <div className="grid md:grid-cols-4 gap-4">
-        <input
-          type="number"
-          placeholder="Price"
-          className={inputClass}
-          onChange={(e) => handleChange(e, "price")}
-        />
-        <input
-          type="number"
-          placeholder="Discount Price"
-          className={inputClass}
-          onChange={(e) => handleChange(e, "discountPrice")}
-        />
-        <input
-          type="number"
-          placeholder="Stock"
-          className={inputClass}
-          onChange={(e) => handleChange(e, "stock")}
-        />
-        <input
-          type="text"
-          placeholder="Category"
-          className={inputClass}
-          onChange={(e) => handleChange(e, "category")}
-        />
+        <div className="w-full">
+          <p className="text-sm">Price</p>
+          <input
+            type="number"
+            placeholder="Price"
+            className={inputClass}
+            onChange={(e) => handleChange(e, "price")}
+          />
+        </div>
+        <div className="w-full">
+          <p className="text-sm">Discount Price</p>
+          <input
+            type="number"
+            placeholder="Discount Price"
+            className={inputClass}
+            onChange={(e) => handleChange(e, "discountPrice")}
+          />
+        </div>
+
+        <div className="w-full">
+          <p className="text-sm">Stock</p>
+          <input
+            type="number"
+            placeholder="Stock"
+            className={inputClass}
+            onChange={(e) => handleChange(e, "stock")}
+          />
+        </div>
+
+        <div className="w-full">
+          <p className="text-sm">Category</p>
+
+          <select
+            className={inputClass}
+            value={formData.category}
+            onChange={(e) => handleChange(e, "category")}
+          >
+            <option value="">Select Category</option>
+
+            {category?.map((cat) => (
+              <option key={cat.id} value={cat.id}>
+                {cat.name.en}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div className="md:flex items-center gap-4">
+        <div className="w-full">
+          <p className="text-sm">Colors</p>
+          <input
+            type="text"
+            placeholder="Colors (comma separated: white, black)"
+            className={inputClass}
+            onChange={handleColorChange}
+          />
+        </div>
+
+        <div className="w-full">
+          <p className="text-sm">Size</p>
+          <input
+            type="text"
+            placeholder="Size (comma separated: S, M, X, xl)"
+            className={inputClass}
+            onChange={handleSizeChange}
+          />
+        </div>
       </div>
 
       {/* Colors */}
-      <input
-        type="text"
-        placeholder="Colors (comma separated: white, black)"
-        className={inputClass}
-        onChange={handleColorChange}
-      />
-      <input
-        type="text"
-        placeholder="Size (comma separated: S, M, X, xl)"
-        className={inputClass}
-        onChange={handleSizeChange}
-      />
 
       {/* Images */}
       <div>

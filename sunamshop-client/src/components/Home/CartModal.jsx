@@ -123,7 +123,7 @@ const CartModal = ({ cart, products, onClose, session, refetchCart }) => {
         {cartItems?.length > 0 && (
           <>
             <Link
-              href="/userDashboard/cart/Incomplete_cart"
+              href="/userDashboard/cart"
               className="w-full border rounded py-3 text-center"
             >
               View my cart ({cartItems?.length})

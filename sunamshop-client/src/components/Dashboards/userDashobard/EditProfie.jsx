@@ -2,13 +2,15 @@
 
 import useUsers from "@/hooks/useUsers";
 import { useQueryClient } from "@tanstack/react-query";
-import React, { useMemo, useEffect } from "react";
+import { ImagePlus } from "lucide-react";
+import React, { useMemo, useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
 const EditProfile = ({ user, divisions, districts, upazilas, token }) => {
   const { data: users } = useUsers();
-  console.log(users);
+  const [image, setImage] = useState();
+  console.log(image);
   const currentUser = users?.find((u) => u.email === user?.email);
   const {
     register,
@@ -82,6 +84,7 @@ const EditProfile = ({ user, divisions, districts, upazilas, token }) => {
           division: selectedDivisionObj?.name,
           district: selectedDistrictObj?.name,
           upazila: selectedUpazilaObj?.name,
+          image,
           villageName: data.villageName,
         }),
       },
@@ -116,6 +119,7 @@ const EditProfile = ({ user, divisions, districts, upazilas, token }) => {
       lastName: currentUser.lastName || "",
       email: currentUser.email || "",
       number: currentUser.number || "",
+      image: currentUser?.image || "",
       division_id: matchedDivision?.id || "",
       district_id: matchedDistrict?.id || "",
       upazila_id: matchedUpazila?.id || "",
@@ -123,8 +127,8 @@ const EditProfile = ({ user, divisions, districts, upazilas, token }) => {
     });
   }, [currentUser, divisions, districts, upazilas, reset]);
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-4xl mx-auto bg-white shadow rounded-lg p-8">
+    <div className="min-h-screen ">
+      <div className=" mx-auto md:px-8 p-2">
         <h2 className="text-xl font-semibold text-red-500 mb-6">
           Edit Your Profile
         </h2>
@@ -133,12 +137,13 @@ const EditProfile = ({ user, divisions, districts, upazilas, token }) => {
           {/* First + Last Name */}
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <label>First Name *</label>
+              <label className="text-sm">First Name *</label>
               <input
                 {...register("firstName", {
                   required: "First name is required",
                 })}
-                className="w-full mt-2 px-4 py-3 bg-gray-100 rounded"
+                placeholder="Write First Name..."
+                className="w-full mt-2 px-4 py-2 bg-white border border-gray-300 rounded outline-none text-sm"
               />
               {errors.firstName && (
                 <p className="text-red-500 text-sm">
@@ -148,12 +153,13 @@ const EditProfile = ({ user, divisions, districts, upazilas, token }) => {
             </div>
 
             <div>
-              <label>Last Name *</label>
+              <label className="text-sm">Last Name *</label>
               <input
                 {...register("lastName", {
                   required: "Last name is required",
                 })}
-                className="w-full mt-2 px-4 py-3 bg-gray-100 rounded"
+                placeholder="Write Last Name..."
+                className="w-full mt-2 px-4 py-2 bg-white border border-gray-300 rounded outline-none text-sm"
               />
               {errors.lastName && (
                 <p className="text-red-500 text-sm">
@@ -163,39 +169,54 @@ const EditProfile = ({ user, divisions, districts, upazilas, token }) => {
             </div>
           </div>
 
-          {/* Email (Read Only) */}
-          <div>
-            <label>Email</label>
-            <input
-              value={user?.email || ""}
-              readOnly
-              className="w-full mt-2 px-4 py-3 bg-gray-100 rounded cursor-not-allowed"
-            />
-            <input
-              type="hidden"
-              {...register("email")}
-              value={user?.email || ""}
-            />
-          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Email (Read Only) */}
+            <div>
+              <label className="text-sm">Email</label>
+              <input
+                value={user?.email || ""}
+                readOnly
+                className="w-full mt-2 px-4 py-2 bg-white border border-gray-300 rounded outline-none text-sm"
+              />
+              <input
+                type="hidden"
+                {...register("email")}
+                value={user?.email || ""}
+              />
+            </div>
 
-          {/* Number */}
+            {/* Number */}
+            <div>
+              <label className="text-sm">Number *</label>
+              <input
+                {...register("number", {
+                  required: "Number is required",
+                })}
+                className="w-full mt-2 px-4 py-2 bg-white border border-gray-300 rounded outline-none text-sm"
+              />
+              {errors.number && (
+                <p className="text-red-500 text-sm">{errors.number.message}</p>
+              )}
+            </div>
+          </div>
           <div>
-            <label>Number *</label>
+            <label className="text-sm">Image *</label>
             <input
-              {...register("number", {
-                required: "Number is required",
+              {...register("image", {
+                required: "Image is required",
               })}
-              className="w-full mt-2 px-4 py-3 bg-gray-100 rounded"
+              placeholder="Write Image URL..."
+              onChange={(e) => setImage(e.target.value)}
+              className="w-full mt-2 px-4 py-2 bg-white border border-gray-300 rounded outline-none text-sm"
             />
-            {errors.number && (
-              <p className="text-red-500 text-sm">{errors.number.message}</p>
+            {errors.image && (
+              <p className="text-red-500 text-sm">{errors.image.message}</p>
             )}
           </div>
-
           {/* Division + District */}
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <label>Division *</label>
+              <label className="text-sm">Division *</label>
               <select
                 {...register("division_id", {
                   required: "Division is required",
@@ -205,7 +226,7 @@ const EditProfile = ({ user, divisions, districts, upazilas, token }) => {
                   setValue("district_id", "");
                   setValue("upazila_id", "");
                 }}
-                className="w-full mt-2 px-4 py-3 bg-gray-100 rounded"
+                className="w-full mt-2 px-4 py-2 bg-white border border-gray-300 rounded outline-none text-sm"
               >
                 <option value="">Select Division</option>
                 {divisions?.map((division) => (
@@ -222,7 +243,7 @@ const EditProfile = ({ user, divisions, districts, upazilas, token }) => {
             </div>
 
             <div>
-              <label>District *</label>
+              <label className="text-sm">District *</label>
               <select
                 {...register("district_id", {
                   required: "District is required",
@@ -232,7 +253,7 @@ const EditProfile = ({ user, divisions, districts, upazilas, token }) => {
                   setValue("district_id", e.target.value);
                   setValue("upazila_id", "");
                 }}
-                className="w-full mt-2 px-4 py-3 bg-gray-100 rounded"
+                className="w-full mt-2 px-4 py-2 bg-white border border-gray-300 rounded outline-none text-sm"
               >
                 <option value="">Select District</option>
                 {filteredDistricts?.map((district) => (
@@ -252,13 +273,13 @@ const EditProfile = ({ user, divisions, districts, upazilas, token }) => {
           {/* Upazila + Village */}
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <label>Upazila *</label>
+              <label className="text-sm">Upazila *</label>
               <select
                 {...register("upazila_id", {
                   required: "Upazila is required",
                 })}
                 disabled={!selectedDistrict}
-                className="w-full mt-2 px-4 py-3 bg-gray-100 rounded"
+                className="w-full mt-2 px-4 py-2 bg-white border border-gray-300 rounded outline-none text-sm"
               >
                 <option value="">Select Upazila</option>
                 {filteredUpazilas?.map((upazila) => (
@@ -275,12 +296,12 @@ const EditProfile = ({ user, divisions, districts, upazilas, token }) => {
             </div>
 
             <div>
-              <label>Village *</label>
+              <label className="text-sm">Village *</label>
               <input
                 {...register("villageName", {
                   required: "Village name is required",
                 })}
-                className="w-full mt-2 px-4 py-3 bg-gray-100 rounded"
+                className="w-full mt-2 px-4 py-2 bg-white border border-gray-300 rounded outline-none text-sm"
               />
               {errors.villageName && (
                 <p className="text-red-500 text-sm">
@@ -289,7 +310,56 @@ const EditProfile = ({ user, divisions, districts, upazilas, token }) => {
               )}
             </div>
           </div>
+          {/* <div className="bg-white p-6 rounded-xl shadow-sm">
+            <h2 className="text-lg font-semibold mb-4">Display Images</h2>
 
+            <div
+              onClick={() => fileInputRef.current.click()}
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={(e) => {
+                e.preventDefault();
+                handleFiles(e.dataTransfer.files);
+              }}
+              className="border-2 border-dashed border-gray-300 
+                   rounded-xl h-52 flex flex-col items-center 
+                   justify-center cursor-pointer 
+                   hover:border-blue-500 transition"
+            >
+              <ImagePlus size={40} className="text-gray-400 mb-3" />
+
+              <p className="text-gray-500">
+                Drag your photo here or{" "}
+                <span className="text-blue-600 font-medium">
+                  Browse from device
+                </span>
+              </p>
+
+              <input
+                type="file"
+                multiple
+                hidden
+                ref={fileInputRef}
+                onChange={(e) => handleFiles(e.target.files)}
+              />
+            </div>
+
+            {images?.length > 0 && (
+              <div className="grid grid-cols-3 gap-4 mt-6">
+                {images.map((img, index) => (
+                  <div
+                    key={index}
+                    className="relative h-28 rounded-lg overflow-hidden border"
+                  >
+                    <img
+                      src={img}
+                      alt="preview"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div> */}
           <button
             type="submit"
             className="px-6 py-2 bg-red-500 text-white rounded"

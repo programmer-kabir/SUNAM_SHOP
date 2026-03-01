@@ -16,9 +16,9 @@ const CheckOutClient = ({
   token,
   products,
 }) => {
-  const { data: cart } = useCart();
+  const { data: cart, refetch } = useCart();
   const [delivery, setDelivery] = useState(null);
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { data: users } = useUsers();
   const currentUser = users?.find((u) => u.email === user?.email);
   const {
@@ -113,44 +113,110 @@ const CheckOutClient = ({
       return acc + price * qty;
     }, 0) || 0;
   const total = subtotal + deliveryCharge;
+
+  // const onSubmit = async (data) => {
+
+  //   setIsSubmitting(true);
+
+  //   const selectedDivisionObj = divisions?.find(
+  //     (d) => String(d.id) === String(data.division_id),
+  //   );
+
+  //   const selectedDistrictObj = districts?.find(
+  //     (d) => String(d.id) === String(data.district_id),
+  //   );
+
+  //   const selectedUpazilaObj = upazilas?.find(
+  //     (u) => String(u.id) === String(data.upazila_id),
+  //   );
+
+  //   const profileRes = await fetch(
+  //     `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/edit_user_profile`,
+  //     {
+  //       method: "PUT",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //       body: JSON.stringify({
+  //         firstName: data.firstName || null,
+  //         lastName: data.lastName || null,
+  //         email: data.email,
+  //         number: data.number,
+  //         division: selectedDivisionObj?.name,
+  //         district: selectedDistrictObj?.name,
+  //         upazila: selectedUpazilaObj?.name,
+  //         villageName: data.villageName,
+  //       }),
+  //     },
+  //   );
+  //   if (!profileRes.ok) {
+  //     toast.error("Profile update failed");
+  //   }
+
+  //   if (profileRes.ok) {
+  //     queryClient.invalidateQueries(["edit_user_profile"]);
+  //     const orderRes = await fetch(
+  //       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //         body: JSON.stringify({
+  //           deliveryCharge: deliveryCharge || null,
+  //           email: user?.email,
+  //         }),
+  //       },
+  //     );
+  //     if (!orderRes.ok) {
+  //       toast.error("Order failed");
+  //     }
+  //     toast.success("Order placed successfully 🎉");
+  //     refetch();
+  //   }
+  // };
   const onSubmit = async (data) => {
-    // 🔥 Convert ID → Name
-    const selectedDivisionObj = divisions?.find(
-      (d) => String(d.id) === String(data.division_id),
-    );
+    try {
+      setIsSubmitting(true);
 
-    const selectedDistrictObj = districts?.find(
-      (d) => String(d.id) === String(data.district_id),
-    );
+      const selectedDivisionObj = divisions?.find(
+        (d) => String(d.id) === String(data.division_id),
+      );
 
-    const selectedUpazilaObj = upazilas?.find(
-      (u) => String(u.id) === String(data.upazila_id),
-    );
+      const selectedDistrictObj = districts?.find(
+        (d) => String(d.id) === String(data.district_id),
+      );
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/edit_user_profile`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+      const selectedUpazilaObj = upazilas?.find(
+        (u) => String(u.id) === String(data.upazila_id),
+      );
+
+      const profileRes = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/edit_user_profile`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            firstName: data.firstName || null,
+            lastName: data.lastName || null,
+            email: data.email,
+            number: data.number,
+            division: selectedDivisionObj?.name,
+            district: selectedDistrictObj?.name,
+            upazila: selectedUpazilaObj?.name,
+            villageName: data.villageName,
+          }),
         },
-        body: JSON.stringify({
-          firstName: data.firstName || null,
-          lastName: data.lastName || null,
-          email: data.email,
-          number: data.number,
-          division: selectedDivisionObj?.name,
-          district: selectedDistrictObj?.name,
-          upazila: selectedUpazilaObj?.name,
-          villageName: data.villageName,
-        }),
-      },
-    );
-    const result = await res.json();
-    if (res.ok) {
-      queryClient.invalidateQueries(["edit_user_profile"]);
-      const res = await fetch(
+      );
+
+      if (!profileRes.ok) throw new Error("Profile update failed");
+
+      const orderRes = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders`,
         {
           method: "POST",
@@ -164,6 +230,15 @@ const CheckOutClient = ({
           }),
         },
       );
+
+      if (!orderRes.ok) throw new Error("Order failed");
+
+      toast.success("Order placed successfully 🎉");
+      refetch();
+    } catch (error) {
+      toast.error("Something went wrong!");
+    } finally {
+      setIsSubmitting(false);
     }
   };
   return (
@@ -372,25 +447,51 @@ const CheckOutClient = ({
             <h3 className="font-semibold mb-4">Cart Total</h3>
 
             <div className="flex justify-between mb-2">
-              <span>Subtotal</span>
-              <span>${subtotal}</span>
+              <span>Items subtotal :</span>
+              <span>৳{subtotal}</span>
             </div>
             <div className="flex justify-between mb-2">
-              <span>Subtotal</span>
-              <span>${deliveryCharge}</span>
+              <span>Discount :</span>
+              <span>0</span>
+            </div>
+            <div className="flex justify-between mb-2">
+              <span>Tax :</span>
+              <span>0</span>
+            </div>
+            <div className="flex justify-between mb-2">
+              <span>Subtotal :</span>
+              <span>৳{subtotal}</span>
+            </div>
+            <div className="flex justify-between mb-2">
+              <span>Shipping Cost :</span>
+              <span>৳{deliveryCharge}</span>
             </div>
 
             <div className="flex justify-between font-semibold border-t pt-3">
               <span>Total</span>
-              <span>${total}</span>
+              <span>৳{total}</span>
             </div>
           </div>
           <div className="flex justify-end mt-7">
             <button
               type="submit"
-              className="px-6 py-2 bg-red-500 text-white rounded"
+              disabled={isSubmitting}
+              className={`px-6 py-3 rounded-lg text-white font-semibold transition flex items-center justify-center gap-2
+    ${
+      isSubmitting
+        ? "bg-gray-400 cursor-not-allowed"
+        : "bg-red-500 hover:bg-red-600"
+    }
+  `}
             >
-              Confrim
+              {isSubmitting ? (
+                <>
+                  <span className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full"></span>
+                  Processing...
+                </>
+              ) : (
+                "Confirm Order"
+              )}
             </button>
           </div>
         </div>

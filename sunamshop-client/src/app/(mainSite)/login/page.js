@@ -1,70 +1,69 @@
 "use client";
 import { signIn } from "next-auth/react";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import toast from "react-hot-toast";
-import useUsers from "@/hooks/useUsers";
-import useAllUsers from "@/hooks/useAllUsers";
+import { useForm } from "react-hook-form";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const router = useRouter();
-  const { data: users } = useAllUsers();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm();
 
-    const userToMySite = users?.find((u) => u?.email === email);
-
-    // ❌ যদি user না পাওয়া যায়
-    if (!userToMySite) {
-      toast.error("User not found");
-      return;
-    }
-
-    // ✅ সব ঠিক থাকলে login
+  const onSubmit = async (data) => {
     const res = await signIn("credentials", {
-      email,
-      password,
+      identifier: data.identifier,
+      password: data.password,
       redirect: false,
     });
 
-    if (!res.error) {
+    if (!res?.error) {
+      toast.success("Login successful");
       router.push("/");
     } else {
-      toast.error("Invalid password");
+      toast.error("Invalid credentials");
     }
   };
 
   return (
-    <div className="container-custom flex items-center gap-14 py-10 ">
-      <div className="w-[60%]">
+    <div className="container-custom lg:flex lg:items-center lg:gap-14 py-10 overflow-hidden">
+      <div className="w-[60%] hidden lg:inline">
         <Image
           height={100}
           width={500}
           src="https://supplylinkbd.com/img/Sunam_Shop/side_image.png"
-          alt=""
+          alt="login"
           className="w-full h-[700px]"
         />
       </div>
-      <div className="w-[40%]">
-        <form onSubmit={handleLogin} className="space-y-6">
+
+      <div className="lg:w-[40%]">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div>
-            <h2 className="font-semibold text-3xl">Create an account</h2>
-            <p className="">Enter your details below</p>
+            <h2 className="font-semibold text-3xl">Login</h2>
+            <p>Enter your email or phone and password</p>
           </div>
 
-          {/* Email */}
+          {/* Email or Phone */}
           <div>
             <input
               type="text"
-              placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email or Phone"
+              {...register("identifier", {
+                required: "Email or phone is required",
+              })}
               className="w-full border-b border-gray-300 bg-transparent py-2 focus:outline-none focus:border-black transition"
             />
+            {errors.identifier && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.identifier.message}
+              </p>
+            )}
           </div>
 
           {/* Password */}
@@ -72,23 +71,34 @@ export default function Login() {
             <input
               type="password"
               placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least 6 characters",
+                },
+              })}
               className="w-full border-b border-gray-300 bg-transparent py-2 focus:outline-none focus:border-black transition"
             />
+            {errors.password && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.password.message}
+              </p>
+            )}
           </div>
 
-          {/* Create Button */}
+          {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-red-500 hover:bg-red-600 text-white py-3 rounded-md transition font-medium"
+            disabled={isSubmitting}
+            className="w-full bg-red-500 hover:bg-red-600 text-white py-3 rounded-md transition font-medium disabled:opacity-50"
           >
-            Login
+            {isSubmitting ? "Logging in..." : "Login"}
           </button>
 
-          {/* Google Button */}
-
+          {/* Links */}
           <div className="flex items-center text-sm justify-between">
-            <p className="text-sm text-center text-gray-500">
+            <p className="text-gray-500">
               New account?{" "}
               <Link
                 href="/register"

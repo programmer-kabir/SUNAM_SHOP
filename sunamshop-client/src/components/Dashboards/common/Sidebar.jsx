@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Bell, Grid, Moon, Menu, Search, ChevronDown, X } from "lucide-react";
+import { Bell, Grid, Moon, Menu, Search, ChevronDown, X, LogOut } from "lucide-react";
 import { menuConfig } from "../../../../public/menuconfig";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import useUsers from "@/hooks/useUsers";
@@ -64,8 +64,6 @@ export default function DashboardLayout({ children }) {
             </div>
 
             <div className="flex items-center gap-4">
-              <Bell className="w-5 h-5 cursor-pointer" />
-              <Grid className="w-5 h-5 cursor-pointer" />
               <button onClick={() => setDark(!dark)}>
                 <Moon className="w-5 h-5" />
               </button>
@@ -87,12 +85,12 @@ export default function DashboardLayout({ children }) {
         </header>
 
         {/* ================= BODY ================= */}
-        <div className="flex flex-1 overflow-hidden">
+        <div className="flex flex-1 ">
           {/* ================= SIDEBAR DESKTOP ================= */}
           <aside
             className={`${
               collapsed ? "w-20" : "w-64"
-            } transition-all duration-300 bg-white dark:bg-gray-800 border-r border-gray-200 p-4 overflow-y-auto hidden lg:flex`}
+            } transition-all duration-300 bg-white dark:bg-gray-800 border-r border-gray-200 p-4 overflow-y-auto hidden lg:flex flex-col`}
           >
             <nav className="space-y-2 w-full">
               {menus.map((item) => {
@@ -171,6 +169,18 @@ export default function DashboardLayout({ children }) {
                 );
               })}
             </nav>
+
+            <div className="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700">
+              <button
+                onClick={() => signOut({ callbackUrl: "/" })}
+                className={`w-full flex items-center ${
+                  collapsed ? "justify-center" : "justify-start gap-3"
+                } px-3 py-2 rounded-lg text-red-600 hover:bg-red-50 dark:hover:bg-red-900/30 transition`}
+              >
+                 <LogOut className="h-6 w-6 text-gray-700 dark:text-gray-200 cursor-pointer" />
+                {!collapsed && <span className="font-medium">Logout</span>}
+              </button>
+            </div>
           </aside>
 
           {/* ================= MOBILE SIDEBAR ================= */}

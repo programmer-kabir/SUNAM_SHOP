@@ -55,9 +55,7 @@ export default function Navbar() {
       nameEN: "Gadgets",
       nameBN: "গ্যাজেট",
       link: "/products?category=gadgets",
-    },
-    { id: 5, nameEN: "Offers", nameBN: "অফার", link: "/offers" },
-  ];
+  }  ];
   const searchRef = useRef(null);
   const handleSearch = () => {
     if (!searchTerm.trim()) return;

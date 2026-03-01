@@ -9,6 +9,8 @@ import {
   UserCog,
   ClipboardList,
   ShoppingCart,
+  Tag,
+  FileText,
 } from "lucide-react";
 
 export const menuConfig = {
@@ -22,6 +24,11 @@ export const menuConfig = {
       title: "User Management",
       href: "/adminDashboard/users",
       icon: UserCog,
+    },
+    {
+      title: "User Cart Monitor",
+      href: "/adminDashboard/userCart",
+      icon: ShoppingCart,
     },
     {
       title: "Order Management",
@@ -41,6 +48,11 @@ export const menuConfig = {
           title: "All Products",
           href: "/adminDashboard/products/allproducts",
           icon: ListOrdered,
+        },
+        {
+          title: "Add Category",
+          href: "/adminDashboard/products/addcategory",
+          icon: Tag,
         },
       ],
     },
@@ -77,6 +89,11 @@ export const menuConfig = {
           icon: PackageCheck,
         },
       ],
+    },
+    {
+      title: "Invoices",
+      href: "/userDashboard/invoices",
+      icon: FileText,
     },
   ],
 };

@@ -5,6 +5,7 @@ const cors = require("cors");
 require("dotenv").config();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const rateLimit = require("express-rate-limit");
 
 // /Middleware
 app.use(
@@ -35,6 +36,7 @@ const verifyAdmin = (req, res, next) => {
   }
   next();
 };
+
 // protected test route
 app.get("/api/user", verifyJWT, async (req, res) => {
   res.json({ message: "You are logged in", user: req.user });
@@ -122,10 +124,16 @@ async function run() {
         res.status(500).json({ message: "Server error" });
       }
     });
+
+    app.post("/api/categories", verifyJWT, verifyAdmin, async (req, res) => {
+      const body = req.body;
+      await categoryCollection.insertOne(body);
+      res.send(201).json({ message: "Category Added successfully" });
+    });
     // REGISTER
     app.post("/api/auth/register", async (req, res) => {
       try {
-        const { firstName, email, password } = req.body;
+        const { firstName, email, password, number } = req.body;
 
         const exist = await usersCollection.findOne({ email });
         if (exist) {
@@ -139,6 +147,7 @@ async function run() {
           email,
           password: hashedPassword,
           role: "user",
+          number: Number(number),
           createdAt: new Date(),
         });
 
@@ -150,9 +159,14 @@ async function run() {
 
     app.post("/api/auth/login", async (req, res) => {
       try {
-        const { email, password } = req.body;
+        const { identifier, password } = req.body;
+        const isEmail = identifier.includes("@");
 
-        const user = await usersCollection.findOne({ email });
+        const query = isEmail
+          ? { email: identifier }
+          : { number: Number(identifier) };
+
+        const user = await usersCollection.findOne(query);
         if (!user) {
           return res.status(401).json({ message: "No user found" });
         }
@@ -181,6 +195,7 @@ async function run() {
         res.status(500).json({ message: "Server error" });
       }
     });
+
     app.post("/api/auth/google", async (req, res) => {
       try {
         const { name, email, image } = req.body;
@@ -230,14 +245,18 @@ async function run() {
     });
     // GET ALL USERS (protected)
     app.get("/api/users", verifyJWT, async (req, res) => {
-      const users = await usersCollection
-        .find({})
-        .project({ password: 0 })
-        .toArray();
-      res.json(users);
+      const { email } = req.query;
+
+      if (email) {
+        const user = await usersCollection.findOne({ email });
+        return res.send(user);
+      }
+
+      const users = await usersCollection.find().toArray();
+      res.send(users);
     });
     // all users
-    app.get("/api/get_all_users", async (req, res) => {
+    app.get("/api/get_all_users", verifyJWT, verifyAdmin, async (req, res) => {
       try {
         const users = await usersCollection
           .find({}, { projection: { email: 1, password: 1, _id: 0 } })
@@ -261,6 +280,7 @@ async function run() {
           district,
           upazila,
           villageName,
+          image,
         } = req.body;
 
         // 🔒 Security check (token email vs body email)
@@ -278,6 +298,7 @@ async function run() {
             upazila: upazila || "",
             villageName: villageName || "",
             updatedAt: new Date(),
+            image: image || "",
           },
         };
 
@@ -376,7 +397,153 @@ async function run() {
         res.status(500).json({ message: "Server error" });
       }
     });
+    app.get(
+      "/api/admin/cart_summary",
+      verifyJWT,
+      verifyAdmin,
+      async (req, res) => {
+        try {
+          const result = await cartCollection
+            .aggregate([
+              // 🔹 Convert productId to ObjectId
+              {
+                $addFields: {
+                  productObjId: { $toObjectId: "$productId" },
+                },
+              },
 
+              // 🔹 Product Join
+              {
+                $lookup: {
+                  from: "products",
+                  localField: "productObjId",
+                  foreignField: "_id",
+                  as: "productInfo",
+                },
+              },
+              {
+                $unwind: {
+                  path: "$productInfo",
+                  preserveNullAndEmptyArrays: true,
+                },
+              },
+
+              // 🔹 User Join
+              {
+                $lookup: {
+                  from: "users",
+                  localField: "userEmail",
+                  foreignField: "email",
+                  as: "userInfo",
+                },
+              },
+              {
+                $unwind: {
+                  path: "$userInfo",
+                  preserveNullAndEmptyArrays: true,
+                },
+              },
+
+              // 🔹 Safe Project
+              {
+                $project: {
+                  _id: 0,
+                  userEmail: 1,
+                  name: "$userInfo.firstName",
+                  number: "$userInfo.number",
+                  productName: "$productInfo.name.en",
+                  productImage: {
+                    $ifNull: [
+                      { $arrayElemAt: ["$productInfo.images", 0] },
+                      null,
+                    ],
+                  },
+                  price: { $toDouble: "$price" }, // price string hole fix
+                  quantity: "$qty", // cart e qty ase
+                  color: 1,
+                  size: 1,
+                  totalPrice: {
+                    $multiply: [
+                      { $toDouble: "$price" },
+                      { $ifNull: ["$qty", 1] },
+                    ],
+                  },
+                },
+              },
+            ])
+            .toArray();
+
+          res.json(result);
+        } catch (err) {
+          console.error("Aggregation Error:", err);
+          res.status(500).json({ message: "Server error" });
+        }
+      },
+    );
+    // app.get(
+    //   "/api/admin/cart_summary",
+    //   verifyJWT,
+    //   verifyAdmin,
+    //   async (req, res) => {
+    //     try {
+    //       const result = await cartCollection
+    //         .aggregate([
+    //           {
+    //             $group: {
+    //               _id: "$userEmail",
+    //               totalItems: { $sum: 1 },
+    //               products: {
+    //                 $push: {
+    //                   productId: "$productId",
+    //                   productName: "$productName",
+    //                   price: "$price",
+    //                   quantity: "$quantity",
+    //                 },
+    //               },
+    //             },
+    //           },
+
+    //           // 👇 users collection থেকে join
+    //           {
+    //             $lookup: {
+    //               from: "users", // ⚠️ তোমার collection নাম যেটা
+    //               localField: "_id", // এখানে userEmail আছে
+    //               foreignField: "email", // users collection এর email
+    //               as: "userInfo",
+    //             },
+    //           },
+
+    //           // array flatten করা
+    //           {
+    //             $unwind: {
+    //               path: "$userInfo",
+    //               preserveNullAndEmptyArrays: true,
+    //             },
+    //           },
+
+    //           // দরকারি field select করা
+    //           {
+    //             $project: {
+    //               _id: 1,
+    //               totalItems: 1,
+    //               products: 1,
+    //               phone: "$userInfo.number", // 👈 এখানে phone আনলাম
+    //               name: "$userInfo.firstName",
+    //             },
+    //           },
+
+    //           {
+    //             $sort: { totalItems: -1 },
+    //           },
+    //         ])
+    //         .toArray();
+
+    //       res.json(result);
+    //     } catch (err) {
+    //       res.status(500).json({ message: "Server error" });
+    //     }
+    //   },
+    // );
     // Delete Cart Item
     app.delete("/api/cart/:id", verifyJWT, async (req, res) => {
       try {

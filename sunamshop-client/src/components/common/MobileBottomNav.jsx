@@ -39,16 +39,16 @@ export default function MobileBottomNav({ user }) {
           <span>Favorites</span>
         </Link>
 
-        <Link
+        {/* <Link
           href="/messages"
           className="flex flex-col items-center text-xs text-gray-600 hover:text-black"
         >
           <MessageCircle size={20} />
           <span>Message</span>
-        </Link>
-        {user?.user && (
+        </Link> */}
+        {user?.user?.role === 'user' && (
           <Link
-            href="/categories"
+            href="userDashboard/cart"
             className="flex flex-col items-center text-xs text-gray-600 hover:text-black"
           >
             <ShoppingCart size={20} />

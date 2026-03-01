@@ -1,6 +1,7 @@
 "use client";
 import useManageOrders from "@/hooks/useManageOrders";
 import axios from "axios";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useMemo, useState } from "react";
 import toast from "react-hot-toast";
@@ -18,7 +19,7 @@ const ManageOrders = ({ products, users }) => {
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState("all");
-  const itemsPerPage = 5;
+  const itemsPerPage = 20;
 
   const filteredOrders = useMemo(() => {
     return (
@@ -88,13 +89,13 @@ const ManageOrders = ({ products, users }) => {
       toast.error(`Failed to update order status.`);
     }
   };
-  const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
+  const totalItems = filteredOrders.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   const paginatedData = filteredOrders.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage,
   );
-
   const handlePageChange = (page) => {
     if (page < 1 || page > totalPages) return;
     setCurrentPage(page);
@@ -102,9 +103,23 @@ const ManageOrders = ({ products, users }) => {
   const getUserFullDetails = (email) => {
     return users?.find((u) => u.email === email);
   };
+  const highlightText = (text) => {
+    if (!search) return text;
 
+    const regex = new RegExp(`(${search})`, "gi");
+
+    return text.split(regex).map((part, index) =>
+      part.toLowerCase() === search.toLowerCase() ? (
+        <span key={index} className="bg-yellow-300  rounded">
+          {part}
+        </span>
+      ) : (
+        part
+      ),
+    );
+  };
   return (
-    <div className="mx-auto bg-slate-100 min-h-screen">
+    <div className="mx-auto min-h-screen">
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <div>
@@ -202,6 +217,7 @@ const ManageOrders = ({ products, users }) => {
                 setViewType("all");
                 setSelectedDate("");
                 setSelectedMonth("");
+                setCurrentPage(1);
               }}
               className="w-full h-11 bg-slate-800 text-white rounded-lg hover:bg-slate-700 transition-all"
             >
@@ -211,129 +227,158 @@ const ManageOrders = ({ products, users }) => {
         </div>
       </div>
       {/* Table Card */}
-      <div className="bg-white rounded-2xl shadow-lg overflow-x-auto">
-        <table className="min-w-[1200px] w-full text-base">
+      <div className="bg-white rounded-2xl shadow-lg">
+        <div className="w-full overflow-x-auto custom-scroll">
           {" "}
-          <thead className="bg-slate-50 border-b">
-            <tr className="text-slate-600 text-base uppercase tracking-wider">
-              <th className="p-4 text-left">Order</th>
-              <th className="p-4 text-left">Customer</th>
-              <th className="p-4 text-left">Email</th>
-              <th className="p-4 text-left">Phone</th>
-              <th className="p-4 text-left">Product</th>
-              <th className="p-4 text-center">Qty</th>
-              <th className="p-4 text-right">Price</th>
-              <th className="p-4 text-right">Total</th>
-              <th className="p-4 text-right">Shipping</th>
-              <th className="p-4 text-center">Order Date</th>
+          <table className="min-w-[1440px] w-full text-base">
+            {" "}
+            <thead className="bg-slate-50 border-b">
+              <tr className="text-slate-600 text-base uppercase tracking-wider">
+                <th className="p-4 text-left whitespace-nowrap">Order</th>
+                <th className="p-4 text-left whitespace-nowrap">Customer</th>
+                <th className="p-4 text-left">Email</th>
+                <th className="p-4 text-left">Phone</th>
+                <th className="p-4 text-left whitespace-nowrap">Product</th>
+                <th className="p-4 text-center">Qty</th>
+                <th className="p-4 text-right whitespace-nowrap">Price</th>
+                <th className="p-4 text-right whitespace-nowrap">Size</th>
+                <th className="p-4 text-right whitespace-nowrap">Color</th>
+                <th className="p-4 text-right  whitespace-nowrap">Total</th>
+                <th className="p-4 text-right  whitespace-nowrap">Shipping</th>
+                <th className="p-4 text-center  whitespace-nowrap">
+                  Order Date
+                </th>
 
-              <th className="p-4 text-center">Actions Date</th>
-              <th className="p-4 text-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-slate-200">
-            {filteredOrders?.map((order) =>
-              order.items?.map((product, index) => {
-                const user = getUserFullDetails(order.userEmail);
-                const productData = getProductById(product?.productId);
+                <th className="p-4 text-center whitespace-nowrap">
+                  Actions Date
+                </th>
+                <th className="p-4 text-center  whitespace-nowrap">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-200">
+              {paginatedData?.map((order) =>
+                order.items?.map((product, index) => {
+                  const user = getUserFullDetails(order.userEmail);
+                  const productData = getProductById(product?.productId);
 
-                return (
-                  <tr
-                    key={`${order._id}-${index}`}
-                    className="transition-all px-2"
-                  >
-                    {index === 0 && (
-                      <>
-                        {/* ORDER COLUMN */}
-                        <td
-                          rowSpan={order.items.length}
-                          className="px-4 py-2 align-center whitespace-nowrap"
-                        >
-                          <div className="font-semibold text-slate-800">
-                            {order.orderId}
-                          </div>
-                        </td>
+                  return (
+                    <tr
+                      key={`${order._id}-${index}`}
+                      className="transition-all px-2"
+                    >
+                      {index === 0 && (
+                        <>
+                          {/* ORDER COLUMN */}
+                          <td
+                            rowSpan={order.items.length}
+                            className="p-4 align-center whitespace-nowrap"
+                          >
+                            <div className="font-semibold text-slate-800  whitespace-nowrap">
+                              #{highlightText(order.orderId)}
+                            </div>
+                          </td>
 
-                        {/* CUSTOMER */}
-                        <td rowSpan={order.items.length} className="px-4 py-2">
-                          <div className="font-medium text-slate-700 whitespace-nowrap">
-                            {user?.firstName} {user?.lastName}
-                          </div>
-                        </td>
+                          {/* CUSTOMER */}
+                          <td rowSpan={order.items.length} className="p-4">
+                            <div className="font-medium text-slate-700 whitespace-nowrap">
+                              {user?.firstName} {user?.lastName}
+                            </div>
+                          </td>
 
-                        {/* EMAIL */}
-                        <td
-                          rowSpan={order.items.length}
-                          className="px-4 py-2 text-slate-500 align-center whitespace-nowrap"
-                        >
-                          {order.userEmail}
-                        </td>
+                          {/* EMAIL */}
+                          <td
+                            rowSpan={order.items.length}
+                            className="p-4 text-slate-500 align-center whitespace-nowrap"
+                          >
+                            {order.userEmail}
+                          </td>
 
-                        {/* PHONE */}
-                        <td
-                          rowSpan={order.items.length}
-                          className="px-4 py-2 text-slate-500 whitespace-nowrap"
-                        >
-                          {user?.number}
-                        </td>
-                      </>
-                    )}
+                          {/* PHONE */}
+                          <td
+                            rowSpan={order.items.length}
+                            className="p-4 text-slate-500 whitespace-nowrap"
+                          >
+                            {highlightText(user?.number)}
+                          </td>
+                        </>
+                      )}
 
-                    {/* PRODUCT INFO */}
-                    <td className="px-4 py-2">
-                      <div className="text-slate-700 font-medium text-sm">
-                        {productData?.name?.en || "Product Not Found"}
-                      </div>
-                    </td>
+                      {/* PRODUCT INFO */}
+                      <td className="p-4">
+                        <div className="text-slate-700 font-medium text-sm  whitespace-nowrap">
+                          {highlightText(
+                            productData?.name?.en || "Product Not Found",
+                          )}
+                        </div>
+                      </td>
 
-                    <td className="px-4 py-2 text-center text-slate-600">
-                      {product.qty}
-                    </td>
+                      <td className="p-4 text-center text-slate-600  whitespace-nowrap">
+                        {product.qty}
+                      </td>
 
-                    <td className="px-4 py-2 text-left font-medium text-slate-800 whitespace-nowrap">
-                      ৳ {product.price}
-                    </td>
+                      <td className="p-4 text-center font-medium text-slate-800 whitespace-nowrap">
+                        ৳ {product.price}
+                      </td>
+                      <td className="p-4 text-center whitespace-nowrap">
+                        {product?.size ? (
+                          <span className="px-3 py-1 text-xs font-semibold rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                            {product.size}
+                          </span>
+                        ) : (
+                          <span className="text-slate-400 text-sm">—</span>
+                        )}
+                      </td>
 
-                    {index === 0 && (
-                      <>
-                        <td
-                          rowSpan={order.items.length}
-                          className="px-4 py-2 text-left font-medium text-slate-700 align-center whitespace-nowrap"
-                        >
-                          ৳ {order.total}
-                        </td>
-                        <td
-                          rowSpan={order.items.length}
-                          className="px-4 py-2 text-right font-medium text-slate-700 align-center whitespace-nowrap"
-                        >
-                          ৳{order.deliveryCharge}
-                        </td>
+                      <td className="p-4 text-left whitespace-nowrap">
+                        {product?.color ? (
+                          <span className="px-3 py-1 text-xs font-semibold rounded-full bg-rose-50 text-rose-700 border border-rose-200">
+                            {product.color}
+                          </span>
+                        ) : (
+                          <span className="text-slate-400 text-sm">—</span>
+                        )}
+                      </td>
 
-                        <td
-                          rowSpan={order.items.length}
-                          className="px-4 py-2 text-center text-slate-500 align-center whitespace-nowrap"
-                        >
-                          {new Date(order.createdAt).toLocaleDateString()}
-                        </td>
-                        <td
-                          rowSpan={order.items.length}
-                          className="px-4 py-2 text-center text-slate-500 align-middle whitespace-nowrap"
-                        >
-                          {order.status === "delivered" && order.deliveryDate}
-                          {order.status === "cancelled" && order.cancelDate}
-                          {order.status === "rejected" && order.rejectDate}
-                        </td>
+                      {index === 0 && (
+                        <>
+                          <td
+                            rowSpan={order.items.length}
+                            className="p-4 text-left font-medium text-slate-700 align-center whitespace-nowrap"
+                          >
+                            ৳ {order.total}
+                          </td>
+                          <td
+                            rowSpan={order.items.length}
+                            className="p-4 text-right font-medium text-slate-700 align-center whitespace-nowrap"
+                          >
+                            ৳{order.deliveryCharge}
+                          </td>
 
-                        <td
-                          rowSpan={order.items.length}
-                          className="p-2 text-center text-slate-500 align-center"
-                        >
-                          <select
-                            value={order.status || "pending"}
-                            onChange={(e) =>
-                              handleStatusChange(order?._id, e.target.value)
-                            }
-                            className={`px-3 py-1 text-xs rounded-full border font-medium
+                          <td
+                            rowSpan={order.items.length}
+                            className="p-4 text-center text-slate-500 align-center whitespace-nowrap"
+                          >
+                            {new Date(order.createdAt).toLocaleDateString()}
+                          </td>
+                          <td
+                            rowSpan={order.items.length}
+                            className="p-4 text-center text-slate-500 align-middle whitespace-nowrap"
+                          >
+                            {order.status === "delivered" && order.deliveryDate}
+                            {order.status === "cancelled" && order.cancelDate}
+                            {order.status === "rejected" && order.rejectDate}
+                          </td>
+
+                          <td
+                            rowSpan={order.items.length}
+                            className="p-2 text-center text-slate-500 align-center  whitespace-nowrap"
+                          >
+                            <select
+                              value={order.status || "pending"}
+                              onChange={(e) =>
+                                handleStatusChange(order?._id, e.target.value)
+                              }
+                              className={`px-3 py-1 text-xs rounded-full border font-medium
       ${
         order.status === "pending"
           ? "bg-yellow-100 text-yellow-700 border-yellow-300"
@@ -343,44 +388,77 @@ const ManageOrders = ({ products, users }) => {
               ? "bg-red-100 text-red-700 border-red-300"
               : order.status === "rejected"
                 ? "bg-gray-200 text-gray-700 border-gray-300"
-                : "bg-slate-100 text-slate-700 border-slate-300"
+                : order.status === "processing"
+                  ? "bg-blue-200 text-blue-700 border-gray-300"
+                  : order.status === "shipped"
+                    ? "bg-purple-200 text-purple-600 border-gray-300"
+                    : "bg-slate-100 text-slate-700 border-slate-300"
       }
     `}
-                          >
-                            <option value="pending">Pending</option>
-                            <option value="delivered">Delivered</option>
-                            <option value="cancelled">Cancelled</option>
-                            <option value="rejected">Rejected</option>
-                          </select>
-                        </td>
-                      </>
-                    )}
-                  </tr>
-                );
-              }),
-            )}
-          </tbody>
-        </table>
-
+                            >
+                              <option value="pending">Pending</option>
+                              <option value="delivered">Delivered</option>
+                              <option value="cancelled">Cancelled</option>
+                              <option value="rejected">Rejected</option>
+                              <option value="processing">Processing</option>
+                              <option value="shipped">Shipped</option>
+                            </select>
+                          </td>
+                        </>
+                      )}
+                    </tr>
+                  );
+                }),
+              )}
+            </tbody>
+          </table>
+        </div>
         {/* Pagination */}
-        <div className="flex justify-between items-center px-6 py-4 bg-slate-50">
-          <span className="text-sm text-slate-500">
-            Page {currentPage} of {totalPages}
-          </span>
+        <div className="flex justify-between items-center px-6 py-4 bg-white border-t">
+          {/* Left Side */}
+          <div className="text-sm text-slate-600">
+            {`${(currentPage - 1) * itemsPerPage + 1} to ${Math.min(
+              currentPage * itemsPerPage,
+              totalItems,
+            )} Items of ${totalItems}`}
+          </div>
 
-          <div className="flex gap-2">
+          {/* Right Side */}
+          <div className="flex items-center gap-2">
+            {/* Prev */}
             <button
               onClick={() => handlePageChange(currentPage - 1)}
-              className="px-4 py-1.5 text-sm border rounded-lg hover:bg-slate-200"
+              disabled={currentPage === 1}
+              className="w-8 h-8 flex items-center justify-center rounded-md 
+                 hover:bg-slate-100 disabled:opacity-40"
             >
-              Prev
+              <ChevronLeft />
             </button>
 
+            {/* Page Numbers */}
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={`w-8 h-8 rounded-md text-sm font-medium transition
+          ${
+            currentPage === page
+              ? "bg-blue-600 text-white"
+              : "text-slate-600 hover:bg-slate-100"
+          }`}
+              >
+                {page}
+              </button>
+            ))}
+
+            {/* Next */}
             <button
               onClick={() => handlePageChange(currentPage + 1)}
-              className="px-4 py-1.5 text-sm border rounded-lg hover:bg-slate-200"
+              disabled={currentPage === totalPages}
+              className="w-8 h-8 flex items-center justify-center rounded-md 
+                   hover:bg-slate-100 disabled:opacity-40"
             >
-              Next
+              <ChevronRight />
             </button>
           </div>
         </div>

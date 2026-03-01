@@ -1,8 +1,11 @@
 "use client";
 import { useState, useMemo } from "react";
 import useOrder from "@/hooks/useOrder";
+import Loading from "@/components/Loading/Loading";
+import InvoiceModal from "./InvoiceModal";
 
 const CompleteCart = ({ products }) => {
+  
   const { data: orders, isLoading, isError } = useOrder();
 
   const [search, setSearch] = useState("");
@@ -10,7 +13,7 @@ const CompleteCart = ({ products }) => {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
-
+  const [selectedOrder, setSelectedOrder] = useState(null);
   const getProductById = (id) => {
     return products?.find((p) => p._id === id);
   };
@@ -63,7 +66,7 @@ const CompleteCart = ({ products }) => {
 
     return text.split(regex).map((part, index) =>
       part.toLowerCase() === search.toLowerCase() ? (
-        <span key={index} className="bg-yellow-300 px-1 rounded">
+        <span key={index} className="bg-yellow-300 rounded">
           {part}
         </span>
       ) : (
@@ -80,10 +83,10 @@ const CompleteCart = ({ products }) => {
     }, 0);
   }, [filteredOrders]);
 
-  if (isLoading) return <p className="text-center mt-10">Loading...</p>;
+  if (isLoading) return <Loading />;
   if (isError)
     return <p className="text-center mt-10">Failed to load orders</p>;
-  const getStatusStyle = (status) => {
+  const getStatusStyle = (status = "") => {
     switch (status) {
       case "pending":
         return "bg-yellow-100 text-yellow-700";
@@ -98,6 +101,10 @@ const CompleteCart = ({ products }) => {
       default:
         return "bg-gray-100 text-gray-600";
     }
+  };
+
+  const handleShowInvoice = (order) => {
+    setSelectedOrder(order);
   };
   return (
     <div className="mx-auto mt-10">
@@ -306,57 +313,139 @@ const CompleteCart = ({ products }) => {
               <th className="p-4">Order ID</th>
               <th className="p-4">Product</th>
               <th className="p-4">Qty</th>
+              <th className="p-4">Size</th>
+              <th className="p-4">Color</th>
+              <th className="p-4">Amount</th>
               <th className="p-4">Order Date</th>
               <th className="p-4">Delivery Date</th>
-              <th className="p-4">Amount</th>
               <th className="p-4">status</th>
+              <th className="p-4">Invoice</th>
             </tr>
           </thead>
           <tbody>
             {filteredOrders.length === 0 ? (
               <tr>
-                <td colSpan="5" className="p-6 text-center">
+                <td colSpan="10" className="p-6 text-center">
                   No Orders Found
                 </td>
               </tr>
             ) : (
               filteredOrders.map((order) =>
-                order.items?.map((item, index) => (
-                  <tr
-                    key={`${order._id}-${index}`}
-                    className="border-t border-gray-300 hover:bg-gray-100"
-                  >
-                    <td className="p-4 font-medium">
-                      #{highlightText(order.orderId)}
-                    </td>
-                    <td className="p-4">
-                      {highlightText(
-                        getProductById(item.productId)?.name?.en ||
-                          "Product Not Found",
+                order.items?.map((item, index) => {
+                  const product = getProductById(item.productId);
+
+                  return (
+                    <tr
+                      key={`${order._id}-${index}`}
+                      className="border-t border-gray-300 hover:bg-gray-100"
+                    >
+                      {/* Order ID (RowSpan) */}
+                      {index === 0 && (
+                        <td
+                          rowSpan={order.items.length}
+                          className="p-4 font-medium align-middle whitespace-nowrap"
+                        >
+                          #{highlightText(order.orderId)}
+                        </td>
                       )}
-                    </td>
-                    <td className="p-4">{item.qty}</td>
-                    <td className="p-4">
-                      {new Date(order.createdAt).toLocaleDateString()}
-                    </td>
-                    <td className="p-4">{order?.deliveryDate}</td>
-                    <td className="p-4">৳ {item.subtotal}</td>
-                    <td className="p-4">
-                      <span
-                        className={`px-3 py-1 text-xs font-semibold rounded-full capitalize ${getStatusStyle(
-                          order.status,
-                        )}`}
-                      >
-                        {order.status}
-                      </span>
-                    </td>
-                  </tr>
-                )),
+
+                      {/* Product */}
+                      <td className="p-4">
+                        {highlightText(
+                          product?.name?.en || "Product Not Found",
+                        )}
+                      </td>
+
+                      {/* Qty */}
+                      <td className="p-4">{item.qty}</td>
+
+                      {/* Size */}
+                      <td className="p-4">
+                        {item?.size ? (
+                          <span className="px-3 py-1 text-xs font-semibold rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                            {item.size}
+                          </span>
+                        ) : (
+                          <span className="text-slate-400 text-sm">—</span>
+                        )}
+                      </td>
+
+                      {/* Color */}
+                      <td className="p-4">
+                        {item?.color ? (
+                          <span className="px-3 py-1 text-xs font-semibold rounded-full bg-rose-50 text-rose-700 border border-rose-200">
+                            {item.color}
+                          </span>
+                        ) : (
+                          <span className="text-slate-400 text-sm">—</span>
+                        )}
+                      </td>
+                      {/* Amount */}
+                      <td className="p-4  whitespace-nowrap">
+                        ৳ {Number(item.subtotal).toLocaleString()}
+                      </td>
+                      {/* Order Date */}
+                      {index === 0 && (
+                        <td
+                          rowSpan={order.items.length}
+                          className="p-4 align-middle"
+                        >
+                          {new Date(order.createdAt).toLocaleDateString()}
+                        </td>
+                      )}
+
+                      {/* Delivery Date */}
+                      {index === 0 && (
+                        <td
+                          rowSpan={order.items.length}
+                          className="p-4 align-middle  whitespace-nowrap"
+                        >
+                          {order?.deliveryDate || "-"}
+                        </td>
+                      )}
+
+                      {/* Status */}
+                      {index === 0 && (
+                        <td
+                          rowSpan={order.items.length}
+                          className="p-4 align-middle"
+                        >
+                          <span
+                            className={`px-3 py-1 text-xs font-semibold rounded-full capitalize ${getStatusStyle(
+                              order.status,
+                            )}`}
+                          >
+                            {order.status || "unknown"}
+                          </span>
+                        </td>
+                      )}
+
+                      {/* Invoice Button */}
+                      {index === 0 && (
+                        <td
+                          rowSpan={order.items.length}
+                          className="p-4 align-middle  whitespace-nowrap"
+                        >
+                          <button
+                            onClick={() => handleShowInvoice(order)}
+                            className="px-3 py-2 text-xs font-semibold rounded bg-gray-500 text-white hover:bg-gray-600"
+                          >
+                            Show Invoice
+                          </button>
+                        </td>
+                      )}
+                    </tr>
+                  );
+                }),
               )
             )}
           </tbody>
         </table>
       </div>
+      <InvoiceModal
+        order={selectedOrder}
+        onClose={() => setSelectedOrder(null)}
+      />
     </div>
   );
 };

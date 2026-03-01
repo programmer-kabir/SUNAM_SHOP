@@ -12,13 +12,14 @@ export default function Register() {
   const [form, setForm] = useState({
     firstName: "",
     email: "",
+    number: "",
     password: "",
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.firstName || !form.email || !form.password) {
+    if (!form.firstName || !form.email || !form.password || !form.number) {
       toast.error("All fields required");
       return;
     }
@@ -56,8 +57,8 @@ export default function Register() {
   };
 
   return (
-    <div className="container-custom flex items-center gap-14 py-10 ">
-      <div className="w-[60%]">
+    <div className="container-custom lg:flex items-center lg:gap-14 py-10 ">
+      <div className="lg:w-[60%] hidden lg:inline">
         <Image
           height={100}
           width={500}
@@ -66,7 +67,7 @@ export default function Register() {
           className="w-full h-[700px]"
         />
       </div>
-      <div className="w-[40%]">
+      <div className="lg:w-[40%] w-full">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <h2 className="font-semibold text-3xl">Create an account</h2>
@@ -87,6 +88,14 @@ export default function Register() {
               type="email"
               placeholder="Email"
               onChange={(e) => setForm({ ...form, email: e.target.value })}
+              className="w-full border-b border-gray-300 bg-transparent py-2 focus:outline-none focus:border-black transition"
+            />
+          </div>
+          <div>
+            <input
+              type="number"
+              placeholder="Number"
+              onChange={(e) => setForm({ ...form, number: e.target.value })}
               className="w-full border-b border-gray-300 bg-transparent py-2 focus:outline-none focus:border-black transition"
             />
           </div>

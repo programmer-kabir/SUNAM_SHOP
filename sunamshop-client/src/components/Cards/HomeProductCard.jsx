@@ -89,6 +89,7 @@ const HomeProductsCard = ({ product, reviews }) => {
       toast.error("Please select a color");
       return;
     }
+    console.log(selectedColor,selectedSize)
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/cart`, {
       method: "POST",
       headers: {
