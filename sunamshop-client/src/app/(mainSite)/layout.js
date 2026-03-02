@@ -7,15 +7,7 @@ import { ThemeLanguageProvider } from "@/context/ThemeLanguageContext";
 import Footer from "@/components/common/Footer";
 import { getAllFalseSales } from "@/utils/FlashSalesApi";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata = {
   title: "Create Next App",
@@ -27,7 +19,7 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        
       >
         <ThemeLanguageProvider>
           <LanguageProvider>

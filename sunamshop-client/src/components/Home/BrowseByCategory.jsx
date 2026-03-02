@@ -28,13 +28,9 @@ const BrowseByCategory = ({ categories }) => {
         {categories?.length > 0 ? (
           <Swiper
             modules={[Navigation]}
-            onBeforeInit={(swiper) => {
-              swiper.params.navigation.prevEl = prevRef.current;
-              swiper.params.navigation.nextEl = nextRef.current;
-            }}
             navigation={{
-              prevEl: prevRef.current,
-              nextEl: nextRef.current,
+              prevEl: ".custom-prev",
+              nextEl: ".custom-next",
             }}
             spaceBetween={20}
             breakpoints={{
