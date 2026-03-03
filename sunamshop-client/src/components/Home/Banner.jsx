@@ -81,7 +81,7 @@ export default function HeroSection() {
                 <div className="relative w-full aspect-[16/6]">
                   <Image
                     src={img}
-                    alt={`Banner ${index}`}
+                    alt={`Banner Nor Found ${index}`}
                     fill
                     priority={index === 0}
                     className="object-cover rounded-lg"
@@ -104,7 +104,6 @@ export default function HeroSection() {
             delay: 2500,
             disableOnInteraction: false,
           }}
-        
         >
           {categories.map((item) => (
             <SwiperSlide key={item._id}>
