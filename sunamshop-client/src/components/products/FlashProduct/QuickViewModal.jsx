@@ -15,20 +15,24 @@ const QuickViewModal = ({ product, close }) => {
 
   return createPortal(
     <div className="fixed inset-0 bg-black/60 z-[9999] flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-gray-900 w-full max-w-5xl rounded-2xl shadow-xl relative overflow-hidden">
+      <div className="bg-white dark:bg-gray-900 w-full max-w-5xl rounded-2xl shadow-xl relative overflow-y-auto h-5/6 md:h-fit scrollbar">
         {/* Close Button */}
         <button
           onClick={close}
-          className="absolute top-4 right-4 text-gray-500 hover:text-black dark:hover:text-white text-xl"
+          className="absolute md:top-4 top-2 right-4 text-gray-500 hover:text-black dark:hover:text-white text-xl"
         >
           ✕
         </button>
 
-        <div className="grid md:grid-cols-2 gap-6 p-6">
+        <div className="grid md:grid-cols-2 gap-6 p-6 mt-5">
           {/* LEFT: Product Image */}
-          <div className="relative w-full h-80 bg-gray-100 rounded-xl overflow-hidden">
+          <div className="relative w-full md:h-96 h-36 bg-gray-100 rounded-xl overflow-hidden">
             <Image
-              src={product?.images?.[0] || product?.image}
+              src={
+                product?.images?.[0]
+                  ? `${process.env.NEXT_PUBLIC_IMAGE_URL}${product.images[0]}`
+                  : "/placeholder.jpg"
+              }
               alt={product?.name?.en}
               fill
               className="object-contain"

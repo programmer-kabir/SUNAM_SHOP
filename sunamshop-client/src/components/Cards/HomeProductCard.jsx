@@ -89,7 +89,6 @@ const HomeProductsCard = ({ product, reviews }) => {
       toast.error("Please select a color");
       return;
     }
-    console.log(selectedColor,selectedSize)
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/cart`, {
       method: "POST",
       headers: {
@@ -112,41 +111,30 @@ const HomeProductsCard = ({ product, reviews }) => {
       toast.success(`${product?.name?.en} one product added`);
     }
   };
+
   return (
-    <div className="group bg-white rounded-2xl shadow-sm border border-gray-50 hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-[460px]">
+    <div className="group bg-white rounded shadow-sm border border-gray-50 hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col">
       {/* Image Section */}
-      <div className="relative aspect-[3/4] bg-gray-100 overflow-hidden">
+      <div className="relative w-full h-[140px] md:h-[200px] bg-gray-100 overflow-hidden">
         <Image
-          src={product.images?.[0] || "/placeholder.jpg"}
+          src={
+            product?.images?.[0]
+              ? `${process.env.NEXT_PUBLIC_IMAGE_URL}${product.images[0]}`
+              : "/placeholder.jpg"
+          }
           alt={product?.name?.en}
           fill
-          className="object-contain group-hover:scale-105 transition duration-500"
+          className="object-cover group-hover:scale-105 transition duration-500"
+          sizes="(max-width: 768px) 100vw, 25vw"
         />
-
-        {/* Wishlist Button Floating */}
-        <button
-          onClick={!isDisabled ? toggleWishlist : undefined}
-          disabled={isDisabled}
-          className="absolute top-3 right-3 bg-white/90 backdrop-blur-md p-2 rounded-full shadow hover:bg-red-50 transition"
-        >
-          <Heart
-            size={18}
-            className={liked ? "text-red-500 fill-red-500" : "text-gray-600"}
-          />
-        </button>
       </div>
 
       {/* Content */}
-      <div className="p-4 flex flex-col flex-1 space-y-3">
+      <div className="px-3 py-2 flex flex-col flex-1 space-y-1">
         {/* Title */}
         <h2 className="text-base font-semibold line-clamp-1 group-hover:text-blue-600 transition">
           {product?.name?.en}
         </h2>
-
-        {/* Description */}
-        <p className="text-sm text-gray-500 line-clamp-2">
-          {product?.description?.en}
-        </p>
 
         {/* Price */}
         <div className="flex items-center gap-2">
@@ -161,44 +149,8 @@ const HomeProductsCard = ({ product, reviews }) => {
           )}
         </div>
 
-        {/* Size & Color */}
-        <div
-          className={`grid gap-2 ${
-            hasSizes && hasColors ? "grid-cols-2" : "grid-cols-1"
-          }`}
-        >
-          {hasSizes && (
-            <select
-              value={selectedSize}
-              onChange={(e) => setSelectedSize(e.target.value)}
-              className="border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
-            >
-              <option value="">Size</option>
-              {product.sizes.map((s, i) => (
-                <option key={i} value={s}>
-                  {s}
-                </option>
-              ))}
-            </select>
-          )}
-
-          {hasColors && (
-            <select
-              value={selectedColor}
-              onChange={(e) => setSelectedColor(e.target.value)}
-              className="border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
-            >
-              <option value="">Color</option>
-              {product.color.map((c, i) => (
-                <option key={i} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
-          )}
-        </div>
-        <div className="flex items-center justify-between text-xs mt-1 text-gray-600">
-          {/* Rating */}
+        {/* Rating + Stock */}
+        <div className="md:flex items-center justify-between text-xs mt-1 text-gray-600">
           {review.length > 0 ? (
             <div className="flex items-center gap-1">
               <StarRating rating={avgRating} />
@@ -210,7 +162,6 @@ const HomeProductsCard = ({ product, reviews }) => {
             <span className="text-gray-400">No reviews</span>
           )}
 
-          {/* Sold + Stock */}
           <div className="flex items-center gap-2">
             <span className="font-medium text-gray-700">
               {product?.sold || 0} sold
@@ -225,18 +176,6 @@ const HomeProductsCard = ({ product, reviews }) => {
             </span>
           </div>
         </div>
-        {/* Buy Button */}
-        <button
-          onClick={handleBuyNow}
-          disabled={remainingStock <= 0}
-          className={`mt-auto rounded-xl py-3 font-medium transition ${
-            remainingStock > 0
-              ? "bg-gradient-to-r from-blue-600 to-blue-500 text-white hover:opacity-90"
-              : "bg-gray-300 text-gray-500 cursor-not-allowed"
-          }`}
-        >
-          {remainingStock > 0 ? "Buy Now" : "Out of Stock"}
-        </button>
       </div>
     </div>
   );

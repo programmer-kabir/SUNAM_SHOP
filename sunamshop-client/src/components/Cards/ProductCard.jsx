@@ -11,12 +11,13 @@ import Link from "next/link";
 
 const ProductCard = ({ product, reviews }) => {
   const { data: session } = useSession();
-  const hasDiscount =
-    product.discountPrice && product.discountPrice < product.price;
+
+  const price = Number(product.price);
+  const discountPrice = Number(product.discountPrice);
+
+  const hasDiscount = discountPrice > 0 && discountPrice < price;
   const discountPercentage = hasDiscount
-    ? Math.round(
-        ((product.price - product.discountPrice) / product.price) * 100,
-      )
+    ? Math.round(((price - discountPrice) / price) * 100)
     : 0;
   const [quickView, setQuickView] = useState(false);
   const { wishlist, updateWishlist } = useWishlist();
@@ -60,7 +61,7 @@ const ProductCard = ({ product, reviews }) => {
   return (
     <Link
       href={`/products/${product.slug}`}
-      className="group
+      className="group relative
 bg-white dark:bg-gray-900
 rounded-lg
 overflow-hidden
@@ -77,10 +78,14 @@ transition-all duration-300"
 
       {/* Wishlist + Quick View */}
       <div
-        className="absolute top-3 right-3 flex flex-col gap-2 
-      translate-x-6 opacity-0 
-      group-hover:translate-x-0 group-hover:opacity-100
-      transition-all duration-300 ease-out z-10"
+        className="
+absolute top-3 md:right-3 right-2 flex flex-col gap-2 z-10
+opacity-100 translate-x-0
+md:translate-x-6 md:opacity-0
+md:group-hover:translate-x-0 
+md:group-hover:opacity-100
+transition-all duration-300 ease-out
+"
       >
         <button
           onClick={!isDisabled ? toggleWishlist : undefined}
@@ -90,7 +95,7 @@ transition-all duration-300"
                       `}
         >
           <Heart
-            className={`w-5 h-5 transition ${
+            className={`md:w-5 md:h-5 h-3 w-3 transition ${
               liked ? "fill-red-500 text-red-500" : "text-black"
             }`}
           />
@@ -98,45 +103,34 @@ transition-all duration-300"
 
         <button
           onClick={() => setQuickView(true)}
-          className="bg-white p-2 rounded-full shadow hover:bg-gray-100 text-black"
+          className="bg-white p-1 md:p-2 rounded-full shadow hover:bg-gray-100 text-black"
         >
           <Eye size={16} />
         </button>
       </div>
 
       {/* IMAGE WRAPPER */}
-      <div className="relative w-full aspect-square bg-gray-100 overflow-hidden group">
+      <div className="relative w-full h-[140px] md:h-[200px] bg-gray-100 overflow-hidden">
         <Image
-          src={product.images?.[0] || "/placeholder.jpg"}
-          alt={product.name.en || product.name}
+          src={
+            product?.images?.[0]
+              ? `${process.env.NEXT_PUBLIC_IMAGE_URL}${product.images[0]}`
+              : "/placeholder.jpg"
+          }
+          alt={product?.name?.en}
           fill
-          className="object-contain group-hover:scale-105 transition-transform duration-300"
+          className="object-cover"
+          sizes=""
         />
-
-        {/* 🔥 Add To Cart (From Image Bottom) */}
-        {/* <button
-          className="
-        absolute bottom-0 left-0 w-full
-        bg-black/90 text-white py-3
-        translate-y-full
-        group-hover:translate-y-0
-        transition-transform duration-300 ease-out
-      "
-        >
-          Add To Cart
-        </button> */}
       </div>
-
       {/* TEXT SECTION */}
-      <div className="px-5 py-4">
-        <h3 className="text-sm font-medium dark:text-white line-clamp-1 h-10">
-          {product.name.en || product.name}
-        </h3>
-        <p className="text-sm text-gray-500 line-clamp-2">
-          {product?.description?.en}
-        </p>{" "}
+      <div className="px-3 py-2">
+        <h2 className="text-base font-semibold line-clamp-1 group-hover:text-blue-600 transition">
+          {product?.name?.en}
+        </h2>
+
         <div className="flex items-center gap-2 pt-2">
-          <span className="text-red-500 font-bold text-2xl">
+          <span className="text-black font-bold text-2xl">
             ৳ {hasDiscount ? product.discountPrice : product.price}
           </span>
           {hasDiscount && (
@@ -145,8 +139,7 @@ transition-all duration-300"
             </span>
           )}
         </div>
-        <div className="flex items-center justify-between text-xs text-gray-600 pt-2">
-          {/* Rating */}
+        <div className="md:flex items-center justify-between text-xs mt-1 text-gray-600">
           {review.length > 0 ? (
             <div className="flex items-center gap-1">
               <StarRating rating={avgRating} />
@@ -158,7 +151,6 @@ transition-all duration-300"
             <span className="text-gray-400">No reviews</span>
           )}
 
-          {/* Sold + Stock */}
           <div className="flex items-center gap-2">
             <span className="font-medium text-gray-700">
               {product?.sold || 0} sold

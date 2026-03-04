@@ -123,4 +123,32 @@
 - **ধাপ ৭: মোড**
 - [drak,white,bangla,"english"]
 
-back
+Color Idea
+#1E3A8A
+#3B82F6
+#F8FAFC
+
+H1 → #0F172A
+H2 → #1E293B
+p → #64748B
+
+
+✅ Primary Button (Main Action)
+
+Background → #1E3A8A (Royal Blue)
+
+Hover → #1D4ED8
+<!-- Hover → #1E40AF -->
+Text → #FFFFFF
+
+✅ Secondary Button (Outline Button)
+
+Border → #1E3A8A
+
+Text → #1E3A8A
+
+Hover Background → #1E3A8A
+
+Hover Text → #FFFFFF
+
+Font Use

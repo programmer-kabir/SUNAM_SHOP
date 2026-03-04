@@ -270,7 +270,7 @@ const EditProducts = ({ productId }) => {
               <div className="relative w-20 h-20 border rounded-lg overflow-hidden">
                 {img && (
                   <Image
-                    src={img}
+                    src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${img}`}
                     alt="product"
                     fill
                     className="object-cover"

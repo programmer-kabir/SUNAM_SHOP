@@ -23,55 +23,67 @@ const ProductsCard = ({ product, reviews, category }) => {
     return Number((total / review.length).toFixed(1));
   }, [review]);
   const remainingStock = Number(product?.stock ?? 0);
+  const imageUrl = "https://supplylinkbd.com/";
+
   return (
-    <Link href={`/products/${product?.slug}`}>
-      <div className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden flex flex-col h-full">
-        {" "}
+    <Link href={`/products/${product?.slug}`} className="group">
+      <div className="bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col h-full">
         {/* Image */}
-        <div className="relative bg-gray-100 h-64">
+        <div className="relative w-full aspect-square bg-gray-50 overflow-hidden">
           <Image
-            src={product.images?.[0] || "/placeholder.jpg"}
+            src={
+              product?.images?.[0]
+                ? `${imageUrl}${product.images[0]}`
+                : "/placeholder.jpg"
+            }
             alt={product?.name?.en}
             fill
-            className="object-contain"
+            className="object-contain group-hover:scale-105 transition duration-500"
+            sizes="(max-width: 768px) 50vw, 25vw"
           />
         </div>
-        <div className="px-4 py-5 space-y-4 flex flex-col flex-1">
-          {" "}
+
+        {/* Content */}
+        <div className="px-3 py-2 md:p-4 flex flex-col flex-1 space-y-3">
           {/* Title */}
           <div>
-            <h2 className="text-lg font-semibold truncate">
+            <h2 className="text-sm md:text-base font-semibold truncate text-gray-800">
               {product?.name?.en}
             </h2>
-            <p className="text-sm text-gray-500 line-clamp-2">
+            <p className="text-xs md:text-sm text-gray-500 line-clamp-2">
               {product?.description?.en}
-            </p>{" "}
+            </p>
           </div>
+
           {/* Price */}
           <div>
             {hasFlash ? (
-              <div className="flex items-center gap-3">
-                <span className="text-red-500 font-bold text-2xl">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-red-500 font-bold text-lg md:text-xl">
                   ৳ {flashPrice}
                 </span>
-                <span className="line-through text-gray-400">
+                <span className="line-through text-gray-400 text-sm">
                   ৳ {originalPrice}
                 </span>
               </div>
             ) : hasDiscount ? (
-              <div className="flex items-center gap-3">
-                <span className="text-green-600 font-bold text-2xl">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-green-600 font-bold text-lg md:text-xl">
                   ৳ {discountPrice}
                 </span>
-                <span className="line-through text-gray-400">
+                <span className="line-through text-gray-400 text-sm">
                   ৳ {originalPrice}
                 </span>
               </div>
             ) : (
-              <span className="text-2xl font-bold">৳ {originalPrice}</span>
+              <span className="text-lg md:text-xl font-bold text-gray-800">
+                ৳ {originalPrice}
+              </span>
             )}
           </div>
-          <div className="flex items-center justify-between text-xs text-gray-600">
+
+          {/* Rating + Stock */}
+          <div className="flex items-center justify-between text-xs text-gray-600 mt-auto">
             {/* Rating */}
             {review.length > 0 ? (
               <div className="flex items-center gap-1">
@@ -84,20 +96,14 @@ const ProductsCard = ({ product, reviews, category }) => {
               <span className="text-gray-400">No reviews</span>
             )}
 
-            {/* Sold + Stock */}
-            <div className="flex items-center gap-2">
-              <span className="font-medium text-gray-700">
-                {product?.sold || 0} sold
-              </span>
-
-              <span
-                className={`font-medium ${
-                  remainingStock > 0 ? "text-green-600" : "text-red-600"
-                }`}
-              >
-                {remainingStock > 0 ? `${remainingStock} left` : "Out of stock"}
-              </span>
-            </div>
+            {/* Stock */}
+            <span
+              className={`font-medium ${
+                remainingStock > 0 ? "text-green-600" : "text-red-600"
+              }`}
+            >
+              {remainingStock > 0 ? `${remainingStock} left` : "Out"}
+            </span>
           </div>
         </div>
       </div>

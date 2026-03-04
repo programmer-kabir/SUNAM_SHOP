@@ -6,6 +6,7 @@ import NewArrival from "@/components/Home/NewArrival";
 import Products from "@/components/Home/Products";
 import ServiceFeatures from "@/components/Home/ServiceFeatures";
 import { getAllFalseSales } from "@/utils/FlashSalesApi";
+import { getMonthlySales } from "@/utils/MonthlySales";
 import { getAllCategory, getAllProducts } from "@/utils/productApi";
 import { getAllReviews } from "@/utils/reviewApi";
 
@@ -14,19 +15,27 @@ export default async function Home() {
   const categories = await getAllCategory();
   const flash = await getAllFalseSales();
   const reviews = await getAllReviews();
+  const bestSellingProducts = await getMonthlySales();
+
   return (
     <section>
       <Banner />
       {flash?.campaign && (
         <FlashSale products={products} flash={flash} reviews={reviews} />
       )}
-      <BrowseByCategory
+      <div className="hidden lg:inline">
+        <BrowseByCategory
+          products={products}
+          categories={categories}
+          reviews={reviews}
+        />
+      </div>
+      <BestSelling
         products={products}
-        categories={categories}
         reviews={reviews}
+        bestSellingProducts={bestSellingProducts}
       />
-      <BestSelling products={products} reviews={reviews} />
-      <Products products={products} reviews={reviews} categories={categories}/>
+      <Products products={products} reviews={reviews} categories={categories} />
       <NewArrival />
       <ServiceFeatures />
     </section>

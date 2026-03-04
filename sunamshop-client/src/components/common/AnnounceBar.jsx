@@ -7,12 +7,9 @@ import { useSession } from "next-auth/react";
 import useFlashSale from "@/hooks/useFlashSale";
 
 const AnnounceBar = () => {
-  const { language, setLanguage } = useThemeLanguage();
   const { data: flashSales } = useFlashSale();
   const { data: session } = useSession();
-  const toggleLanguage = () => {
-    setLanguage(language === "BN" ? "EN" : "BN");
-  };
+
   const name = session?.user?.name || session?.user?.firstName;
   return (
     <div className="w-full border-b border-gray-200  bg-white/90 backdrop-blur-md dark:border-gray-500 dark:bg-gray-950/90 text-sm">
@@ -31,13 +28,7 @@ const AnnounceBar = () => {
 
         {/* LANGUAGE BUTTON */}
         <div className="flex items-center ">
-          <button
-            onClick={toggleLanguage}
-            className="flex items-center gap-1 rounded-md px-3 py-1 text-sm font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
-          >
-            <Globe className="h-4 w-4" />
-            {language}
-          </button>
+         
           {!session?.user && (
             <>
               <Link href="/login" className="underline mr-4">

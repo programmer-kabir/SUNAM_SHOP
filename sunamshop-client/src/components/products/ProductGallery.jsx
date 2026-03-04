@@ -18,12 +18,23 @@ export default function ProductGallery({ images = [] }) {
       behavior: "smooth",
     });
   };
+  console.log(process.env.NEXT_PUBLIC_IMAGE_URL);
   return (
     <div className="">
       {/* MAIN IMAGE */}
-      <div className="relative w-full lg:w-[700px] h-[700px] rounded-2xl overflow-hidden bg-gray-100">
+      <div
+        className="
+  relative w-full
+  h-[250px] 
+  sm:h-[400px]
+  md:h-[500px]
+  lg:w-[700px] lg:h-[600px]
+  rounded-2xl overflow-hidden bg-gray-100
+"
+      >
+        {" "}
         <Image
-          src={images[activeIndex]}
+          src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${images[activeIndex]}`}
           alt="product image"
           fill
           priority
@@ -46,7 +57,7 @@ export default function ProductGallery({ images = [] }) {
         {/* SLIDER */}
         <div
           ref={sliderRef}
-          className="flex gap-4 overflow-hidden scroll-smooth py-2"
+          className="flex gap-4 overflow-hidden scroll-smooth py-2 px-2"
         >
           {images.map((img, i) => (
             <button
@@ -61,7 +72,7 @@ export default function ProductGallery({ images = [] }) {
         `}
             >
               <Image
-                src={img}
+                src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${img}`}
                 alt={`thumb-${i}`}
                 fill
                 className="object-cover"

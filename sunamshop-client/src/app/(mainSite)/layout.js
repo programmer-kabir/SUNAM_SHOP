@@ -1,4 +1,3 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import Navbar from "@/components/common/Navbar";
 import AnnounceBar from "@/components/common/AnnounceBar";
@@ -6,8 +5,6 @@ import { LanguageProvider } from "@/context/LanguageContext";
 import { ThemeLanguageProvider } from "@/context/ThemeLanguageContext";
 import Footer from "@/components/common/Footer";
 import { getAllFalseSales } from "@/utils/FlashSalesApi";
-
-
 
 export const metadata = {
   title: "Create Next App",
@@ -18,9 +15,7 @@ export default async function RootLayout({ children }) {
   const FlashSale = await getAllFalseSales();
   return (
     <html lang="en">
-      <body
-        
-      >
+      <body>
         <ThemeLanguageProvider>
           <LanguageProvider>
             {FlashSale?.campaign && <AnnounceBar />}

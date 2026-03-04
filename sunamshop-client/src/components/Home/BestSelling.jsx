@@ -1,11 +1,13 @@
+"use client";
 import BestSellingCard from "../Cards/BestSellingCard";
 import HomeProductCard from "../Cards/ProductCard";
 import HomeProductsCard from "../Cards/HomeProductCard";
 import SectionHeader from "../SectionHeader";
 import { getMonthlySales } from "@/utils/MonthlySales";
+import { useThemeLanguage } from "@/context/ThemeLanguageContext";
 
-const BestSelling = async ({ reviews }) => {
-  const bestSellingProducts = await getMonthlySales();
+const BestSelling = ({ reviews, bestSellingProducts,products }) => {
+  const { language, setLanguage } = useThemeLanguage();
   return (
     <div>
       <section className="py-12 bg-gray-50 dark:bg-gray-900">
@@ -18,7 +20,7 @@ const BestSelling = async ({ reviews }) => {
           />
 
           {/* Grid wrapper */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+          <div className="grid grid-cols-2 xl:grid-cols-4 2xl:grid-cols-6 gap-6 items-stretch">
             {" "}
             {bestSellingProducts?.map((product) => (
               <HomeProductsCard

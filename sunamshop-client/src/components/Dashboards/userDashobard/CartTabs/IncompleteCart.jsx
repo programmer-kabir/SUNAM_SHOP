@@ -15,7 +15,6 @@ const IncompleteCart = ({ products }) => {
   const { data: cart, refetch, isLoading } = useCart();
   const { data: session } = useSession();
   const [deletingId, setDeletingId] = useState(null);
-  console.log(products);
   const cartItems = cart?.map((item) => {
     const product = products?.find((p) => p._id === item.productId);
 
@@ -97,18 +96,18 @@ const IncompleteCart = ({ products }) => {
                 <div className="hidden md:grid grid-cols-7 items-center gap-4">
                   {/* Product */}
                   <div className="flex items-center gap-4">
-                    <div className="relative w-16 h-14 rounded-md overflow-hidden border bg-gray-50">
+                    <div className="relative w-16 h-16 rounded-md overflow-hidden border bg-gray-50 flex-shrink-0">
                       <Image
-                        src={item.image}
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${item.image}`}
                         alt={item.name}
                         fill
-                        className="object-contain"
+                        className="object-contain p-1"
                       />
                     </div>
                     <div>
                       <Link
                         href={`/products/${item?.slug}`}
-                        className="text-blue-600 hover:font-medium hover:underline"
+                        className="text-blue-600 hover:font-medium hover:underline line-clamp-2"
                       >
                         {item.name}
                       </Link>
@@ -144,7 +143,7 @@ const IncompleteCart = ({ products }) => {
                   <div className="flex items-center gap-3 flex-1 min-w-0">
                     <div className="relative w-16 h-16 rounded-md overflow-hidden border bg-gray-50 shrink-0">
                       <Image
-                        src={item.image || "/placeholder.png"}
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${item.image}`}
                         alt={item.name || "product"}
                         fill
                         className="object-contain"

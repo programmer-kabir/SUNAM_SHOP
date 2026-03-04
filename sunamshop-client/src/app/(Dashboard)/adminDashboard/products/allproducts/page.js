@@ -47,7 +47,7 @@ const AllProducts = async () => {
                 <td className="p-3">
                   <div className="relative w-12 h-12">
                     <Image
-                      src={product.images?.[0]}
+                      src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${product.images?.[0]}`}
                       alt={product.name?.en}
                       fill
                       className="object-contain rounded"

@@ -36,7 +36,10 @@ const TopSellingProduct = ({ products = [] }) => {
               {/* Image */}
               <div className="w-14 h-14 relative rounded-lg overflow-hidden border">
                 <Image
-                  src={product.images?.[0] || "/placeholder.png"}
+                  src={
+                    `${process.env.NEXT_PUBLIC_IMAGE_URL}${product.images?.[0]}` ||
+                    "/placeholder.png"
+                  }
                   alt={product?.name?.en}
                   fill
                   className="object-cover"

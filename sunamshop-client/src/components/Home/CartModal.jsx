@@ -61,7 +61,7 @@ const CartModal = ({ cart, products, onClose, session, refetchCart }) => {
             <Image
               width={100}
               height={100}
-              src={item.image}
+              src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${item.image}`}
               alt={item.name}
               className="w-16 h-20 object-cover rounded border border-gray-200 p-1"
             />
