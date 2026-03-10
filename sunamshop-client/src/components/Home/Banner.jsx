@@ -1,5 +1,5 @@
 "use client";
-
+import { useRef, useEffect } from "react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
@@ -12,122 +12,119 @@ import { useThemeLanguage } from "@/context/ThemeLanguageContext";
 import { SlidersHorizontal } from "lucide-react";
 
 export default function HeroSection() {
+  const heroRef = useRef(null);
   const { data: products = [] } = useProducts();
   const { data: categories = [] } = useCategory();
-  const { language } = useThemeLanguage(); // en / bn
+  const { language } = useThemeLanguage(); 
+  console.log(language)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          window.dispatchEvent(new CustomEvent("heroHidden"));
+        } else {
+          window.dispatchEvent(new CustomEvent("heroVisible"));
+        }
+      },
+      { threshold: 0.2 },
+    );
 
-  const banners = [
-    "https://supplylinkbd.com/img/Sunam_Shop/banner_1.webp",
-    "https://supplylinkbd.com/img/Sunam_Shop/banner_2.webp",
-    "https://supplylinkbd.com/img/Sunam_Shop/banner_3.webp",
-  ];
+    if (heroRef.current) {
+      observer.observe(heroRef.current);
+    }
 
+    return () => observer.disconnect();
+  }, []);
   return (
-    <section className="w-full bg-gray-100 dark:bg-gray-900 py-6">
-      <div className="container-custom flex gap-6">
-        {/* LEFT CATEGORY MENU */}
-        <div className="hidden lg:flex flex-col w-60 bg-white dark:bg-gray-950 rounded-lg shadow space-y-3 max-h-[441px] overflow-y-auto no-scrollbar">
-          <p className="flex items-center gap-3 bg-gray-200 dark:bg-gray-900 px-4 py-3 sticky top-0 z-10 font-semibold">
-            <SlidersHorizontal size={18} />
-            All Categories
-          </p>
-          {categories.map((item) => {
-            // 🔥 Product count by categoryId
-            const count =
-              products.filter((p) => p.categoryId === item.id).length || 0;
+    <section ref={heroRef} className="w-full bg-gray-100 dark:bg-gray-900 ">
+      <div className="relative w-full min-h-[600px] flex items-center bg-gradient-to-r from-white to-[#f4ebff] overflow-hidden px-6 md:px-16 lg:px-24">
+        {/* Left Content: Text & Search */}
+        <div className="w-full lg:w-1/2 z-10">
+          <h1 className="text-4xl en lg:text-5xl font-extrabold text-black mb-8 leading-tight">
+            Grocery Delivered at your Doorstep
+          </h1>
+          <h1 className="text-4xl bn lg:text-5xl font-extrabold text-black mb-8 leading-tight">
+            গ্রোসারি পৌঁছে দিচ্ছি আপনার দোরগোড়ায়
+          </h1>
 
-            return (
-              <Link
-                key={item._id}
-                href={`/products?category=${item.slug}`}
-                className="flex justify-between items-center text-base text-gray-700 px-4 hover:text-black dark:text-gray-300 dark:hover:text-white transition border-b pb-2 border-gray-200"
+          <div className="relative w-full max-w-xl">
+            <input
+              type="text"
+              placeholder={
+                language === "BN"
+                  ? "পণ্য খুঁজুন (যেমন: ডিম, দুধ, আলু)"
+                  : "Search for products (e.g. eggs, milk, potato)"
+              }
+              className="w-full py-4 pl-5 pr-12 rounded-lg text-gray-700 shadow-sm border border-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-300"
+            />
+            <button className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+              {/* Search Icon */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
-                <span className="flex items-center gap-2 ">
-                  <Image
-                    className="w-9 h-9"
-                    height={50}
-                    width={50}
-                    src={item?.image}
-                    alt={item?.name?.en}
-                  />
-                  <div>
-                    {language === "bn" ? item.name?.bn : item.name?.en}
-                    <span className="font-semibold text-[10px] ml-1">
-                      ({count})
-                    </span>
-                  </div>
-                </span>
-                <span className="">›</span>
-              </Link>
-            );
-          })}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
 
-        {/* RIGHT BANNER SLIDER */}
-        <div className="flex-1 rounded-lg overflow-hidden">
-          <Swiper
-            modules={[Autoplay, Pagination]}
-            slidesPerView={1}
-            loop={true}
-            autoplay={{
-              delay: 3000,
-              disableOnInteraction: false,
-            }}
-            pagination={{ clickable: true }}
-            className="rounded-lg"
-          >
-            {banners.map((img, index) => (
-              <SwiperSlide key={index}>
-                <div className="relative w-full aspect-[16/6]">
-                  <Image
-                    src={img}
-                    alt={`Banner Nor Found ${index}`}
-                    fill
-                    priority={index === 0}
-                    className="object-cover rounded-lg"
-                    sizes="(max-width: 768px) 100vw, 75vw"
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      </div>
-      {/* Categoryies */}
-      <div className="w-full py-6 md:hidden">
-        <Swiper
-          modules={[Autoplay]}
-          spaceBetween={12}
-          slidesPerView={4}
-          loop={true}
-          autoplay={{
-            delay: 2500,
-            disableOnInteraction: false,
-          }}
-        >
-          {categories.map((item) => (
-            <SwiperSlide key={item._id}>
-              <Link
-                href={`/products?category=${item.slug}`}
-                className="flex flex-col items-center justify-center text-center group shadow-sm"
-              >
-                <div className="w-16 h-16 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 group-hover:scale-105 transition ">
-                  <Image
-                    src={item?.image}
-                    alt={item?.name?.en}
-                    width={40}
-                    height={40}
-                    className="object-contain"
-                  />
-                </div>
+        {/* Right Content: Image Collage */}
+        <div className="hidden lg:flex w-1/2 relative h-[550px] justify-end items-center gap-3 pl-10">
+          {/* Column 1 */}
+          <div className="flex flex-col justify-center">
+            <img
+              src="https://supplylinkbd.com/img/Sunam_Shop/banner/Delivery_boy.jfif"
+              alt="Delivery boy"
+              className="w-56 h-72 object-cover rounded-xl shadow-md border-[3px] border-white object-top"
+            />
+          </div>
 
-                <p className="text-[10px] text-gray-700 dark:text-gray-300 group-hover:text-black dark:group-hover:text-white transition">
-                  {language === "bn" ? item.name?.bn : item.name?.en}
-                </p>
-              </Link>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+          {/* Column 2 */}
+          <div className="flex flex-col gap-3 transform -translate-y-6">
+            <img
+              src="https://supplylinkbd.com/img/Sunam_Shop/banner/Vegetables.jpg"
+              alt="Vegetables"
+              className="w-36 h-36 object-cover rounded-xl shadow-sm border-2 border-white"
+            />
+            <img
+              src="https://supplylinkbd.com/img/Sunam_Shop/banner/Grocery_Aisle.jpg"
+              alt="Grocery Aisle"
+              className="w-36 h-60 object-cover rounded-xl shadow-sm border-2 border-white"
+            />
+          </div>
+
+          {/* Column 3 */}
+          <div className="flex flex-col gap-3 transform translate-y-4">
+            <img
+              src="https://supplylinkbd.com/img/Sunam_Shop/banner/Market.jpg"
+              alt="Market"
+              className="w-40 h-64 object-cover rounded-xl shadow-sm border-2 border-white"
+            />
+            <img
+              src="https://supplylinkbd.com/img/Sunam_Shop/banner/Bike_Delivery.jpg"
+              alt="Bike Delivery"
+              className="w-40 h-32 object-cover rounded-xl shadow-sm border-2 border-white"
+            />
+          </div>
+
+          {/* Column 4 (Cutoff effect on the right edge) */}
+          <div className="flex flex-col justify-center translate-y-8">
+            <img
+              src="https://supplylinkbd.com/img/Sunam_Shop/banner/Produce.jpg"
+              alt="Produce"
+              className="w-24 h-48 object-cover rounded-l-xl shadow-sm border-y-2 border-l-2 border-white"
+            />
+          </div>
+        </div>
       </div>
     </section>
   );

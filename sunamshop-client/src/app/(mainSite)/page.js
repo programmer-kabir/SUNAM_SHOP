@@ -1,43 +1,33 @@
 import Banner from "@/components/Home/Banner";
-import BestSelling from "@/components/Home/BestSelling";
-import BrowseByCategory from "@/components/Home/BrowseByCategory";
 import FlashSale from "@/components/Home/FlashSale";
-import NewArrival from "@/components/Home/NewArrival";
-import Products from "@/components/Home/Products";
-import ServiceFeatures from "@/components/Home/ServiceFeatures";
+import PopularCategories from "@/components/Home/PopularCategories";
+import WhyChooseUs from "@/components/Home/WhyChooseUs";
+import { getAllSubSubCategory } from "@/utils/Category";
+import { getAllProducts } from "@/utils/productApi";
+import CTASection from "@/components/Home/CTA";
+import FAQSection from "@/components/Home/FAQSection";
 import { getAllFalseSales } from "@/utils/FlashSalesApi";
-import { getMonthlySales } from "@/utils/MonthlySales";
-import { getAllCategory, getAllProducts } from "@/utils/productApi";
-import { getAllReviews } from "@/utils/reviewApi";
+import { getAllNewArrivalData } from "@/utils/NewArrival";
+import NewArrival from "@/components/Home/NewArrival";
+import BestSelling from "@/components/Home/BestSelling";
 
 export default async function Home() {
   const products = await getAllProducts();
-  const categories = await getAllCategory();
-  const flash = await getAllFalseSales();
-  const reviews = await getAllReviews();
-  const bestSellingProducts = await getMonthlySales();
-
+  const subSubCategory = await getAllSubSubCategory();
+  const FlashSales = await getAllFalseSales();
+  const newArrivalData = await getAllNewArrivalData();
   return (
     <section>
       <Banner />
-      {flash?.campaign && (
-        <FlashSale products={products} flash={flash} reviews={reviews} />
+      <WhyChooseUs products={products} />
+      {FlashSales?.products?.length > 0 && (
+        <FlashSale FlashSales={FlashSales} />
       )}
-      <div className="hidden lg:inline">
-        <BrowseByCategory
-          products={products}
-          categories={categories}
-          reviews={reviews}
-        />
-      </div>
-      <BestSelling
-        products={products}
-        reviews={reviews}
-        bestSellingProducts={bestSellingProducts}
-      />
-      <Products products={products} reviews={reviews} categories={categories} />
-      <NewArrival />
-      <ServiceFeatures />
+      <NewArrival newArrivalData={newArrivalData} />
+      <PopularCategories subSubCategories={subSubCategory} />
+      <BestSelling products={products} />
+      <CTASection />
+      <FAQSection />
     </section>
   );
 }

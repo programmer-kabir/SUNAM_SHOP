@@ -1,6 +1,6 @@
 import { Roboto } from "next/font/google";
 import "../globals.css";
-import DashboardLayout from "@/components/Dashboards/common/Sidebar";
+import DashboardLayout from "@/components/Dashboards/common/DashboardLayout";
 
 const roboto = Roboto({
   subsets: ["latin"],

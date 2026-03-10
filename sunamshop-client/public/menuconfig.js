@@ -61,6 +61,11 @@ export const menuConfig = {
       href: "/adminDashboard/flashcampaign",
       icon: Tags,
     },
+    {
+      title: "New Arrival",
+      href: "/adminDashboard/newarrival",
+      icon: Tags,
+    },
   ],
 
   user: [

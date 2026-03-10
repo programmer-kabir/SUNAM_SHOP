@@ -1,0 +1,122 @@
+[
+  {
+    "_id": "69a6aba6fda4e9e3fffcaddb",
+    "name": {
+      "en": "Teer Fortified Soybean Oil 1 Liter",
+      "bn": "তীর ফর্টিফাইড সয়াবিন তেল ১ লিটার"
+    },
+    "description": {
+      "en": "Teer Fortified Soybean Oil 1 Liter is a premium quality refined edible oil enriched with essential vitamins to support a healthy lifestyle. Carefully processed using advanced refining technology, this fortified soybean oil ensures purity, clarity, and a light consistency for everyday cooking.\n\nIt is ideal for frying, deep frying, sautéing, and preparing traditional Bangladeshi dishes. The neutral taste enhances the natural flavor of food while maintaining nutritional value. The 1-liter pack is convenient for small families and regular household use.\n\nChoose Teer Fortified Soybean Oil for safe, healthy, and delicious cooking every day.",
+      "bn": "তীর ফর্টিফাইড সয়াবিন তেল ১ লিটার একটি প্রিমিয়াম মানের পরিশোধিত ভোজ্য তেল, যা প্রয়োজনীয় ভিটামিন দ্বারা সমৃদ্ধ। আধুনিক প্রযুক্তিতে পরিশোধনের মাধ্যমে এটি বিশুদ্ধ, স্বচ্ছ এবং হালকা ঘনত্ব নিশ্চিত করে।\n\nএটি ভাজা, ডিপ ফ্রাই, ভর্তা, তরকারি ও বিভিন্ন ঐতিহ্যবাহী বাঙালি রান্নার জন্য উপযোগী। এর হালকা স্বাদ খাবারের প্রাকৃতিক স্বাদ অক্ষুণ্ণ রাখে এবং স্বাস্থ্যসম্মত রান্নায় সহায়তা করে। ১ লিটার প্যাক ছোট পরিবার ও নিয়মিত ব্যবহারের জন্য উপযুক্ত।\n\nপ্রতিদিনের নিরাপদ ও স্বাস্থ্যকর রান্নার জন্য বেছে নিন তীর ফর্টিফাইড সয়াবিন তেল।"
+    },
+    "price": 195,
+    "discountPrice": 190,
+    "stock": 1000,
+    "color": [],
+    "sizes": [],
+    "category": {
+      "mainCategoryId": "cat1",
+      "subCategoryId": "sub_cat1",
+      "subSubCategoryId": "sub_sub_cat3",
+      "childCategoryId": "child_cat16"
+    },
+    "images": [
+      "img/Sunam_Shop/products/তীর_ফর্টিফাইড_সয়াবিন_তেল_১_লিটার.webp"
+    ],
+    "specifications": [
+      {
+        "key": {
+          "en": "img/Sunam_Shop/products/তীর_ফর্টিফাইড_সয়াবিন_তেল_১_লিটার.webp",
+          "bn": "ব্র্যান্ড"
+        },
+        "value": {
+          "en": "Teer",
+          "bn": "Teer"
+        }
+      },
+      {
+        "key": {
+          "en": "Product Name",
+          "bn": "পণ্যের নাম"
+        },
+        "value": {
+          "en": "Teer Fortified Soybean Oil",
+          "bn": "তীর ফর্টিফাইড সয়াবিন তেল"
+        }
+      },
+      {
+        "key": {
+          "en": "Net Volume",
+          "bn": "পরিমাণ"
+        },
+        "value": {
+          "en": "1 Liter",
+          "bn": "১ লিটার"
+        }
+      },
+      {
+        "key": {
+          "en": "Oil Type",
+          "bn": "তেলের ধরন"
+        },
+        "value": {
+          "en": "Refined & Fortified Soybean Oil",
+          "bn": "পরিশোধিত ও ভিটামিন সমৃদ্ধ সয়াবিন তেল"
+        }
+      },
+      {
+        "key": {
+          "en": "Fortification",
+          "bn": "ফর্টিফিকেশন"
+        },
+        "value": {
+          "en": "Enriched with essential vitamins",
+          "bn": "প্রয়োজনীয় ভিটামিন দ্বারা সমৃদ্ধ"
+        }
+      },
+      {
+        "key": {
+          "en": "Suitable For",
+          "bn": "ব্যবহার"
+        },
+        "value": {
+          "en": "Frying, Deep Frying, Cooking",
+          "bn": "ভাজা, রান্না, ডিপ ফ্রাই"
+        }
+      },
+      {
+        "key": {
+          "en": "Packaging Type",
+          "bn": "প্যাকেজিং"
+        },
+        "value": {
+          "en": "PET Bottle",
+          "bn": "পিইটি বোতল"
+        }
+      },
+      {
+        "key": {
+          "en": "Storage Instruction",
+          "bn": "সংরক্ষণ নির্দেশনা"
+        },
+        "value": {
+          "en": "Store in a cool, dry place away from direct sunlight",
+          "bn": "ঠান্ডা ও শুকনো স্থানে, সরাসরি রোদ থেকে দূরে রাখুন"
+        }
+      },
+      {
+        "key": {
+          "en": "Country of Origin",
+          "bn": "উৎপত্তি দেশ"
+        },
+        "value": {
+          "en": "Bangladesh",
+          "bn": "Bangladesh"
+        }
+      }
+    ],
+    "isFeatured": false,
+    "slug": "teer-fortified-soybean-oil-1-liter",
+    "categoryId": "cat1"
+  }
+]

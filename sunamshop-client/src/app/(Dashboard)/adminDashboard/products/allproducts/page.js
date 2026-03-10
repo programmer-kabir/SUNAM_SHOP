@@ -57,7 +57,7 @@ const AllProducts = async () => {
 
                 <td className="p-3 font-medium">{product.name?.en}</td>
 
-                <td className="p-3">{product.category}</td>
+                {/* <td className="p-3">{product.category}</td> */}
 
                 <td className="p-3">৳ {product.price}</td>
 

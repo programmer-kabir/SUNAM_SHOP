@@ -59,6 +59,7 @@ const SectionHeader = ({
           )}
         </div>
       </div>
+
       <div className="md:hidden flex gap-7 justify-between items-center  mb-10 md:mb-0  md:pt-0">
         <div>
           <div className="flex items-center gap-2 text-red-500 font-semibold text-sm">
@@ -68,14 +69,26 @@ const SectionHeader = ({
           <h2 className="lg:text-3xl font-bold mt-2 dark:text-white">
             {title}
           </h2>
-        </div>
 
-        <div className="">
-          {hasTimer && endDate && (
+          <div className="flex items-center justify-between w-full gap-5 pt-5">
             <div className="">
-              <Timer endDate={endDate} />
+              {hasTimer && endDate && (
+                <div className="">
+                  <Timer endDate={endDate} />
+                </div>
+              )}
             </div>
-          )}
+            <div className="">
+              {hasButton && (
+                <Link
+                  href={link}
+                  className="bg-red-500 text-white px-4 h-fit py-2 rounded whitespace-nowrap"
+                >
+                  View All
+                </Link>
+              )}
+            </div>
+          </div>
         </div>
         <div className="">
           {hasNavigation && (
@@ -88,16 +101,6 @@ const SectionHeader = ({
                 <ChevronRight />
               </button>
             </div>
-          )}
-        </div>
-        <div className="">
-          {hasButton && (
-            <Link
-              href={link}
-              className="bg-red-500 text-white px-4 h-fit py-2 rounded whitespace-nowrap"
-            >
-              View All
-            </Link>
           )}
         </div>
       </div>

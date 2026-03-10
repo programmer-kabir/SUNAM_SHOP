@@ -1,6 +1,7 @@
 import { Poppins, Montserrat } from "next/font/google";
 import Providers from "./providers";
 import "./globals.css";
+import Sidebar from "@/components/Sidebar";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${poppins.variable} ${montserrat.variable}`}>
       <body className="antialiased font-body">
+      
         <Providers>{children}</Providers>
       </body>
     </html>

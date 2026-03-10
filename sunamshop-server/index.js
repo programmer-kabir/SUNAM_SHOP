@@ -42,7 +42,6 @@ app.get("/api/user", verifyJWT, async (req, res) => {
   res.json({ message: "You are logged in", user: req.user });
 });
 
-console.log(process.env.DB_USER);
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.ijgk1ny.mongodb.net/?appName=Cluster0`;
 
@@ -60,31 +59,32 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     console.log("MongoDB Connected");
-    const usersCollection = client.db("Sunam_Shop").collection("users");
-    const cartCollection = client.db("Sunam_Shop").collection("cart");
-    const productsCollection = client.db("Sunam_Shop").collection("products");
-    const divisionsCollection = client.db("Sunam_Shop").collection("divisions");
-    const districtsCollection = client.db("Sunam_Shop").collection("districts");
-    const upazilasCollection = client.db("Sunam_Shop").collection("upazilas");
-    const ordersCollection = client.db("Sunam_Shop").collection("order");
-    const categoryCollection = client.db("Sunam_Shop").collection("category");
-    const reviewsCollection = client.db("Sunam_Shop").collection("reviews");
-    const flashCampaignCollection = client
-      .db("Sunam_Shop")
-      .collection("flashSalesCampaign");
+    const db = client.db("Grocery_Server");
+    const usersCollection = db.collection("users");
+    const cartCollection = db.collection("cart");
+    const productsCollection = db.collection("products");
+    const divisionsCollection = db.collection("divisions");
+    const districtsCollection = db.collection("districts");
+    const upazilasCollection = db.collection("upazilas");
+    const ordersCollection = db.collection("order");
+    const flashCampaignCollection = db.collection("flashSalesCampaign");
+    const newArrivalCollection = db.collection("new_arrivalData");
+    const reviewsCollection = db.collection("reviews");
+    const mainCategoryCollection = db.collection("main_category");
+    const subCategoryCollection = db.collection("sub_category");
+    const subSubCategoryCollection = db.collection("sub_sub_category");
+    const childCategoryCollection = db.collection("child_category");
     // All Products
     app.get("/api/products", async (req, res) => {
       try {
-        const items = await productsCollection
-          .find()
-          .sort({ createdAt: -1 })
-          .toArray();
+        const items = await productsCollection.find().toArray();
 
         res.json(items);
       } catch (err) {
         res.status(500).json({ message: "Server error" });
       }
     });
+
     app.get("/api/products/:slug", async (req, res) => {
       try {
         const { slug } = req.params;
@@ -114,7 +114,43 @@ async function run() {
     //
     app.get("/api/categories", async (req, res) => {
       try {
-        const items = await categoryCollection
+        const items = await mainCategoryCollection
+          .find()
+          .sort({ createdAt: -1 })
+          .toArray();
+
+        res.json(items);
+      } catch (err) {
+        res.status(500).json({ message: "Server error" });
+      }
+    });
+    app.get("/api/sub_categories", async (req, res) => {
+      try {
+        const items = await subCategoryCollection
+          .find()
+          .sort({ createdAt: -1 })
+          .toArray();
+
+        res.json(items);
+      } catch (err) {
+        res.status(500).json({ message: "Server error" });
+      }
+    });
+    app.get("/api/sub_sub_categories", async (req, res) => {
+      try {
+        const items = await subSubCategoryCollection
+          .find()
+          .sort({ createdAt: -1 })
+          .toArray();
+
+        res.json(items);
+      } catch (err) {
+        res.status(500).json({ message: "Server error" });
+      }
+    });
+    app.get("/api/child_categories", async (req, res) => {
+      try {
+        const items = await childCategoryCollection
           .find()
           .sort({ createdAt: -1 })
           .toArray();
@@ -127,7 +163,7 @@ async function run() {
 
     app.post("/api/categories", verifyJWT, verifyAdmin, async (req, res) => {
       const body = req.body;
-      await categoryCollection.insertOne(body);
+      await mainCategoryCollection.insertOne(body);
       res.send(201).json({ message: "Category Added successfully" });
     });
     // REGISTER
@@ -728,109 +764,6 @@ async function run() {
       }
     });
 
-    // GET Monthly Top Selling Products
-    app.get("/api/get_monthly_sales", async (req, res) => {
-      try {
-        const now = new Date();
-
-        const startOfMonth = new Date(
-          Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1),
-        );
-
-        const endOfMonth = new Date(
-          Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1),
-        );
-
-        const result = await ordersCollection
-          .aggregate([
-            {
-              $match: {
-                createdAt: { $gte: startOfMonth, $lt: endOfMonth },
-                status: { $in: ["pending", "delivered"] },
-              },
-            },
-
-            { $unwind: "$items" },
-
-            // Convert productId string → ObjectId
-            {
-              $addFields: {
-                productObjectId: { $toObjectId: "$items.productId" },
-              },
-            },
-
-            {
-              $group: {
-                _id: "$productObjectId",
-                totalQty: { $sum: { $toInt: "$items.qty" } },
-              },
-            },
-
-            // 🔥 Join Products
-            {
-              $lookup: {
-                from: "products",
-                localField: "_id",
-                foreignField: "_id",
-                as: "product",
-              },
-            },
-
-            { $unwind: "$product" },
-
-            // 🔥 Join Reviews
-            {
-              $lookup: {
-                from: "reviews",
-                let: { productIdString: { $toString: "$_id" } },
-                pipeline: [
-                  {
-                    $match: {
-                      $expr: {
-                        $eq: ["$productId", "$$productIdString"],
-                      },
-                    },
-                  },
-                ],
-                as: "reviews",
-              },
-            },
-
-            { $sort: { totalQty: -1 } },
-
-            // ✅ FINAL CLEAN STRUCTURE
-            {
-              $project: {
-                _id: 0,
-                productId: { $toString: "$_id" },
-                totalQty: 1,
-
-                // Product Info (Direct usable)
-                _id: "$product._id",
-                name: "$product.name",
-                description: "$product.description",
-                price: "$product.price",
-                discountPrice: "$product.discountPrice",
-                slug: "$product.slug",
-                images: "$product.images",
-                sizes: "$product.sizes",
-                color: "$product.color",
-                isFlash: "$product.isFlash",
-                flashPrice: "$product.flashPrice",
-                stock: "$product.stock",
-                sold: "$product.sold",
-                reviews: 1,
-              },
-            },
-          ])
-          .toArray();
-
-        res.json(result);
-      } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: "Server error" });
-      }
-    });
     // GET  All Orders
     app.get("/api/manage_orders", async (req, res) => {
       try {
@@ -1026,6 +959,59 @@ async function run() {
             ...product,
             flashPrice: Math.max(0, Math.round(flashPrice)),
             isFlash: true,
+          };
+        });
+
+        res.json({
+          campaign,
+          products: updatedProducts,
+        });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+      }
+    });
+    app.post("/api/new_arrival", verifyJWT, verifyAdmin, async (req, res) => {
+      try {
+        const data = {
+          ...req.body,
+          isActive: true,
+        };
+
+        await newArrivalCollection.insertOne(data);
+
+        res.send({ success: true });
+      } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: "Error creating New Arrival" });
+      }
+    });
+
+    app.get("/api/new_arrival", async (req, res) => {
+      try {
+        const campaign = await newArrivalCollection.findOne({
+          isActive: true,
+        });
+
+        if (!campaign) {
+          return res.json({ campaign: null, products: [] });
+        }
+
+        // 2️⃣ productIds convert
+        const productObjectIds = campaign.productIds.map(
+          (id) => new ObjectId(id),
+        );
+
+        // 3️⃣ Products বের করো
+        const products = await productsCollection
+          .find({ _id: { $in: productObjectIds } })
+          .toArray();
+
+        // 4️⃣ Flash price calculate
+        const updatedProducts = products.map((product) => {
+          return {
+            ...product,
+            isActive: true,
           };
         });
 

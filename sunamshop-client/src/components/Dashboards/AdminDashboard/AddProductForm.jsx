@@ -4,107 +4,132 @@ import { useState } from "react";
 import axios from "axios";
 import slugify from "slugify";
 import { toast } from "react-hot-toast";
-const AddProductForm = ({ session, category }) => {
+
+const AddProductForm = ({
+  session,
+  category,
+  subCategory,
+  subSubCategory,
+  childCategory,
+}) => {
   const initialState = {
     name: { en: "", bn: "" },
     description: { en: "", bn: "" },
     price: "",
     discountPrice: "",
-    category: "",
     stock: "",
-    color: [],
-    sizes: [],
     images: [""],
-    specifications: [
-      {
-        key: { en: "", bn: "" },
-        value: { en: "", bn: "" },
-      },
-    ],
+    packSize: {
+      value: "",
+      unit: "",
+    },
+    category: {
+      mainCategoryId: "",
+      subCategoryId: "",
+      subSubCategoryId: "",
+      childCategoryId: "",
+    },
     isFeatured: false,
   };
+
   const [formData, setFormData] = useState(initialState);
 
   const handleChange = (e, field, lang = null) => {
     if (lang) {
-      setFormData({
-        ...formData,
+      setFormData((prev) => ({
+        ...prev,
         [field]: {
-          ...formData[field],
+          ...prev[field],
           [lang]: e.target.value,
         },
-      });
+      }));
     } else {
-      setFormData({
-        ...formData,
+      setFormData((prev) => ({
+        ...prev,
         [field]:
           e.target.type === "checkbox" ? e.target.checked : e.target.value,
-      });
+      }));
     }
   };
 
   const handleImageChange = (index, value) => {
     const updated = [...formData.images];
     updated[index] = value;
-    setFormData({ ...formData, images: updated });
+
+    setFormData((prev) => ({
+      ...prev,
+      images: updated,
+    }));
   };
 
   const addImage = () => {
-    setFormData({ ...formData, images: [...formData.images, ""] });
+    setFormData((prev) => ({
+      ...prev,
+      images: [...prev.images, ""],
+    }));
   };
 
   const removeImage = (index) => {
     const updated = formData.images.filter((_, i) => i !== index);
-    setFormData({ ...formData, images: updated });
+
+    setFormData((prev) => ({
+      ...prev,
+      images: updated,
+    }));
   };
 
-  const handleColorChange = (e) => {
-    const colors = e.target.value.split(",").map((c) => c.trim());
-    setFormData({ ...formData, color: colors });
-  };
-  const handleSizeChange = (e) => {
-    const sizes = e.target.value.split(",").map((c) => c.trim());
-    setFormData({ ...formData, sizes: sizes });
-  };
+  const handleCategoryChange = (field, value) => {
+    setFormData((prev) => {
+      let updatedCategory = { ...prev.category, [field]: value };
 
-  const handleSpecChange = (index, field, lang, value) => {
-    const updated = [...formData.specifications];
-    updated[index][field][lang] = value;
-    setFormData({ ...formData, specifications: updated });
-  };
+      if (field === "mainCategoryId") {
+        updatedCategory.subCategoryId = "";
+        updatedCategory.subSubCategoryId = "";
+        updatedCategory.childCategoryId = "";
+      }
 
-  const addSpecification = () => {
-    setFormData({
-      ...formData,
-      specifications: [
-        ...formData.specifications,
-        {
-          key: { en: "", bn: "" },
-          value: { en: "", bn: "" },
-        },
-      ],
+      if (field === "subCategoryId") {
+        updatedCategory.subSubCategoryId = "";
+        updatedCategory.childCategoryId = "";
+      }
+
+      if (field === "subSubCategoryId") {
+        updatedCategory.childCategoryId = "";
+      }
+
+      return {
+        ...prev,
+        category: updatedCategory,
+      };
     });
   };
 
-  const removeSpecification = (index) => {
-    const updated = formData.specifications.filter((_, i) => i !== index);
-    setFormData({ ...formData, specifications: updated });
-  };
+  const filteredSubCategory = subCategory?.filter(
+    (item) => item.parentId === formData.category.mainCategoryId,
+  );
+
+  const filteredSubSubCategory = subSubCategory?.filter(
+    (item) => item.parentId === formData.category.subCategoryId,
+  );
+
+  const filteredChildCategory = childCategory?.filter(
+    (item) => item.parentId === formData.category.subSubCategoryId,
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const cleanName = formData.name.en
-      .replace(/[()]/g, "") // remove ()
-      .replace(/\s+/g, " ") // remove double spaces
+      .replace(/[()]/g, "")
+      .replace(/\s+/g, " ")
       .trim();
 
-    // 2️⃣ Generate slug safely
     const slug = slugify(cleanName, {
       lower: true,
-      strict: true, // remove special characters
+      strict: true,
       trim: true,
     });
+
     try {
       await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products`,
@@ -115,10 +140,10 @@ const AddProductForm = ({ session, category }) => {
             en: cleanName,
           },
           slug,
-          categoryId: formData?.category,
-          price: Number(formData?.price),
-          discountPrice: Number(formData?.discountPrice),
-          stock: Number(formData?.stock),
+          category: formData.category,
+          price: Number(formData.price),
+          discountPrice: Number(formData.discountPrice),
+          stock: Number(formData.stock),
         },
         {
           headers: {
@@ -126,6 +151,7 @@ const AddProductForm = ({ session, category }) => {
           },
         },
       );
+
       setFormData(initialState);
       toast.success("Product Added Successfully");
     } catch (error) {
@@ -135,139 +161,151 @@ const AddProductForm = ({ session, category }) => {
 
   const inputClass =
     "w-full mt-2 px-4 py-2 bg-white border border-gray-300 rounded outline-none text-sm";
+
   return (
-    <form onSubmit={handleSubmit} className=" mx-auto space-y-6">
+    <form onSubmit={handleSubmit} className="mx-auto space-y-6">
+
       <h2 className="text-2xl font-bold">Add New Product</h2>
 
       {/* Name */}
-      <div className="flex md:grid-cols-2 gap-4">
-        <div className="w-full">
-          <p className="text-sm">Product Title(EN)</p>
+      <div className="grid md:grid-cols-2 gap-4">
+
+        <div>
+          <p className="text-sm">Product Title (EN)</p>
           <input
             type="text"
-            placeholder="Product Name (English)"
-            className={`w-full ${inputClass}`}
+            className={inputClass}
+            value={formData.name.en}
             onChange={(e) => handleChange(e, "name", "en")}
           />
         </div>
-        <div className="w-full">
-          <p className="text-sm">Product Title(BN)</p>
+
+        <div>
+          <p className="text-sm">Product Title (BN)</p>
           <input
             type="text"
-            placeholder="Product Name (Bangla)"
-            className={`w-full ${inputClass}`}
+            className={inputClass}
+            value={formData.name.bn}
             onChange={(e) => handleChange(e, "name", "bn")}
           />
         </div>
+
       </div>
 
       {/* Description */}
       <div className="grid md:grid-cols-2 gap-4">
-        <div className="w-full">
-          <p className="text-sm">Product Description(EN)</p>
+
+        <div>
+          <p className="text-sm">Description (EN)</p>
           <textarea
-            placeholder="Description (English)"
             className={inputClass}
+            value={formData.description.en}
             onChange={(e) => handleChange(e, "description", "en")}
           />
         </div>
 
-        <div className="w-full">
-          <p className="text-sm">Product Description(BN)</p>
+        <div>
+          <p className="text-sm">Description (BN)</p>
           <textarea
-            placeholder="Description (Bangla)"
             className={inputClass}
+            value={formData.description.bn}
             onChange={(e) => handleChange(e, "description", "bn")}
           />
         </div>
+
       </div>
 
-      {/* Price Section */}
-      <div className="grid md:grid-cols-4 gap-4">
-        <div className="w-full">
+      {/* Price */}
+      <div className="grid md:grid-cols-3 gap-4">
+
+        <div>
           <p className="text-sm">Price</p>
           <input
             type="number"
-            placeholder="Price"
             className={inputClass}
+            value={formData.price}
             onChange={(e) => handleChange(e, "price")}
           />
         </div>
-        <div className="w-full">
+
+        <div>
           <p className="text-sm">Discount Price</p>
           <input
             type="number"
-            placeholder="Discount Price"
             className={inputClass}
+            value={formData.discountPrice}
             onChange={(e) => handleChange(e, "discountPrice")}
           />
         </div>
 
-        <div className="w-full">
+        <div>
           <p className="text-sm">Stock</p>
           <input
             type="number"
-            placeholder="Stock"
             className={inputClass}
+            value={formData.stock}
             onChange={(e) => handleChange(e, "stock")}
           />
         </div>
 
-        <div className="w-full">
-          <p className="text-sm">Category</p>
+      </div>
 
+      {/* Pack Size */}
+      <div className="grid md:grid-cols-2 gap-4">
+
+        <div>
+          <p className="text-sm">Pack Size Value</p>
+          <input
+            type="number"
+            className={inputClass}
+            value={formData.packSize.value}
+            onChange={(e) =>
+              setFormData((prev) => ({
+                ...prev,
+                packSize: { ...prev.packSize, value: e.target.value },
+              }))
+            }
+          />
+        </div>
+
+        <div>
+          <p className="text-sm">Pack Size Unit</p>
           <select
             className={inputClass}
-            value={formData.category}
-            onChange={(e) => handleChange(e, "category")}
+            value={formData.packSize.unit}
+            onChange={(e) =>
+              setFormData((prev) => ({
+                ...prev,
+                packSize: { ...prev.packSize, unit: e.target.value },
+              }))
+            }
           >
-            <option value="">Select Category</option>
-
-            {category?.map((cat) => (
-              <option key={cat.id} value={cat.id}>
-                {cat.name.en}
-              </option>
-            ))}
+            <option value="">Select Unit</option>
+            <option value="kg">KG</option>
+            <option value="gm">GM</option>
+            <option value="ltr">Liter</option>
+            <option value="ml">ML</option>
+            <option value="pcs">PCS</option>
           </select>
         </div>
+
       </div>
-
-      <div className="md:flex items-center gap-4">
-        <div className="w-full">
-          <p className="text-sm">Colors</p>
-          <input
-            type="text"
-            placeholder="Colors (comma separated: white, black)"
-            className={inputClass}
-            onChange={handleColorChange}
-          />
-        </div>
-
-        <div className="w-full">
-          <p className="text-sm">Size</p>
-          <input
-            type="text"
-            placeholder="Size (comma separated: S, M, X, xl)"
-            className={inputClass}
-            onChange={handleSizeChange}
-          />
-        </div>
-      </div>
-
-      {/* Colors */}
 
       {/* Images */}
       <div>
-        <h3 className="font-semibold mb-2">Images</h3>
+
+        <h3 className="font-semibold">Images</h3>
+
         {formData.images.map((img, index) => (
-          <div key={index} className="flex gap-2 mb-2">
+          <div key={index} className="flex gap-2 mt-2">
+
             <input
               type="text"
-              placeholder="Image URL"
-              className={`${inputClass} w-full`}
+              className={inputClass}
               value={img}
               onChange={(e) => handleImageChange(index, e.target.value)}
             />
+
             <button
               type="button"
               onClick={() => removeImage(index)}
@@ -275,93 +313,120 @@ const AddProductForm = ({ session, category }) => {
             >
               Remove
             </button>
+
           </div>
         ))}
+
         <button
           type="button"
           onClick={addImage}
-          className="bg-blue-500 text-white px-4 py-2 rounded"
+          className="bg-blue-500 text-white px-4 py-2 rounded mt-2"
         >
           + Add Image
         </button>
+
       </div>
 
-      {/* Specifications */}
-      <div>
-        <h3 className="font-semibold mb-2">Specifications</h3>
+      {/* Categories */}
+      <div className="grid md:grid-cols-2 gap-4">
 
-        {formData.specifications.map((spec, index) => (
-          <div
-            key={index}
-            className="grid md:grid-cols-4 gap-1 border p-3 rounded mb-3"
+        <div>
+          <p>Main Category</p>
+          <select
+            className={inputClass}
+            value={formData.category.mainCategoryId}
+            onChange={(e) =>
+              handleCategoryChange("mainCategoryId", e.target.value)
+            }
           >
-            <input
-              type="text"
-              placeholder="Key EN"
-              className={inputClass}
-              onChange={(e) =>
-                handleSpecChange(index, "key", "en", e.target.value)
-              }
-            />
-            <input
-              type="text"
-              placeholder="Key BN"
-              className={inputClass}
-              onChange={(e) =>
-                handleSpecChange(index, "key", "bn", e.target.value)
-              }
-            />
-            <input
-              type="text"
-              placeholder="Value EN"
-              className={inputClass}
-              onChange={(e) =>
-                handleSpecChange(index, "value", "en", e.target.value)
-              }
-            />
-            <input
-              type="text"
-              placeholder="Value BN"
-              className={inputClass}
-              onChange={(e) =>
-                handleSpecChange(index, "value", "bn", e.target.value)
-              }
-            />
+            <option value="">Select</option>
+            {category?.map((cat) => (
+              <option key={cat.id} value={cat.id}>
+                {cat.name.en}
+              </option>
+            ))}
+          </select>
+        </div>
 
-            <button
-              type="button"
-              onClick={() => removeSpecification(index)}
-              className="text-red-500 text-sm"
-            >
-              Remove
-            </button>
-          </div>
-        ))}
+        <div>
+          <p>Sub Category</p>
+          <select
+            className={inputClass}
+            disabled={!formData.category.mainCategoryId}
+            value={formData.category.subCategoryId}
+            onChange={(e) =>
+              handleCategoryChange("subCategoryId", e.target.value)
+            }
+          >
+            <option value="">Select</option>
 
-        <button
-          type="button"
-          onClick={addSpecification}
-          className="bg-green-500 text-white px-4 py-2 rounded"
-        >
-          + Add Specification
-        </button>
+            {filteredSubCategory?.map((sub) => (
+              <option key={sub.subCategoryId} value={sub.subCategoryId}>
+                {sub.name.en}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <p>Sub Sub Category</p>
+          <select
+            className={inputClass}
+            disabled={!formData.category.subCategoryId}
+            value={formData.category.subSubCategoryId}
+            onChange={(e) =>
+              handleCategoryChange("subSubCategoryId", e.target.value)
+            }
+          >
+            <option value="">Select</option>
+
+            {filteredSubSubCategory?.map((sub) => (
+              <option
+                key={sub.subSubCategoryId}
+                value={sub.subSubCategoryId}
+              >
+                {sub.name.en}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <p>Child Category</p>
+          <select
+            className={inputClass}
+            disabled={!formData.category.subSubCategoryId}
+            value={formData.category.childCategoryId}
+            onChange={(e) =>
+              handleCategoryChange("childCategoryId", e.target.value)
+            }
+          >
+            <option value="">Select</option>
+
+            {filteredChildCategory?.map((child) => (
+              <option key={child.childCategoryId} value={child.childCategoryId}>
+                {child.name.en}
+              </option>
+            ))}
+          </select>
+        </div>
+
       </div>
 
       {/* Featured */}
       <div className="flex items-center gap-2">
         <input
           type="checkbox"
+          checked={formData.isFeatured}
           onChange={(e) => handleChange(e, "isFeatured")}
         />
         <label>Mark as Featured</label>
       </div>
 
-      <button
-        type="submit"
-        className="w-full bg-black text-white py-3 rounded-lg"
-      >
+      <button className="w-full bg-black text-white py-3 rounded-lg">
         Submit Product
       </button>
+
     </form>
   );
 };

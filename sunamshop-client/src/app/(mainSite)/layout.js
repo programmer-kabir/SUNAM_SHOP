@@ -5,6 +5,8 @@ import { LanguageProvider } from "@/context/LanguageContext";
 import { ThemeLanguageProvider } from "@/context/ThemeLanguageContext";
 import Footer from "@/components/common/Footer";
 import { getAllFalseSales } from "@/utils/FlashSalesApi";
+import Sidebar from "@/components/Sidebar";
+import LayoutClient from "@/components/layout/LayoutClient";
 
 export const metadata = {
   title: "Create Next App",
@@ -12,16 +14,17 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const FlashSale = await getAllFalseSales();
+  // const FlashSale = await getAllFalseSales();
   return (
     <html lang="en">
       <body>
         <ThemeLanguageProvider>
           <LanguageProvider>
-            {FlashSale?.campaign && <AnnounceBar />}
-            <Navbar />
-            {children}
-            <Footer />
+            {/* {FlashSale?.campaign && <AnnounceBar />} */}
+          <LayoutClient>
+          {children}
+          <Footer />
+        </LayoutClient>
           </LanguageProvider>
         </ThemeLanguageProvider>
       </body>

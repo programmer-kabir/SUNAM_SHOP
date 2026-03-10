@@ -9,14 +9,14 @@ import axios from "axios";
 const CartModal = ({ cart, products, onClose, session, refetchCart }) => {
   const cartItems = cart?.map((item) => {
     const product = products?.find((p) => p._id === item.productId);
-
     return {
       _id: item._id,
       image: product?.images?.[0],
-      name: product?.name?.en,
+      name: product?.name,
       quantity: item.qty,
       size: item.size,
       color: item.color,
+      packSize: product?.packSize,
     };
   });
 
@@ -68,7 +68,14 @@ const CartModal = ({ cart, products, onClose, session, refetchCart }) => {
 
             {/* Details */}
             <div className="flex-1">
-              <h3 className="font-medium">{item.name}</h3>
+              <div>
+                <h3 className="font-medium en">{item.name?.en}</h3>
+
+                <h3 className="font-medium bn">{item.name?.bn}</h3>
+                <p className="text-sm text-gray-500">
+                  {item.packSize?.value} {item.packSize?.unit}
+                </p>
+              </div>
               {item.size && (
                 <p className="text-sm text-gray-500">Size: {item.size}</p>
               )}

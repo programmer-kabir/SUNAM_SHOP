@@ -418,7 +418,7 @@ const CheckOutClient = ({
                 <Image
                   width={100}
                   height={100}
-                  src={item.image}
+                  src={`${process?.env.NEXT_PUBLIC_IMAGE_URL}${item.image}`}
                   alt={item.name}
                   className="w-14 h-14 object-cover rounded "
                 />

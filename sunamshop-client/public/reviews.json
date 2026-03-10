@@ -1,62 +1,11 @@
 [
   {
-    "productId": "699aa8af65b38566d1bde4ae",
-    "user": {
-      "name": "Rahim Ahmed",
-      "avatar": "https://i.pravatar.cc/150?img=12"
-    },
-    "rating": 5,
-    "comment": "Excellent phone! Camera quality is insane 🔥",
-    "date": "2025-01-12"
-  },
-  {
-    "productId": "699ab5f865b38566d1bde4b0",
-    "user": {
-      "name": "Nusrat Jahan",
-      "avatar": "https://i.pravatar.cc/150?img=32"
-    },
-    "rating": 3,
-    "comment": "Battery backup is good but price is high.",
-    "date": "2025-02-02"
-  },
-  {
-    "productId": "699bed21faa92bea33da6e7e",
-    "user": {
-      "name": "Tanvir Hasan",
-      "avatar": "https://i.pravatar.cc/150?img=5"
-    },
-    "rating": 5,
-    "comment": "Best Android phone right now.",
-    "date": "2025-01-28"
-  },
-  {
-    "productId": "699bed21faa92bea33da6e7e",
-    "user": {
-      "name": "Rahim Ahmed",
-      "avatar": "https://i.pravatar.cc/150?img=12"
-    },
-    "rating": 5,
-    "comment": "Excellent phone! Camera quality is insane 🔥",
-    "date": "2025-01-12"
-  },
-  {
-    "productId": "699aa8af65b38566d1bde4ae",
-    "user": {
-      "name": "Nusrat Jahan",
-      "avatar": "https://i.pravatar.cc/150?img=32"
-    },
-    "rating": 4,
-    "comment": "Battery backup is good but price is high.",
-    "date": "2025-02-02"
-  },
-  {
-    "productId": "699aa8af65b38566d1bde4ae",
-    "user": {
-      "name": "Tanvir Hasan",
-      "avatar": "https://i.pravatar.cc/150?img=5"
-    },
-    "rating": 5,
-    "comment": "Best Android phone right now.",
-    "date": "2025-01-28"
+    "subCategoryId": "sub_cat8",
+    "name": { "en": "Fruits & Vegetables", "bn": "ফল এবং সবজি" },
+    "slug": "indoor-sports",
+    "image": "https://supplylinkbd.com/img/Sunam_Shop/Indoor-Sports.webp",
+    "isFeatured": false,
+    "parentId": null,
+    "level": 3
   }
 ]

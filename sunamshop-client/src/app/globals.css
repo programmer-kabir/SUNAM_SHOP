@@ -59,7 +59,7 @@
 }
 @layer utilities {
   .container-custom {
-    @apply w-full max-w-[1440px] mx-auto px-4 sm:px-0;
+    @apply w-full  px-4;
   }
 }
 .input-filter {
@@ -86,7 +86,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #e5e7eb; /* light gray */
+  background: #fff; /* light gray */
 }
 
 ::-webkit-scrollbar-thumb {
@@ -96,4 +96,34 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #d6d6d6;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes modalPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-modalPop {
+  animation: modalPop 0.25s ease;
+}
+.swiper {
+  width: 100%;
 }
