@@ -10,6 +10,7 @@ import { useThemeLanguage } from "@/context/ThemeLanguageContext";
 import { ChevronDown, Heart } from "lucide-react";
 import Link from "next/link";
 import { TicketPercent, Tag } from "lucide-react";
+import { useWishlist } from "@/context/WishlistContext";
 const SidebarHome = () => {
   const [categories, setCategories] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
@@ -19,6 +20,8 @@ const SidebarHome = () => {
   const [openMain, setOpenMain] = useState(null);
   const [openSub, setOpenSub] = useState(null);
   const [openSubSub, setOpenSubSub] = useState(null);
+  const { wishlist } = useWishlist();
+
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -69,7 +72,7 @@ const SidebarHome = () => {
             className="flex items-center gap-2 cursor-pointer text-gray-800 hover:bg-gray-100 py-2 px-3 w-full rounded-md"
           >
             <Heart size={18} className="text-red-500" />
-            Favourite
+            Favourite <span className="text-[10px]">({wishlist?.length})</span>
           </Link>
         </div>
 

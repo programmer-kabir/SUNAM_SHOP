@@ -12,20 +12,29 @@ import NewArrival from "@/components/Home/NewArrival";
 import BestSelling from "@/components/Home/BestSelling";
 
 export default async function Home() {
-  const products = await getAllProducts();
-  const subSubCategory = await getAllSubSubCategory();
-  const FlashSales = await getAllFalseSales();
-  const newArrivalData = await getAllNewArrivalData();
+  const [products, subSubCategory, FlashSales, newArrivalData] =
+    await Promise.all([
+      getAllProducts(),
+      getAllSubSubCategory(),
+      getAllFalseSales(),
+      getAllNewArrivalData(),
+    ]);
+
   return (
     <section>
       <Banner />
       <WhyChooseUs products={products} />
+
       {FlashSales?.products?.length > 0 && (
         <FlashSale FlashSales={FlashSales} />
       )}
+
       <NewArrival newArrivalData={newArrivalData} />
+
       <PopularCategories subSubCategories={subSubCategory} />
+
       <BestSelling products={products} />
+
       <CTASection />
       <FAQSection />
     </section>
