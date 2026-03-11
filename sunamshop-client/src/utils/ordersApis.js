@@ -1,6 +1,6 @@
 export async function getAllOrders(accessToken) {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/manage_orders`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/manage_orders`,
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,

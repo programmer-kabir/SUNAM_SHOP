@@ -9,7 +9,6 @@ const BestSelling = ({ reviews, products }) => {
   const topProducts = [...(products || [])]
     .sort((a, b) => (b?.sold || 0) - (a?.sold || 0))
     .slice(0, 14);
-  console.log(topProducts);
   return (
     <div>
       <section className="py-12 max-w-[1600px]  px-4 w-full mx-auto">
@@ -33,7 +32,7 @@ const BestSelling = ({ reviews, products }) => {
             {" "}
             {topProducts?.map((product) => (
               <HomeProductsCard
-                key={product?.productId}
+                key={product?._id}
                 product={product}
                 reviews={reviews}
               />

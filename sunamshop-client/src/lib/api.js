@@ -1,6 +1,6 @@
 export async function fetchProducts() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/products`,
     {
       cache: "no-store",
     },
@@ -12,7 +12,7 @@ export async function fetchProducts() {
 }
 export async function fetchDivisions() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/divisions`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/divisions`,
     {
       cache: "no-store",
     },
@@ -24,7 +24,7 @@ export async function fetchDivisions() {
 }
 export async function fetchDistricts() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/districts`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/districts`,
     {
       cache: "no-store",
     },
@@ -35,7 +35,7 @@ export async function fetchDistricts() {
 }
 export async function fetchUpazilas() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/upazilas`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/upazilas`,
     {
       cache: "no-store",
     },

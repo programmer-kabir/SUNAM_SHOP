@@ -1,5 +1,5 @@
 export async function getAllUsers(accessToken) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
@@ -14,7 +14,7 @@ export async function getAllUsers(accessToken) {
 
 export async function getCurrentUser(email, accessToken) {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users?email=${email}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/users?email=${email}`,
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,

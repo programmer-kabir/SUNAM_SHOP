@@ -5,7 +5,7 @@ export default function useCategory() {
     queryKey: ["categories"],
     queryFn: async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/categories`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/categories`,
       );
 
       if (!res.ok) throw new Error("Failed");

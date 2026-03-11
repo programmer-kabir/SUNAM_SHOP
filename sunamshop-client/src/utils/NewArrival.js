@@ -1,6 +1,6 @@
 export async function getAllNewArrivalData() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/new_arrival`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/new_arrival`,
     {
       cache: "no-store",
     },

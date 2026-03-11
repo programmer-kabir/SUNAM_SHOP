@@ -11,7 +11,7 @@ export default function useUsers() {
     enabled: !!session?.accessToken,
     queryFn: async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/users`,
         {
           headers: {
             Authorization: `Bearer ${session.accessToken}`,

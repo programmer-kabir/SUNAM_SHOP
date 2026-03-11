@@ -94,11 +94,6 @@ export const menuConfig = {
           icon: PackageCheck,
         },
       ],
-    },
-    {
-      title: "Invoices",
-      href: "/userDashboard/invoices",
-      icon: FileText,
-    },
+    }
   ],
 };

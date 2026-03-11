@@ -14,7 +14,6 @@ const SummaryHeader = ({ user, totalOrders, totalSpend }) => {
   if (totalSpend > 50000) level = "Platinum 👑";
   else if (totalSpend > 10000) level = "Gold 🥇";
   const name = user?.firstName + " " + user?.lastName;
-  console.log(name);
   return (
     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
       <h2 className="text-2xl font-semibold text-gray-800">

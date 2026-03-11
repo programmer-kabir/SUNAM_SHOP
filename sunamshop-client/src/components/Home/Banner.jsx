@@ -1,22 +1,11 @@
 "use client";
 import { useRef, useEffect } from "react";
-import Link from "next/link";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
-import Image from "next/image";
-import useProducts from "@/hooks/useProducts";
-import useCategory from "@/hooks/useCategory";
 import { useThemeLanguage } from "@/context/ThemeLanguageContext";
-import { SlidersHorizontal } from "lucide-react";
+import Image from "next/image";
 
 export default function HeroSection() {
   const heroRef = useRef(null);
-  const { data: products = [] } = useProducts();
-  const { data: categories = [] } = useCategory();
-  const { language } = useThemeLanguage(); 
-  console.log(language)
+  const { language } = useThemeLanguage();
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -81,46 +70,64 @@ export default function HeroSection() {
         <div className="hidden lg:flex w-1/2 relative h-[550px] justify-end items-center gap-3 pl-10">
           {/* Column 1 */}
           <div className="flex flex-col justify-center">
-            <img
+            <Image
               src="https://supplylinkbd.com/img/Sunam_Shop/banner/Delivery_boy.jfif"
               alt="Delivery boy"
+              width={300}
+              height={400}
+              priority
               className="w-56 h-72 object-cover rounded-xl shadow-md border-[3px] border-white object-top"
             />
           </div>
 
           {/* Column 2 */}
           <div className="flex flex-col gap-3 transform -translate-y-6">
-            <img
+            <Image
               src="https://supplylinkbd.com/img/Sunam_Shop/banner/Vegetables.jpg"
               alt="Vegetables"
+              width={300}
+              height={400}
+              priority
               className="w-36 h-36 object-cover rounded-xl shadow-sm border-2 border-white"
             />
-            <img
+            <Image
               src="https://supplylinkbd.com/img/Sunam_Shop/banner/Grocery_Aisle.jpg"
               alt="Grocery Aisle"
+              width={300}
+              height={400}
+              priority
               className="w-36 h-60 object-cover rounded-xl shadow-sm border-2 border-white"
             />
           </div>
 
           {/* Column 3 */}
           <div className="flex flex-col gap-3 transform translate-y-4">
-            <img
+            <Image
               src="https://supplylinkbd.com/img/Sunam_Shop/banner/Market.jpg"
               alt="Market"
+              width={300}
+              height={400}
+              priority
               className="w-40 h-64 object-cover rounded-xl shadow-sm border-2 border-white"
             />
-            <img
+            <Image
               src="https://supplylinkbd.com/img/Sunam_Shop/banner/Bike_Delivery.jpg"
               alt="Bike Delivery"
+              width={300}
+              height={400}
+              priority
               className="w-40 h-32 object-cover rounded-xl shadow-sm border-2 border-white"
             />
           </div>
 
           {/* Column 4 (Cutoff effect on the right edge) */}
           <div className="flex flex-col justify-center translate-y-8">
-            <img
+            <Image
               src="https://supplylinkbd.com/img/Sunam_Shop/banner/Produce.jpg"
               alt="Produce"
+              width={300}
+              height={400}
+              priority
               className="w-24 h-48 object-cover rounded-l-xl shadow-sm border-y-2 border-l-2 border-white"
             />
           </div>

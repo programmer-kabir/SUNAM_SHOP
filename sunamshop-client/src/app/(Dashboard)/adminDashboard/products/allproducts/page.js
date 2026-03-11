@@ -49,7 +49,8 @@ const AllProducts = async () => {
                     <Image
                       src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${product.images?.[0]}`}
                       alt={product.name?.en}
-                      fill
+                      width={300}
+                      height={400}
                       className="object-contain rounded"
                     />
                   </div>

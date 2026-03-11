@@ -12,7 +12,7 @@ export default function useManageOrders() {
 
     queryFn: async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/manage_orders`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/manage_orders`,
         {
           headers: {
             Authorization: `Bearer ${session.accessToken}`,

@@ -1,6 +1,6 @@
 export async function getAllReviews() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/get_reviews`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/get_reviews`,
     {
       cache: "no-store",
     },

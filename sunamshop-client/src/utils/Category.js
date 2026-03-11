@@ -1,6 +1,6 @@
 export async function getAllMainCategory() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/categories`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/categories`,
     { cache: "no-store" },
   );
 
@@ -11,7 +11,7 @@ export async function getAllMainCategory() {
 }
 export async function getAllSubCategory() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/sub_categories`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/sub_categories`,
     {
       cache: "no-store",
     },
@@ -25,7 +25,7 @@ export async function getAllSubCategory() {
 }
 export async function getAllSubSubCategory() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/sub_sub_categories`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/sub_sub_categories`,
     {
       cache: "no-store",
     },
@@ -39,7 +39,7 @@ export async function getAllSubSubCategory() {
 }
 export async function getAllChildCategory() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/child_categories`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/child_categories`,
     {
       cache: "no-store",
     },
@@ -52,7 +52,7 @@ export async function getAllChildCategory() {
   return res.json();
 }
 export async function getAllProductss() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/products`, {
     cache: "no-store",
   });
 

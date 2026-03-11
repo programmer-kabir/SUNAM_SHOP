@@ -10,7 +10,7 @@ export default function useOrder() {
     enabled: !!session,
     queryFn: async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/orders`,
         {
           headers: {
             Authorization: `Bearer ${session.accessToken}`,

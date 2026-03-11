@@ -1,12 +1,12 @@
 // lib/products.js (example location)
 
-const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
+const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 /* ===============================
    Get All Products
 ================================ */
 export async function getAllProducts() {
-  const res = await fetch(`${BASE_URL}/api/products`, {
+  const res = await fetch(`${BASE_URL}/products`, {
     cache: "no-store",
   });
 
@@ -22,7 +22,7 @@ export async function getAllProducts() {
 ================================ */
 export async function getProductsByCategory(categoryName) {
   const res = await fetch(
-    `${BASE_URL}/api/products?category=${encodeURIComponent(categoryName)}`,
+    `${BASE_URL}/products?category=${encodeURIComponent(categoryName)}`,
     {
       cache: "no-store",
     },
@@ -39,7 +39,7 @@ export async function getProductsByCategory(categoryName) {
    Get Single Product By Slug
 ================================ */
 export async function getProductBySlug(slug) {
-  const res = await fetch(`${BASE_URL}/api/products/${slug}`, {
+  const res = await fetch(`${BASE_URL}/products/${slug}`, {
     cache: "no-store",
   });
 
@@ -51,7 +51,7 @@ export async function getProductBySlug(slug) {
 }
 
 export async function getAllCategory() {
-  const res = await fetch(`${BASE_URL}/api/categories`, {
+  const res = await fetch(`${BASE_URL}/categories`, {
     cache: "no-store",
   });
 

@@ -10,7 +10,6 @@ import toast from "react-hot-toast";
 const EditProfile = ({ user, divisions, districts, upazilas, token }) => {
   const { data: users } = useUsers();
   const [image, setImage] = useState();
-  console.log(image);
   const currentUser = users?.find((u) => u.email === user?.email);
   const {
     register,

@@ -6,7 +6,7 @@ export default function useFlashSale() {
     queryKey: ["flashSales"],
     queryFn: async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/flash-sales`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/flash-sales`,
       );
       console.log(res);
       if (!res.ok) throw new Error("Failed");

@@ -6,7 +6,7 @@ export default function useAllUsers() {
     queryKey: ["users"],
     queryFn: async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/get_all_users`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/get_all_users`,
       );
 
       if (!res.ok) throw new Error("Failed");

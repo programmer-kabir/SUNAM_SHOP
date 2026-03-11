@@ -7,7 +7,6 @@ const UsersCartMonitor = async () => {
   const session = await getServerSession(authOptions);
   const token = session?.accessToken;
   const userCart = await UsersCartItems(token);
-  console.log(userCart);
   return (
     <div className="">
       <div className="flex items-center gap-3 mb-8">
@@ -34,7 +33,7 @@ const UsersCartMonitor = async () => {
             <tbody>
               {userCart?.map((user) => (
                 <tr
-                  key={`${user?._id}}`}
+                  key={user?._id}
                   className="border-t hover:bg-gray-50 transition"
                 >
                   <td className="px-6 py-4 font-medium text-gray-800">

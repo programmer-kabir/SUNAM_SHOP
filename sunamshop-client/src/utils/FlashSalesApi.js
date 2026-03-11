@@ -1,6 +1,6 @@
 export async function getAllFalseSales() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/flash-sales`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/flash-sales`,
     {
       cache: "no-store",
     },

@@ -20,7 +20,6 @@ const RecentOrdersTable = ({ orders = [] }) => {
         return "bg-gray-100 text-gray-600";
     }
   };
-console.log(orders)
   return (
     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
       <div className="flex justify-between items-center mb-6">
