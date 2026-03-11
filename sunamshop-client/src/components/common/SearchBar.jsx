@@ -121,25 +121,37 @@ export default function SearchBar({ showNavbarSearch }) {
           </button>
 
           {isDesktopSearchOpen && filteredHistory.length > 0 && (
-            <div className="absolute top-full mt-2 w-full bg-white dark:bg-gray-900 rounded-lg shadow-lg border max-h-56 overflow-y-auto z-50">
-              <div className="flex justify-between px-3 py-2 border-b text-xs">
-                <span>Recent Searches</span>
-                <button onClick={clearHistory} className="text-red-500">
+            <div className="absolute top-full mt-3 w-full bg-white dark:bg-gray-900 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden z-50">
+              {/* Header */}
+              <div className="flex items-center justify-between px-4 py-2 text-xs text-gray-500 border-b dark:border-gray-700">
+                <span className="font-medium">Recent Searches</span>
+                <button
+                  onClick={clearHistory}
+                  className="text-red-500 hover:text-red-600 text-xs font-medium"
+                >
                   Clear
                 </button>
               </div>
-              {filteredHistory.map((item, i) => (
-                <div
-                  key={i}
-                  onClick={() => {
-                    router.push(`/products?search=${item}`);
-                    setSearchTerm("");
-                  }}
-                  className="px-3 py-2 text-sm cursor-pointer hover:bg-gray-100"
-                >
-                  🔍 {item}
-                </div>
-              ))}
+
+              {/* List */}
+              <div className="max-h-60 overflow-y-auto">
+                {filteredHistory.map((item, i) => (
+                  <div
+                    key={i}
+                    onClick={() => {
+                      router.push(`/search?query=${item}`);
+                      setSearchTerm("");
+                      setIsDesktopSearchOpen(false);
+                    }}
+                    className="flex items-center gap-3 px-4 py-2 text-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+                  >
+                    <Search className="h-4 w-4 text-gray-400" />
+                    <span className="text-gray-700 dark:text-gray-200">
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </div>

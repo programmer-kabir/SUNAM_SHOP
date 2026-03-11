@@ -50,7 +50,7 @@ const SidebarHome = () => {
       <div className="mt-5 ">
         <div className="px-3 w-full flex flex-col pb-3 gap-1">
           <Link
-            href={"/products/flashsales"}
+            href={"/products/coupons"}
             className="flex items-center gap-2 cursor-pointer text-gray-800 hover:bg-gray-100 py-2 px-3 w-full rounded-md"
           >
             <TicketPercent size={18} className="text-purple-600" />
@@ -58,14 +58,14 @@ const SidebarHome = () => {
           </Link>
 
           <Link
-            href={"/products/newarrival"}
+            href={"/products/offer"}
             className="flex items-center gap-2 cursor-pointer text-gray-800 hover:bg-gray-100 py-2 px-3 w-full rounded-md"
           >
             <Tag size={18} className="text-orange-500" />
             Offers
           </Link>
           <Link
-            href={"/products/newarrival"}
+            href={"/wishlist"}
             className="flex items-center gap-2 cursor-pointer text-gray-800 hover:bg-gray-100 py-2 px-3 w-full rounded-md"
           >
             <Heart size={18} className="text-red-500" />

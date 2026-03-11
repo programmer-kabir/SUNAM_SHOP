@@ -12,12 +12,14 @@ import NavActions from "./NavActions";
 import CartModal from "../Home/CartModal";
 import MobileBottomNav from "./MobileBottomNav";
 import AuthModal from "../Authencations/AuthModal";
+import { usePathname } from "next/navigation";
 
 export default function Navbar({ sidebarOpen, setSidebarOpen }) {
   const { data: session } = useSession();
   const { data: cart, refetch: refetchCart } = useCart();
   const { wishlist } = useWishlist();
   const { data: products } = useProducts();
+  const pathname = usePathname(); // 👈 route check
 
   const [loginOpen, setLoginOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -26,28 +28,35 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
   const isAdmin = session?.user?.role === "admin";
 
   useEffect(() => {
-    const handleHidden = () => setShowNavbarSearch(true);
-    const handleVisible = () => setShowNavbarSearch(false);
-    window.addEventListener("heroHidden", handleHidden);
-    window.addEventListener("heroVisible", handleVisible);
-    return () => {
-      window.removeEventListener("heroHidden", handleHidden);
-      window.removeEventListener("heroVisible", handleVisible);
-    };
-  }, []);
+    // 👇 homepage হলে scroll logic
+    if (pathname === "/") {
+      const handleHidden = () => setShowNavbarSearch(true);
+      const handleVisible = () => setShowNavbarSearch(false);
+
+      window.addEventListener("heroHidden", handleHidden);
+      window.addEventListener("heroVisible", handleVisible);
+
+      return () => {
+        window.removeEventListener("heroHidden", handleHidden);
+        window.removeEventListener("heroVisible", handleVisible);
+      };
+    }
+
+    // 👇 অন্য page হলে search সবসময় দেখাবে
+    else {
+      setShowNavbarSearch(true);
+    }
+  }, [pathname]);
 
   return (
     <>
       <nav className="sticky top-0 z-40 w-full border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950">
         <div className="container-custom px-4">
           {/* TOP BAR */}
-          <div className="flex h-16 items-center justify-between">
+          <div className="flex gap-20 h-16 items-center justify-between">
             {/* LEFT */}
             <div className="flex items-center gap-2 md:gap-4">
-              <button
-                onClick={() => setSidebarOpen(!sidebarOpen)}
-                className=""
-              >
+              <button onClick={() => setSidebarOpen(!sidebarOpen)} className="">
                 <Menu className="h-6 w-6" />
               </button>
 
@@ -61,7 +70,7 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
             </div>
 
             {/* DESKTOP SEARCH */}
-            <div className="hidden md:block w-[400px]">
+            <div className="hidden md:block w-full">
               <SearchBar showNavbarSearch={showNavbarSearch} />
             </div>
             {/* MOBILE SEARCH */}

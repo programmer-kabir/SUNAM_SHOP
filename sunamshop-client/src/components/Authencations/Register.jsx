@@ -38,14 +38,17 @@ export default function RegisterModal({ close, switchLogin }) {
       toast.error(data.message);
       return;
     }
-
+    console.log(form?.email, form.password);
     // 🔥 Auto login
     const login = await signIn("credentials", {
-      email: form.email,
+      identifier: form.email,
       password: form.password,
       redirect: false,
     });
-
+console.log(login)
+if(login.ok){
+  toast.success("Register Success")
+}
     if (!login.error) {
       close();
     } else {
