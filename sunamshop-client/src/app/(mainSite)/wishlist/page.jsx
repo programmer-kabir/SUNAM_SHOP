@@ -10,7 +10,6 @@ const Wishlist = () => {
   const [wishlist, setWishlist] = useState([]);
   const { data: session } = useSession();
   const { data: Cart, refetch } = useCart();
-console.log(wishlist)
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem("wishlist")) || [];
     setWishlist(stored);
@@ -76,10 +75,12 @@ console.log(wishlist)
             className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-sm hover:shadow-md transition p-4 flex flex-col"
           >
             <Image
+              src={
+                `${process.env.NEXT_PUBLIC_IMAGE_URL}${item.image}` ||
+                "/placeholder.png"
+              }
               width={52}
               height={52}
-
-              src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${item.image}` || "/placeholder.png"}
               alt={item.name}
               className="w-full h-52 object-contain rounded-lg"
             />

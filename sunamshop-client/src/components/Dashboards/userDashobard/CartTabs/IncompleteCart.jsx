@@ -25,8 +25,9 @@ const IncompleteCart = ({ products }) => {
       slug: product?.slug,
       price: item?.price || 0,
       quantity: item.qty,
-      size: item.size,
-      color: item.color,
+      size: product?.packSize
+        ? `${product.packSize.value} ${product.packSize.unit}`
+        : null,
       subtotal: (item?.price || 0) * item.qty,
     };
   });
@@ -35,7 +36,6 @@ const IncompleteCart = ({ products }) => {
     cartItems?.reduce((acc, item) => acc + item.subtotal, 0) || 0;
   const total = subtotal;
   const handleDelete = async (id) => {
-    console.log(id);
     try {
       const result = await Swal.fire({
         title: "Delete Item?",
@@ -51,14 +51,11 @@ const IncompleteCart = ({ products }) => {
 
       if (!result.isConfirmed) return;
       setDeletingId(id);
-      await axios.delete(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/cart/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${session?.accessToken}`,
-          },
+      await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/cart/${id}`, {
+        headers: {
+          Authorization: `Bearer ${session?.accessToken}`,
         },
-      );
+      });
       setDeletingId(null);
       toast.success("Product removed from your cart successfully.");
       await refetch();
@@ -78,13 +75,11 @@ const IncompleteCart = ({ products }) => {
           {" "}
           <div className="lg:w-[75%]">
             {/* Desktop Header */}
-            <div className="hidden md:grid grid-cols-7 border-b pb-4 text-gray-500 font-semibold text-sm uppercase tracking-wide">
+            <div className="hidden md:grid grid-cols-6 border-b pb-4 text-gray-500 font-semibold text-sm uppercase tracking-wide">
               <span>Product</span>
               <span>Price</span>
               <span>Quantity</span>
-              <span>Color</span>
-              <span>Size</span>
-
+              <span>Pack Size</span>
               <span className="text-right">Subtotal</span>
               <span className="text-right">Action</span>
             </div>
@@ -93,14 +88,15 @@ const IncompleteCart = ({ products }) => {
             {cartItems?.map((item) => (
               <div key={item._id} className="border-b py-5">
                 {/* Desktop Layout */}
-                <div className="hidden md:grid grid-cols-7 items-center gap-4">
+                <div className="hidden md:grid grid-cols-6 items-center gap-4">
                   {/* Product */}
                   <div className="flex items-center gap-4">
                     <div className="relative w-16 h-16 rounded-md overflow-hidden border bg-gray-50 flex-shrink-0">
                       <Image
                         src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${item.image}`}
                         alt={item.name}
-                        fill
+                        width={300}
+                        height={300}
                         className="object-contain p-1"
                       />
                     </div>
@@ -117,7 +113,7 @@ const IncompleteCart = ({ products }) => {
                   <div>৳ {Number(item.price).toLocaleString()}</div>
                   {/* Quantity */}
                   <div>{item.quantity}</div>
-                  <div>{item.color || "-"}</div> <div>{item.size || "-"}</div>
+                  <div>{item.size || "-"}</div>
                   {/* Subtotal */}
                   <div className="text-right font-semibold">
                     ৳ {Number(item.subtotal).toLocaleString()}
@@ -154,10 +150,8 @@ const IncompleteCart = ({ products }) => {
                       <h3 className="text-sm font-semibold truncate">
                         {item.name}
                       </h3>
-
                       <p className="text-xs text-gray-500 truncate">
-                        {item.size && `Size: ${item.size}`}{" "}
-                        {item.color && `| Color: ${item.color}`}
+                        {item.size || "-"}
                       </p>
 
                       <div className="text-xs text-gray-600 mt-1">
@@ -200,8 +194,17 @@ const IncompleteCart = ({ products }) => {
                 </div>
 
                 <Link
-                  href="/userDashboard/cart/CheckOut"
-                  className="mt-6 bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg block text-center transition"
+                  href={
+                    cartItems?.length === 0
+                      ? "#"
+                      : "/userDashboard/cart/CheckOut"
+                  }
+                  className={`mt-6 py-3 rounded-lg block text-center transition 
+  ${
+    cartItems?.length === 0
+      ? "bg-gray-400 cursor-not-allowed pointer-events-none"
+      : "bg-red-500 hover:bg-red-600 text-white"
+  }`}
                 >
                   Proceed to Checkout
                 </Link>

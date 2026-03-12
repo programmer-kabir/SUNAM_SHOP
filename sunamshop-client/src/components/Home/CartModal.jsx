@@ -8,11 +8,13 @@ import axios from "axios";
 
 const CartModal = ({ cart, products, onClose, session, refetchCart }) => {
   const cartItems = cart?.map((item) => {
-    const product = products?.find((p) => p._id === item.productId);
+    const product = products?.find(
+      (p) => String(p._id) === String(item.productId),
+    );
     return {
       _id: item._id,
-      image: product?.images?.[0],
-      name: product?.name,
+      image: product?.images?.[0] || null,
+      name: product?.name || "Product",
       quantity: item.qty,
       size: item.size,
       color: item.color,

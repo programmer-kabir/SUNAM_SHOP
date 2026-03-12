@@ -11,10 +11,10 @@ const roboto = Roboto({
 export default function RootLayout({ children }) {
 
   return (
-    <html lang="en">
-      <body className={`${roboto.className} antialiased`}>
+    // <html lang="en">
+    //   <body className={`${roboto.className} antialiased`}>
         <DashboardLayout>{children}</DashboardLayout>
-      </body>
-    </html>
+    //   </body>
+    // </html>
   );
 }

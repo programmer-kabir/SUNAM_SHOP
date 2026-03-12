@@ -107,7 +107,7 @@ const QuickViewModal = ({
     }
 
     // ✅ Logged in user → server cart
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/cart`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/cart`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -158,8 +158,9 @@ const QuickViewModal = ({
                   : "/placeholder.jpg"
               }
               alt={product?.name?.en}
-              fill
-              className="object-contain p-6"
+              width={600}
+              height={600}
+              className="object-contain p-5"
             />
           </div>
 

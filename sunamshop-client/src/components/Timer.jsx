@@ -22,7 +22,7 @@ export function Timer({ endDate }) {
     return Math.floor(diff / 1000);
   };
 
-  const [time, setTime] = useState(calculateTimeLeft());
+  const [time, setTime] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {

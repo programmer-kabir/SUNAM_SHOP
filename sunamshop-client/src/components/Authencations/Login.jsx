@@ -113,9 +113,9 @@ export default function LoginModal({ close, switchRegister }) {
           <div>
             <p className="text-gray-500 text-sm">Or, login with</p>
             <button
-              //   onClick={() =>
-              //     signIn("google", { callbackUrl: "/userDashboard/dashboard" })
-              //   }
+                onClick={() =>
+                  signIn("google", { callbackUrl: "/userDashboard/dashboard" })
+                }
               type="button"
               className="w-full border border-gray-300 py-3 rounded-md flex items-center justify-center gap-3 hover:bg-gray-50 transition"
             >

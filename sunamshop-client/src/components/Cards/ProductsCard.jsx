@@ -5,7 +5,6 @@ import StarRating from "../ui/StarRating";
 import Link from "next/link";
 
 const ProductsCard = ({ product, reviews, category }) => {
-  console.log(category);
   const originalPrice = Number(product?.price);
   const flashPrice = Number(product?.flashPrice);
 

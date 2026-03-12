@@ -4,7 +4,6 @@ import React from "react";
 
 const NewArrivalPage = async () => {
   const newArrivalData = await getAllNewArrivalData();
-  console.log(newArrivalData);
   return (
     <section className="max-w-[1600px] mx-auto py-10">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between bg-gray-100 rounded-xl px-6 py-5 mb-6">

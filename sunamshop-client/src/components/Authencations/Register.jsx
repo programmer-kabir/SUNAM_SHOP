@@ -45,7 +45,6 @@ export default function RegisterModal({ close, switchLogin }) {
       password: form.password,
       redirect: false,
     });
-console.log(login)
 if(login.ok){
   toast.success("Register Success")
 }
@@ -108,9 +107,9 @@ if(login.ok){
             Create Account
           </button>
           <button
-            // onClick={() =>
-            //   signIn("google", { callbackUrl: "/userDashboard/dashboard" })
-            // }
+            onClick={() =>
+              signIn("google", { callbackUrl: "/" })
+            }
             type="button"
             className="w-full border border-gray-300 py-3 rounded-md flex items-center justify-center gap-3 hover:bg-gray-50 transition"
           >

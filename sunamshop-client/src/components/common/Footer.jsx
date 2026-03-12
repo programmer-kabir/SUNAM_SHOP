@@ -1,13 +1,15 @@
 import React from "react";
 import Link from "next/link";
-import { Facebook, Twitter, Instagram, Linkedin, Send } from "lucide-react";
+import { Facebook, Twitter, Instagram, Linkedin, Send, Banknote } from "lucide-react";
 
 const Footer = () => {
   return (
     <footer className="bg-black text-gray-300 pt-20 pb-8 border-t border-white/10">
       <div className="container-custom px-4">
+
         {/* TOP */}
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
+
           {/* BRAND */}
           <div className="lg:col-span-2">
             <h2 className="text-3xl font-bold text-white mb-3 tracking-wide">
@@ -36,13 +38,7 @@ const Footer = () => {
           <div>
             <h3 className="text-white font-semibold mb-5">Shop</h3>
             <ul className="space-y-3 text-sm">
-              {[
-                "All Products",
-                "Categories",
-                "Flash Sale",
-                "Popular",
-                "New Arrivals",
-              ].map((item) => (
+              {["All Products", "Categories", "Flash Sale", "Popular", "New Arrivals"].map((item) => (
                 <li key={item}>
                   <Link href="#" className="hover:text-white transition">
                     {item}
@@ -56,13 +52,7 @@ const Footer = () => {
           <div>
             <h3 className="text-white font-semibold mb-5">Customer Care</h3>
             <ul className="space-y-3 text-sm">
-              {[
-                "My Account",
-                "Track Order",
-                "Wishlist",
-                "Cart",
-                "Help Center",
-              ].map((item) => (
+              {["My Account", "Track Order", "Wishlist", "Cart", "Help Center"].map((item) => (
                 <li key={item}>
                   <Link href="#" className="hover:text-white transition">
                     {item}
@@ -96,21 +86,19 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* PAYMENT METHODS */}
+        {/* PAYMENT / COD */}
         <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
+
           <p className="text-gray-500 text-sm">
             © 2025 Exclusive — All Rights Reserved
           </p>
 
-          <div className="flex items-center gap-4 opacity-80">
-            <img src="https://i.ibb.co/0n3Y3hF/visa.png" className="h-6" />
-            <img
-              src="https://i.ibb.co/G9z3P7k/mastercard.png"
-              className="h-6"
-            />
-            <img src="https://i.ibb.co/F5n9kGf/bkash.png" className="h-6" />
-            <img src="https://i.ibb.co/z8wK7vM/nagad.png" className="h-6" />
+          {/* Cash on Delivery */}
+          <div className="flex items-center gap-2 text-gray-400">
+            <Banknote size={22} />
+            <span className="text-sm">Cash on Delivery Available</span>
           </div>
+
         </div>
       </div>
     </footer>

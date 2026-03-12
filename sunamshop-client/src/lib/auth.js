@@ -33,7 +33,6 @@ export const authOptions = {
   },
 
   callbacks: {
-    // 🔥 Google login hole backend e save
     async signIn({ user, account }) {
       if (account.provider === "google") {
         const res = await fetch(`${process.env.BACKEND_URL}/api/auth/google`, {

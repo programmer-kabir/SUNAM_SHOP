@@ -242,7 +242,6 @@ const ManageOrders = ({ products, users }) => {
                 <th className="p-4 text-center">Qty</th>
                 <th className="p-4 text-right whitespace-nowrap">Price</th>
                 <th className="p-4 text-right whitespace-nowrap">Size</th>
-                <th className="p-4 text-right whitespace-nowrap">Color</th>
                 <th className="p-4 text-right  whitespace-nowrap">Total</th>
                 <th className="p-4 text-right  whitespace-nowrap">Shipping</th>
                 <th className="p-4 text-center  whitespace-nowrap">
@@ -320,19 +319,10 @@ const ManageOrders = ({ products, users }) => {
                         ৳ {product.price}
                       </td>
                       <td className="p-4 text-center whitespace-nowrap">
-                        {product?.size ? (
+                        {productData?.packSize?.value &&
+                        productData?.packSize?.unit ? (
                           <span className="px-3 py-1 text-xs font-semibold rounded-full bg-blue-50 text-blue-700 border border-blue-200">
-                            {product.size}
-                          </span>
-                        ) : (
-                          <span className="text-slate-400 text-sm">—</span>
-                        )}
-                      </td>
-
-                      <td className="p-4 text-left whitespace-nowrap">
-                        {product?.color ? (
-                          <span className="px-3 py-1 text-xs font-semibold rounded-full bg-rose-50 text-rose-700 border border-rose-200">
-                            {product.color}
+                            {`${productData?.packSize?.value} ${productData?.packSize?.unit}`}
                           </span>
                         ) : (
                           <span className="text-slate-400 text-sm">—</span>

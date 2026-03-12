@@ -272,7 +272,8 @@ const EditProducts = ({ productId }) => {
                   <Image
                     src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${img}`}
                     alt="product"
-                    fill
+                    width={300}
+                    height={200}
                     className="object-cover"
                   />
                 )}

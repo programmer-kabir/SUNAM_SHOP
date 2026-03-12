@@ -25,15 +25,13 @@ const UsersCartMonitor = async () => {
                 <th className="px-6 py-4">Product Name</th>
                 <th className="px-6 py-4">Price</th>
                 <th className="px-6 py-4">Quantity</th>
-                <th className="px-6 py-4">Color</th>
-                <th className="px-6 py-4">Size</th>
                 <th className="px-6 py-4">Total</th>
               </tr>
             </thead>
             <tbody>
-              {userCart?.map((user) => (
+              {userCart?.map((user,index) => (
                 <tr
-                  key={user?._id}
+                  key={index}
                   className="border-t hover:bg-gray-50 transition"
                 >
                   <td className="px-6 py-4 font-medium text-gray-800">
@@ -58,26 +56,7 @@ const UsersCartMonitor = async () => {
                   <td className="px-6 py-4">{user.quantity || 1}</td>
                   <td className="px-6 py-4">৳{user.price}</td>
 
-                  <td className="px-6 py-4">
-                    {" "}
-                    {user?.color ? (
-                      <span className="px-3 py-1 text-xs font-semibold rounded-full bg-rose-50 text-rose-700 border border-rose-200">
-                        {user.color}
-                      </span>
-                    ) : (
-                      <span className="text-slate-400 text-sm">—</span>
-                    )}
-                  </td>
-                  <td className="px-6 py-4">
-                    {" "}
-                    {user?.size ? (
-                      <span className="px-3 py-1 text-xs font-semibold rounded-full bg-rose-50 text-rose-700 border border-rose-200">
-                        {user.size}
-                      </span>
-                    ) : (
-                      <span className="text-slate-400 text-sm">—</span>
-                    )}
-                  </td>
+                  
                   <td className="px-6 py-4 font-semibold">
                     ৳{Number(user.price) * Number(user.quantity || 1)}
                   </td>

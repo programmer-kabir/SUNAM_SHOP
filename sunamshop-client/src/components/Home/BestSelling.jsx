@@ -1,4 +1,3 @@
-import BestSellingCard from "../Cards/BestSellingCard";
 import HomeProductCard from "../Cards/ProductCard";
 import HomeProductsCard from "../Cards/HomeProductCard";
 import SectionHeader from "../SectionHeader";

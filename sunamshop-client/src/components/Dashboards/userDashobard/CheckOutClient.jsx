@@ -94,14 +94,14 @@ const CheckOutClient = ({
   }, [currentUser, divisions, districts, upazilas, reset]);
   const cartItems = cart?.map((item) => {
     const product = products?.find((p) => p._id === item.productId);
-
     return {
       _id: item.productId,
       image: product?.images?.[0],
       name: product?.name?.en,
       quantity: item.qty,
-      size: item.size,
-      color: item.color,
+      size: product?.packSize
+        ? `${product.packSize.value} ${product.packSize.unit}`
+        : null,
       price: item.price,
     };
   });
@@ -113,70 +113,6 @@ const CheckOutClient = ({
       return acc + price * qty;
     }, 0) || 0;
   const total = subtotal + deliveryCharge;
-
-  // const onSubmit = async (data) => {
-
-  //   setIsSubmitting(true);
-
-  //   const selectedDivisionObj = divisions?.find(
-  //     (d) => String(d.id) === String(data.division_id),
-  //   );
-
-  //   const selectedDistrictObj = districts?.find(
-  //     (d) => String(d.id) === String(data.district_id),
-  //   );
-
-  //   const selectedUpazilaObj = upazilas?.find(
-  //     (u) => String(u.id) === String(data.upazila_id),
-  //   );
-
-  //   const profileRes = await fetch(
-  //     `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/edit_user_profile`,
-  //     {
-  //       method: "PUT",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //       body: JSON.stringify({
-  //         firstName: data.firstName || null,
-  //         lastName: data.lastName || null,
-  //         email: data.email,
-  //         number: data.number,
-  //         division: selectedDivisionObj?.name,
-  //         district: selectedDistrictObj?.name,
-  //         upazila: selectedUpazilaObj?.name,
-  //         villageName: data.villageName,
-  //       }),
-  //     },
-  //   );
-  //   if (!profileRes.ok) {
-  //     toast.error("Profile update failed");
-  //   }
-
-  //   if (profileRes.ok) {
-  //     queryClient.invalidateQueries(["edit_user_profile"]);
-  //     const orderRes = await fetch(
-  //       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders`,
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //         body: JSON.stringify({
-  //           deliveryCharge: deliveryCharge || null,
-  //           email: user?.email,
-  //         }),
-  //       },
-  //     );
-  //     if (!orderRes.ok) {
-  //       toast.error("Order failed");
-  //     }
-  //     toast.success("Order placed successfully 🎉");
-  //     refetch();
-  //   }
-  // };
   const onSubmit = async (data) => {
     try {
       setIsSubmitting(true);
@@ -194,7 +130,7 @@ const CheckOutClient = ({
       );
 
       const profileRes = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/edit_user_profile`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/edit_user_profile`,
         {
           method: "PUT",
           headers: {
@@ -217,7 +153,7 @@ const CheckOutClient = ({
       if (!profileRes.ok) throw new Error("Profile update failed");
 
       const orderRes = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/orders`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/orders`,
         {
           method: "POST",
           headers: {
@@ -293,7 +229,6 @@ const CheckOutClient = ({
             />
           </div>
 
-          {/* Number */}
           <div>
             <label>Number *</label>
             <input
@@ -307,7 +242,6 @@ const CheckOutClient = ({
             )}
           </div>
 
-          {/* Division + District */}
           <div className="grid md:grid-cols-2 gap-6">
             <div>
               <label>Division *</label>
@@ -364,7 +298,6 @@ const CheckOutClient = ({
             </div>
           </div>
 
-          {/* Upazila + Village */}
           <div className="grid md:grid-cols-2 gap-6">
             <div>
               <label>Upazila *</label>
@@ -416,12 +349,16 @@ const CheckOutClient = ({
               {/* Image */}
               <div className="flex items-center gap-2">
                 <Image
+                  src={
+                    `${process.env.NEXT_PUBLIC_IMAGE_URL}${item.image}` ||
+                    "/placeholder.png"
+                  }
+                  alt="product Image"
                   width={100}
                   height={100}
-                  src={`${process?.env.NEXT_PUBLIC_IMAGE_URL}${item.image}`}
-                  alt={item.name}
                   className="w-14 h-14 object-cover rounded "
                 />
+
                 <h3 className="font-medium">{item.name}</h3>
               </div>
               <h3 className="font-medium">{item.price}</h3>

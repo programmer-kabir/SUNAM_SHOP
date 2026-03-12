@@ -24,18 +24,17 @@ export const metadata = {
 export default async function RootLayout({ children }) {
   // const FlashSale = await getAllFalseSales();
   return (
-    <html lang="en">
-      <body>
+    // <html lang="en">
+    //   <body>
         <ThemeLanguageProvider>
           <LanguageProvider>
-            {/* {FlashSale?.campaign && <AnnounceBar />} */}
             <LayoutClient>
               {children}
               <Footer />
             </LayoutClient>
           </LanguageProvider>
         </ThemeLanguageProvider>
-      </body>
-    </html>
+    //   </body>
+    // </html>
   );
 }
