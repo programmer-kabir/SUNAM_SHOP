@@ -3,7 +3,6 @@ import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions = {
   providers: [
-    // 🔐 Credentials Login
     CredentialsProvider({
       name: "credentials",
       credentials: {},
